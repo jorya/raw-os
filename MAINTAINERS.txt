@@ -1,0 +1,4 @@
+raw os kernel  
+Author:Lingjun Chen(jorya_txj)
+Web:www.raw-os.org
+EMAIL:jorya.txj@gmail.com
