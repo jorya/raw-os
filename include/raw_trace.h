@@ -136,6 +136,13 @@ void _trace_queue_buffer_wake_task(RAW_TASK_OBJ *task_obj, RAW_TASK_OBJ *task_wa
 
 void _trace_queue_buffer_get_block(RAW_TASK_OBJ *task_obj, RAW_QUEUE_BUFFER *queue_buffer_obj, RAW_TICK_TYPE wait_option);
 
+void _trace_queue_fp_time_record(RAW_QUEUE *p_q, RAW_VOID *p_void);
+
+void _trace_queue_ep_time_record(RAW_QUEUE *p_q, RAW_VOID *p_void);
+
+void _trace_queue_ap_time_record(RAW_QUEUE *p_q, RAW_VOID *p_void, RAW_U8 opt);
+
+
 
 #define TRACE_INIT()  _trace_init()
 
@@ -252,6 +259,12 @@ void _trace_queue_buffer_get_block(RAW_TASK_OBJ *task_obj, RAW_QUEUE_BUFFER *que
 #define TRACE_QUEUE_BUFFER_WAKE_TASK(task_obj, task_waked_up, p_void, msg_size, opt_send_method) _trace_queue_buffer_wake_task(task_obj, task_waked_up, p_void, msg_size, opt_send_method)
 
 #define TRACE_QUEUE_BUFFER_GET_BLOCK(task, queue_buffer_obj, wait_option) _trace_queue_buffer_get_block(task, queue_buffer_obj, wait_option)
+
+#define TRACE_QUEUE_FP_TIME_RECORD(p_q, p_void)        _trace_queue_fp_time_record(p_q, p_void)
+
+#define TRACE_QUEUE_EP_TIME_RECORD(p_q, p_void)        _trace_queue_ep_time_record(p_q, p_void)
+
+#define TRACE_QUEUE_AP_TIME_RECORD(p_q, p_void, opt)   _trace_queue_ap_time_record(p_q, p_void, opt)
 
 #else
 
@@ -370,6 +383,12 @@ void _trace_queue_buffer_get_block(RAW_TASK_OBJ *task_obj, RAW_QUEUE_BUFFER *que
 #define TRACE_QUEUE_BUFFER_WAKE_TASK(task_obj, task_waked_up, p_void, msg_size, opt_send_method)
 
 #define TRACE_QUEUE_BUFFER_GET_BLOCK(task, queue_obj, wait_option)
+
+#define TRACE_QUEUE_FP_TIME_RECORD(p_q, p_void)
+
+#define TRACE_QUEUE_EP_TIME_RECORD(p_q, p_void)
+
+#define TRACE_QUEUE_AP_TIME_RECORD(p_q, p_void, opt)
 
 #endif
 

@@ -241,6 +241,8 @@ RAW_U16 raw_queue_front_post(RAW_QUEUE *p_q, RAW_VOID *p_void)
 	
 	#endif
 
+	TRACE_QUEUE_FP_TIME_RECORD(p_q, p_void);
+	
 	#if (CONFIG_RAW_ZERO_INTERRUPT > 0)
 
 	if (raw_int_nesting && raw_sched_lock) {
@@ -295,6 +297,8 @@ RAW_U16 raw_queue_end_post(RAW_QUEUE *p_q, RAW_VOID *p_void)
 	
 	#endif
 
+	TRACE_QUEUE_EP_TIME_RECORD(p_q, p_void);
+	
 	#if (CONFIG_RAW_ZERO_INTERRUPT > 0)
 	
 	if (raw_int_nesting && raw_sched_lock) {
@@ -403,6 +407,8 @@ RAW_U16 raw_queue_all_post(RAW_QUEUE *p_q, RAW_VOID *p_void, RAW_U8 opt)
 	}
 	
 	#endif
+
+	TRACE_QUEUE_AP_TIME_RECORD(p_q, p_void, opt);
 	
 	#if (CONFIG_RAW_ZERO_INTERRUPT > 0)
 	
