@@ -16,8 +16,8 @@ struct raw_fifo {
 
 
 
-#define min(x, y) ((x) > (y)?(y):(x))
-#define max(x, y) ((x) > (y)?(x):(y))
+#define fifo_min(x, y) ((x) > (y)?(y):(x))
+#define fifo_max(x, y) ((x) > (y)?(x):(y))
 
 RAW_S8 fifo_init(struct raw_fifo *fifo, void *buffer, RAW_U32 size);
 

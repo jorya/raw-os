@@ -1061,7 +1061,7 @@ void *raw_slab_realloc(void *ptr, size_t size, unsigned int flags)
 	
 	if ((new_ptr != NULL) && (ptr != NULL)) {
 		slab = obj2slab(ptr);
-		raw_memcpy(new_ptr, ptr, min(size, slab->cache->size));
+		raw_memcpy(new_ptr, ptr, fifo_min(size, slab->cache->size));
 	}
 	
 	if (ptr != NULL)

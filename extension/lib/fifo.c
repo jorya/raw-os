@@ -56,7 +56,7 @@ static void fifo_copy_in(struct raw_fifo *fifo, const void *src,
 	
 	off &= fifo->mask;
 	
-	l = min(len, size - off);
+	l = fifo_min(len, size - off);
 
 	raw_memcpy((unsigned  char *)fifo->data + off, src, l);
 	raw_memcpy(fifo->data, (unsigned  char *)src + l, len - l);
@@ -95,7 +95,7 @@ static void kfifo_copy_out(struct raw_fifo *fifo, void *dst,
 	
 	off &= fifo->mask;
 	
-	l = min(len, size - off);
+	l = fifo_min(len, size - off);
 
 	raw_memcpy(dst, (unsigned  char *)fifo->data + off, l);
 	raw_memcpy((unsigned  char *)dst + l, fifo->data, len - l);
