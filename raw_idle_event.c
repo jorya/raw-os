@@ -310,6 +310,7 @@ void idle_run(void)
 	STATE_EVENT temp;
 	
 	ACTIVE_EVENT_STRUCT_CB *acb;
+	RAW_U8 x;
 	RAW_U8 y;
 	RAW_U8 idle_high_priority;
 	
@@ -323,7 +324,8 @@ void idle_run(void)
 		if (raw_idle_rdy_grp) {
 
 			y = raw_idle_map_table[raw_idle_rdy_grp];
-			idle_high_priority = ((y << 3) + raw_idle_map_table[raw_rdy_tbl[y]]);
+			x = y >> 3;
+			idle_high_priority = (y + raw_idle_map_table[raw_rdy_tbl[x]]);
            
 			acb = &active_idle_task[idle_high_priority];
 			a = active_idle_task[idle_high_priority].act;
