@@ -108,9 +108,7 @@ typedef struct RAW_TASK_OBJ
 
 	RAW_VOID                 *msg;
 
-	#if (CONFIG_RAW_QUEUE_SIZE > 0)
 	MSG_SIZE_TYPE            msg_size;
-	#endif
 
 	#if (CONFIG_RAW_QUEUE_BUFFER > 0)
 	MSG_SIZE_TYPE            qb_msg_size;
