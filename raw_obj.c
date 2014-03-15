@@ -46,6 +46,8 @@ RAW_TASK_OBJ              *raw_task_active;
 /*idle attribute*/
 RAW_TASK_OBJ              raw_idle_obj;
 PORT_STACK                idle_stack[IDLE_STACK_SIZE];
+RAW_IDLE_COUNT_TYPE       raw_idle_count;
+
 
 /*tick attribute*/
 RAW_TICK_TYPE             raw_tick_count;
@@ -87,6 +89,15 @@ PORT_TIMER_TYPE           raw_int_disable_time_max;
 #if (RAW_CONFIG_CPU_TIME > 0)
 
 PORT_TIMER_TYPE           system_meaure_overhead;
+
+#endif
+
+#if (RAW_CONFIG_CPU_TASK > 0)
+
+RAW_TASK_OBJ              raw_cpu_obj;
+PORT_STACK                cpu_task_stack[CPU_STACK_SIZE];
+RAW_IDLE_COUNT_TYPE       raw_idle_count_max;
+RAW_U32                   cpu_global_usuage;
 
 #endif
 

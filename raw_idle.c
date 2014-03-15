@@ -79,6 +79,8 @@ RAW_VOID raw_idle_task(void *p_arg)
 		#endif
 		
 		TRACE_TASK_STACK_SPACE(task_ptr);
+
+		raw_idle_count++;
 		
 		RAW_CPU_DISABLE();
 		/*if task is still on the stack check list*/
@@ -117,6 +119,9 @@ RAW_VOID raw_idle_task(void *p_arg)
 RAW_VOID raw_idle_task (void *p_arg)
 {
 	p_arg = p_arg;                                          /* Make compiler happy ^_^ */
+
+	raw_idle_count++;
+
 	raw_idle_coroutine_hook();
 	
 }

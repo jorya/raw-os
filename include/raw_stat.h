@@ -34,6 +34,7 @@ void sche_disable_measure_stop(void);
 void int_disable_measure_start(void);
 void int_disable_measure_stop(void);
 void measure_overhead(void);
+void cpu_task_start(void);
 
 #endif
 

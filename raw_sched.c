@@ -111,6 +111,10 @@ RAW_U16 raw_os_init(void)
 	#if (CONFIG_RAW_TICK_TASK > 0)
 	tick_task_start();
 	#endif
+
+	#if (RAW_CONFIG_CPU_TASK > 0)
+	cpu_task_start();
+	#endif
 	
 	return RAW_SUCCESS;
 }

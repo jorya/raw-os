@@ -42,6 +42,7 @@
 typedef RAW_U32 RAW_TICK_TYPE;  /*32 bit or 64 bit unsigned value*/
 typedef RAW_U8  TASK_0_EVENT_TYPE; /*8 bit ,16 bit or 32 bit unsigned value*/
 typedef RAW_U32 MSG_SIZE_TYPE; /*32 bit or 64 bit unsigned value*/
+typedef RAW_U32 RAW_IDLE_COUNT_TYPE; /*32 bit or 64 bit unsigned value*/
 
 #endif
 
