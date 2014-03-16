@@ -187,7 +187,7 @@ void measure_overhead(void)
 #if (RAW_CONFIG_CPU_TASK > 0)
 
 
-void cpu_task_init()
+void cpu_task_init(void)
 {
 
 	#if (CONFIG_RAW_TIMER > 0)
@@ -196,8 +196,10 @@ void cpu_task_init()
 	
 	#endif
 	
-	raw_sleep(RAW_TICKS_PER_SECOND);
+	raw_sleep(RAW_TICKS_PER_SECOND / 10);
 	raw_idle_count_max = raw_idle_count;
+
+	raw_task_resume(&raw_cpu_obj);
 	
 	#if (CONFIG_RAW_TIMER > 0)
 	raw_task_resume(&raw_timer_obj);
@@ -215,8 +217,16 @@ static void cpu_task(void *pa)
 		
 		raw_idle_count = 0;
 		
-		raw_sleep(RAW_TICKS_PER_SECOND);
-		cpu_global_usuage = (raw_idle_count * 10000) / raw_idle_count_max;
+		raw_sleep(RAW_TICKS_PER_SECOND / 10);
+
+		if (raw_idle_count < raw_idle_count_max) {
+			cpu_usuage = 100 - (RAW_U32)((raw_idle_count * 100) / raw_idle_count_max);
+		}
+
+		if (cpu_usuage > cpu_usuage_max) {
+
+			cpu_usuage_max = cpu_usuage;
+		}
 		
 	}
 
@@ -229,7 +239,7 @@ void cpu_task_start(void)
 	/*Create a cpu statistics task to calculate cpu usuage*/
 	raw_task_create(&raw_cpu_obj, (RAW_U8  *)"cpu_object",  0, 
 	CPU_TASK_PRIORITY,  0,   cpu_task_stack, 
-	CPU_STACK_SIZE, cpu_task, 1);
+	CPU_STACK_SIZE, cpu_task, 0);
 
 
 

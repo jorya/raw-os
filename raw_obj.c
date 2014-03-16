@@ -97,7 +97,8 @@ PORT_TIMER_TYPE           system_meaure_overhead;
 RAW_TASK_OBJ              raw_cpu_obj;
 PORT_STACK                cpu_task_stack[CPU_STACK_SIZE];
 RAW_IDLE_COUNT_TYPE       raw_idle_count_max;
-RAW_U32                   cpu_global_usuage;
+RAW_U32                   cpu_usuage;
+RAW_U32                   cpu_usuage_max;
 
 #endif
 

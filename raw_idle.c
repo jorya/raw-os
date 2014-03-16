@@ -120,9 +120,12 @@ RAW_VOID raw_idle_task (void *p_arg)
 {
 	p_arg = p_arg;                                          /* Make compiler happy ^_^ */
 
-	raw_idle_count++;
+	while (1) {
+		
+		raw_idle_count++;
 
-	raw_idle_coroutine_hook();
+		raw_idle_coroutine_hook();
+	}
 	
 }
 
