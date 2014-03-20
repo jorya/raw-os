@@ -118,12 +118,18 @@ RAW_VOID raw_idle_task(void *p_arg)
 
 RAW_VOID raw_idle_task (void *p_arg)
 {
+	RAW_SR_ALLOC();
+	
 	p_arg = p_arg;                                          /* Make compiler happy ^_^ */
 
 	while (1) {
+
+		USER_CPU_INT_DISABLE();
 		
 		raw_idle_count++;
 
+		USER_CPU_INT_ENABLE();
+		
 		raw_idle_coroutine_hook();
 	}
 	

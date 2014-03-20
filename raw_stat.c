@@ -190,11 +190,21 @@ void measure_overhead(void)
 void cpu_task_init(void)
 {
 
+	RAW_SR_ALLOC();
+	
 	#if (CONFIG_RAW_TIMER > 0)
 	
 	raw_task_suspend(&raw_timer_obj);
 	
 	#endif
+
+	raw_sleep(1);
+
+	USER_CPU_INT_DISABLE();
+	
+	raw_idle_count = 0;
+
+	USER_CPU_INT_ENABLE();
 	
 	raw_sleep(RAW_TICKS_PER_SECOND / 10);
 	raw_idle_count_max = raw_idle_count;
@@ -212,10 +222,17 @@ void cpu_task_init(void)
 static void cpu_task(void *pa)
 {
 
-
+	RAW_SR_ALLOC();
+	
 	while (1) {
+
+		raw_sleep(1);
+
+		USER_CPU_INT_DISABLE();
 		
 		raw_idle_count = 0;
+
+		USER_CPU_INT_ENABLE();
 		
 		raw_sleep(RAW_TICKS_PER_SECOND / 10);
 
