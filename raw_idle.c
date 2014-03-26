@@ -129,8 +129,10 @@ RAW_VOID raw_idle_task (void *p_arg)
 		raw_idle_count++;
 
 		USER_CPU_INT_ENABLE();
-		
+
+		#if (CONFIG_RAW_USER_HOOK > 0)
 		raw_idle_coroutine_hook();
+		#endif
 	}
 	
 }
