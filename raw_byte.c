@@ -319,7 +319,8 @@ RAW_U16 raw_byte_allocate(RAW_BYTE_POOL_STRUCT *pool_ptr, RAW_VOID **memory_ptr,
 
 	RAW_U16        status;                 /* Return status              */
 	RAW_U8         *work_ptr;               /* Working byte pointer       */
-	RAW_TASK_OBJ  *current_work_task;
+	RAW_TASK_OBJ   *current_work_task;
+	RAW_U8         byte_align_mask;
 
 	RAW_SR_ALLOC();
 
@@ -342,9 +343,11 @@ RAW_U16 raw_byte_allocate(RAW_BYTE_POOL_STRUCT *pool_ptr, RAW_VOID **memory_ptr,
 		return RAW_ERROR_OBJECT_TYPE;
 	}
 
-	/* align the memory size to 4 byte*/
+	byte_align_mask = sizeof(void *) - 1u;
+	
+	/* align the memory size to pointer align*/
 
-	memory_size = ((memory_size & (~3u)) + 4u);
+	memory_size = ((memory_size & (~byte_align_mask)) + sizeof(void *));
 
 	current_work_task = raw_task_active;
 
