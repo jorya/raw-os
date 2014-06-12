@@ -99,6 +99,7 @@ extern RAW_U32                      raw_timer_ctrl;
 extern RAW_TASK_OBJ                 raw_timer_obj;
 extern PORT_STACK                   timer_task_stack[TIMER_STACK_SIZE];
 extern RAW_SEMAPHORE                timer_sem;
+extern RAW_MUTEX                    timer_mutex;
 #endif
 
 #if (CONFIG_RAW_TASK_0 > 0)

@@ -102,6 +102,7 @@ RAW_U16 raw_os_init(void)
 	
 	#if (CONFIG_RAW_TIMER > 0)
 	raw_timer_init();
+	raw_mutex_create(&timer_mutex, (RAW_U8 *)"timer_mutex", RAW_MUTEX_INHERIT_POLICY, 0);
 	#endif
 
 	#if (CONFIG_RAW_TASK_0 > 0)

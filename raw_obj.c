@@ -61,6 +61,7 @@ RAW_U32                   raw_timer_ctrl;
 RAW_TASK_OBJ              raw_timer_obj;
 PORT_STACK                timer_task_stack[TIMER_STACK_SIZE];
 RAW_SEMAPHORE             timer_sem;
+RAW_MUTEX                 timer_mutex;
 
 #endif
 

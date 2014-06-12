@@ -221,7 +221,7 @@ RAW_U16 raw_timer_activate(RAW_TIMER *timer_ptr, RAW_VOID *expiration_input)
 
 	timer_ptr->raw_timeout_param = expiration_input;
 	
-	raw_disable_sche();
+	raw_mutex_get(&timer_mutex, RAW_WAIT_FOREVER);
 	timer_ptr->match  = raw_timer_count + timer_ptr->init_count;
 	position   = (RAW_U16)(timer_ptr->match & (TIMER_HEAD_NUMBERS - 1) );
 	/*Sort by remain time*/
@@ -231,7 +231,7 @@ RAW_U16 raw_timer_activate(RAW_TIMER *timer_ptr, RAW_VOID *expiration_input)
 	
 	timer_list_priority_insert(&timer_head[position], timer_ptr);
 	timer_ptr->timer_state = TIMER_ACTIVE;
-	raw_enable_sche();
+	raw_mutex_put(&timer_mutex);
 
 	return RAW_SUCCESS;
 }
@@ -290,10 +290,10 @@ RAW_U16 raw_timer_change(RAW_TIMER *timer_ptr, RAW_TICK_TYPE initial_ticks, RAW_
 		return RAW_TIMER_STATE_INVALID;
 	}
 	
-	raw_disable_sche();
+	raw_mutex_get(&timer_mutex, RAW_WAIT_FOREVER);
 	timer_ptr->init_count = initial_ticks;
 	timer_ptr->reschedule_ticks = reschedule_ticks;
-	raw_enable_sche();
+	raw_mutex_put(&timer_mutex);
 	
 	return RAW_SUCCESS;
 }
@@ -351,10 +351,10 @@ RAW_U16 raw_timer_deactivate(RAW_TIMER *timer_ptr)
 
 	}
 	
-	raw_disable_sche();
+	raw_mutex_get(&timer_mutex, RAW_WAIT_FOREVER);
 	timer_list_remove(timer_ptr);
 	timer_ptr->timer_state = TIMER_DEACTIVE;
-	raw_enable_sche();
+	raw_mutex_put(&timer_mutex);
 	
 	return RAW_SUCCESS;
 
@@ -408,11 +408,11 @@ RAW_U16 raw_timer_delete(RAW_TIMER *timer_ptr)
 		
 	}
 	
-	raw_disable_sche();
+	raw_mutex_get(&timer_mutex, RAW_WAIT_FOREVER);
 	timer_ptr->object_type = 0u;
 	timer_list_remove(timer_ptr);
 	timer_ptr->timer_state = TIMER_DELETED;
-	raw_enable_sche();
+	raw_mutex_put(&timer_mutex);
    
 	return RAW_SUCCESS;
 
@@ -455,7 +455,7 @@ void timer_task(void *pa)
 		/*timer task will be blocked after call this function*/
 		raw_semaphore_get(&timer_sem, RAW_WAIT_FOREVER);
 
-		raw_disable_sche();
+		raw_mutex_get(&timer_mutex, RAW_WAIT_FOREVER);
 
 		/*calculate which  timer_head*/
 		raw_timer_count++;                                          
@@ -525,7 +525,7 @@ void timer_task(void *pa)
 
 		}
 
-		raw_enable_sche();
+		raw_mutex_put(&timer_mutex);
 
 	}
 

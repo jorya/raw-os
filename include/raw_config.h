@@ -207,7 +207,7 @@
 
 
 #if (CONFIG_RAW_PRIO_MAX >= 256)
-#error  "CONFIG_RAW_PRIO_MAX must be <= 255"
+#error  "CONFIG_RAW_PRIO_MAX must be <= 255."
 #endif
 
 #if ((CONFIG_RAW_QUEUE_SIZE == 0) && (CONFIG_RAW_TASK_QUEUE_SIZE >= 1))
@@ -219,7 +219,11 @@
 #endif
 
 #if ((CONFIG_RAW_TASK_0 == 0) && (CONFIG_RAW_ZERO_INTERRUPT >= 1))
-#error  "doesn't support this option, please check your option"
+#error  "doesn't support this option, please check your option."
+#endif
+
+#if ((CONFIG_RAW_MUTEX == 0) && (CONFIG_RAW_TIMER >= 1))
+#error  "you need enable CONFIG_RAW_MUTEX as well."
 #endif
 
 
