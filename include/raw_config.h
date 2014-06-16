@@ -143,7 +143,6 @@
 
 /*enable different module check  function*/
 
-#define RAW_SYSTEM_CHECK                                            0
 #define RAW_TASK_FUNCTION_CHECK                                     1
 #define RAW_SEMA_FUNCTION_CHECK                                     1
 #define RAW_QUEUE_FUNCTION_CHECK                                    1

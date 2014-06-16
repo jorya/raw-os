@@ -86,11 +86,9 @@ RAW_U16 raw_os_init(void)
 	/*Init the tick heart system*/
 	tick_list_init();
 
-	#if (RAW_SYSTEM_CHECK > 0)
-	/*Init the task head list*/
-	list_init(&(system_debug.task_head));
-	#endif
-	
+	/*Init the task debug head list*/
+	list_init(&(raw_task_debug.task_head));
+
 	#if (CONFIG_RAW_USER_HOOK > 0)
 	raw_os_init_hook();
 	#endif

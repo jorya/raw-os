@@ -189,9 +189,7 @@ RAW_U16 raw_task_create(RAW_TASK_OBJ  *task_obj, RAW_U8  *task_name,  RAW_VOID  
 	
 	RAW_CRITICAL_ENTER();
 	
-	#if (RAW_SYSTEM_CHECK > 0)
-	list_insert(&(system_debug.task_head), &task_obj->stack_check_list);
-	#endif
+	list_insert(&(raw_task_debug.task_head), &task_obj->task_debug_list);
 
 	if (auto_start) {
 		add_ready_list_end(&raw_ready_queue, task_obj);
@@ -1100,17 +1098,7 @@ RAW_U16 raw_task_delete(RAW_TASK_OBJ *task_ptr)
 
 	task_ptr->task_state = RAW_DELETED;   
 	
-	#if (RAW_SYSTEM_CHECK > 0)
-	/*make after_delete_list to right position*/
-	system_debug.after_delete_list = task_ptr->stack_check_list.next;
-	
-	if (system_debug.after_delete_list == (&(system_debug.task_head))) {
-				system_debug.after_delete_list = system_debug.task_head.next;
-	}
-	
-	list_delete(&task_ptr->stack_check_list);
-	 
-	#endif
+	list_delete(&task_ptr->task_debug_list);
 	
 	RAW_CRITICAL_EXIT();
 
@@ -1569,11 +1557,7 @@ RAW_U32 raw_get_system_global_space(void)
 
 	#endif
 
-	#if (RAW_SYSTEM_CHECK > 0)
-	
-	data_space += sizeof(system_debug);
-
-	#endif
+	data_space += sizeof(raw_task_debug);
 
 	#if (CONFIG_RAW_MUTEX > 0)
 	

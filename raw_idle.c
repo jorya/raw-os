@@ -28,94 +28,6 @@
 
 #include <raw_api.h>
 
-
-#if (RAW_SYSTEM_CHECK > 0)
-RAW_VOID raw_idle_task(void *p_arg)
-{
-	LIST *iter;
-	RAW_TASK_OBJ						 *task_ptr;
-	PORT_STACK  *task_stack;
-	
-	RAW_U32 free_stack;
-	
-	RAW_SR_ALLOC();
-	p_arg = p_arg;                                          /* Make compiler happy ^_^ */
-	
-	iter = system_debug.task_head.next;
-	
-	while (1) {	
-		
-		free_stack = 0u;
-		task_ptr = list_entry(iter,RAW_TASK_OBJ, stack_check_list);
-
-		#if (RAW_CPU_STACK_DOWN > 0)
-		
-		task_stack = task_ptr->task_stack_base;  
-
-		/*if no more freespace then break*/
-		while (*task_stack++ == 0u) {                         
-			free_stack++;
-
-			/*if task free stack space is big than 12% ,then break because we have enougf stack space*/
-			if (free_stack > (task_ptr->stack_size >> 3)) {
-				break;
-			}
-				
-		}
-		
-		#else 
-
-		task_stack = (PORT_STACK *)(task_ptr->task_stack_base) + task_ptr->stack_size - 1;
-
-		while (*task_stack-- == 0) {
-			free_stack++;
-
-			/*if task free stack space is big than 12% ,then break because we have enougf stack space*/
-			if (free_stack > (task_ptr->stack_size >> 3)) {
-				break;
-			}
-		}
-		
-		#endif
-		
-		TRACE_TASK_STACK_SPACE(task_ptr);
-
-		raw_idle_count++;
-		
-		RAW_CPU_DISABLE();
-		/*if task is still on the stack check list*/
-		if (task_ptr->task_state != RAW_DELETED) {
-
-			/*if stack space is less than 12%*/
-			if (free_stack < (task_ptr->stack_size >> 3)) {
-
-				RAW_ASSERT(0);
-			}
-
-			iter = iter->next;
-
-			/*if meet task head then skip it*/
-			if (iter == (&(system_debug.task_head))) {
-				iter = system_debug.task_head.next;
-			}
-				
-		}
-
-		/*if task is deleted, then move to next*/
-		else {
-
-			iter = system_debug.after_delete_list;
-		}
-		
-		RAW_CPU_ENABLE();
-	 		
-	}
-	
-}
-
-#else
-
-
 RAW_VOID raw_idle_task (void *p_arg)
 {
 	RAW_SR_ALLOC();
@@ -136,9 +48,4 @@ RAW_VOID raw_idle_task (void *p_arg)
 	}
 	
 }
-
-#endif
-
-
-
 

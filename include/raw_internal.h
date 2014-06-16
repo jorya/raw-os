@@ -121,9 +121,7 @@ extern EVENT_HANLDER                msg_event_handler;
 
 #endif
 
-#if (RAW_SYSTEM_CHECK > 0)
-extern RAW_SYSTEM_DEBUG             system_debug;
-#endif
+extern RAW_OBJECT_DEBUG             raw_task_debug;
 
 #if (CONFIG_RAW_MUTEX > 0)
 
