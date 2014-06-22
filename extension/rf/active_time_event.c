@@ -37,11 +37,12 @@
 
 
 
-static void active_time_event_post(void *para)
+static RAW_U16 active_time_event_post(void *para)
 {
 	TIME_EVENT_STRUCT *me = para;
 
 	active_event_post_end(me->active_object, &me->father);
+	return TIMER_CALLBACK_CONTINUE;
 	
 }
 

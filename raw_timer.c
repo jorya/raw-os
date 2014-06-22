@@ -112,7 +112,7 @@ static void timer_list_remove(RAW_TIMER *timer_ptr)
 ************************************************************************************************************************
 */
 RAW_U16 raw_timer_create(RAW_TIMER *timer_ptr, RAW_U8  *name_ptr, 
-            RAW_VOID  (*expiration_function)(RAW_VOID *expiration_input), RAW_VOID *expiration_input,
+            RAW_U16  (*expiration_function)(RAW_VOID *expiration_input), RAW_VOID *expiration_input,
           RAW_TICK_TYPE initial_ticks, RAW_TICK_TYPE reschedule_ticks, RAW_U8 auto_activate)
 
 {
@@ -187,6 +187,7 @@ RAW_U16 raw_timer_create(RAW_TIMER *timer_ptr, RAW_U8  *name_ptr,
 RAW_U16 raw_timer_activate(RAW_TIMER *timer_ptr, RAW_VOID *expiration_input)
 {
 	RAW_U16 position;
+	RAW_U16 mutex_ret;
 	
 	#if (RAW_TIMER_FUNCTION_CHECK > 0)
 	
@@ -221,7 +222,9 @@ RAW_U16 raw_timer_activate(RAW_TIMER *timer_ptr, RAW_VOID *expiration_input)
 
 	timer_ptr->raw_timeout_param = expiration_input;
 	
-	raw_mutex_get(&timer_mutex, RAW_WAIT_FOREVER);
+	mutex_ret = raw_mutex_get(&timer_mutex, RAW_WAIT_FOREVER);
+	RAW_ASSERT(mutex_ret == RAW_SUCCESS);
+		
 	timer_ptr->match  = raw_timer_count + timer_ptr->init_count;
 	position   = (RAW_U16)(timer_ptr->match & (TIMER_HEAD_NUMBERS - 1) );
 	/*Sort by remain time*/
@@ -259,7 +262,8 @@ RAW_U16 raw_timer_activate(RAW_TIMER *timer_ptr, RAW_VOID *expiration_input)
 #if (CONFIG_RAW_TIMER_CHANGE > 0)
 RAW_U16 raw_timer_change(RAW_TIMER *timer_ptr, RAW_TICK_TYPE initial_ticks, RAW_TICK_TYPE reschedule_ticks)
 {
-
+	RAW_U16 mutex_ret;
+	
 	#if (RAW_TIMER_FUNCTION_CHECK > 0)
 	
 	if (timer_ptr == 0) {
@@ -290,7 +294,9 @@ RAW_U16 raw_timer_change(RAW_TIMER *timer_ptr, RAW_TICK_TYPE initial_ticks, RAW_
 		return RAW_TIMER_STATE_INVALID;
 	}
 	
-	raw_mutex_get(&timer_mutex, RAW_WAIT_FOREVER);
+	mutex_ret = raw_mutex_get(&timer_mutex, RAW_WAIT_FOREVER);
+	RAW_ASSERT(mutex_ret == RAW_SUCCESS);
+	
 	timer_ptr->init_count = initial_ticks;
 	timer_ptr->reschedule_ticks = reschedule_ticks;
 	raw_mutex_put(&timer_mutex);
@@ -321,6 +327,7 @@ RAW_U16 raw_timer_change(RAW_TIMER *timer_ptr, RAW_TICK_TYPE initial_ticks, RAW_
 #if (CONFIG_RAW_TIMER_DEACTIVATE > 0)
 RAW_U16 raw_timer_deactivate(RAW_TIMER *timer_ptr)
 {
+	RAW_U16 mutex_ret;
 	
 	#if (RAW_TIMER_FUNCTION_CHECK > 0)
 	
@@ -351,7 +358,9 @@ RAW_U16 raw_timer_deactivate(RAW_TIMER *timer_ptr)
 
 	}
 	
-	raw_mutex_get(&timer_mutex, RAW_WAIT_FOREVER);
+	mutex_ret = raw_mutex_get(&timer_mutex, RAW_WAIT_FOREVER);
+	RAW_ASSERT(mutex_ret == RAW_SUCCESS);
+	
 	timer_list_remove(timer_ptr);
 	timer_ptr->timer_state = TIMER_DEACTIVE;
 	raw_mutex_put(&timer_mutex);
@@ -383,6 +392,7 @@ RAW_U16 raw_timer_deactivate(RAW_TIMER *timer_ptr)
 #if (CONFIG_RAW_TIMER_DELETE > 0)
 RAW_U16 raw_timer_delete(RAW_TIMER *timer_ptr)
 {
+	RAW_U16 mutex_ret;
 	
 	#if (RAW_TIMER_FUNCTION_CHECK > 0)
 	
@@ -408,7 +418,9 @@ RAW_U16 raw_timer_delete(RAW_TIMER *timer_ptr)
 		
 	}
 	
-	raw_mutex_get(&timer_mutex, RAW_WAIT_FOREVER);
+	mutex_ret = raw_mutex_get(&timer_mutex, RAW_WAIT_FOREVER);
+	RAW_ASSERT(mutex_ret == RAW_SUCCESS);
+	
 	timer_ptr->object_type = 0u;
 	timer_list_remove(timer_ptr);
 	timer_ptr->timer_state = TIMER_DELETED;
@@ -445,7 +457,9 @@ void timer_task(void *pa)
 	LIST 								*iter;
 	LIST 								*iter_temp;
 	RAW_TIMER							*timer_ptr;
-
+	RAW_U16                              mutex_ret;
+	RAW_U16                              callback_ret;
+	
 	/*reset the timer_sem count since it may not be 0 at this point, make it start here*/
 	raw_semaphore_set(&timer_sem, 0);
 	pa = pa;
@@ -455,7 +469,8 @@ void timer_task(void *pa)
 		/*timer task will be blocked after call this function*/
 		raw_semaphore_get(&timer_sem, RAW_WAIT_FOREVER);
 
-		raw_mutex_get(&timer_mutex, RAW_WAIT_FOREVER);
+		mutex_ret = raw_mutex_get(&timer_mutex, RAW_WAIT_FOREVER);
+		RAW_ASSERT(mutex_ret == RAW_SUCCESS);
 
 		/*calculate which  timer_head*/
 		raw_timer_count++;                                          
@@ -499,10 +514,15 @@ void timer_task(void *pa)
 					}
 
 					/*Any way both condition need to call registered timer function*/
-					/*the registered timer function should not touch any timer related API,otherwise you get deadlock*/
+					/*the registered timer function should not touch any timer related API,otherwise system will be crashed*/
 					if (timer_ptr->raw_timeout_function) {
 
-						timer_ptr->raw_timeout_function(timer_ptr->raw_timeout_param);
+						callback_ret = timer_ptr->raw_timeout_function(timer_ptr->raw_timeout_param);
+						if ((callback_ret == TIMER_CALLBACK_STOP) && (timer_ptr->timer_state != TIMER_DEACTIVE)) {
+							/*remove from timer list*/
+							timer_list_remove(timer_ptr);
+							timer_ptr->timer_state = TIMER_DEACTIVE;
+						}
 					         
 					}
 
