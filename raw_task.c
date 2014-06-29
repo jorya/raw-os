@@ -1082,6 +1082,7 @@ RAW_U16 raw_task_delete(RAW_TASK_OBJ *task_ptr)
 		case RAW_PEND_TIMEOUT_SUSPENDED:
 			tick_list_remove(task_ptr);
 			list_delete(&task_ptr->task_list);
+			task_ptr->task_state = RAW_DELETED;
 			
 			#if (CONFIG_RAW_MUTEX > 0)
 			mutex_state_change(task_ptr);
@@ -1391,13 +1392,13 @@ RAW_U16 raw_task_wait_abort(RAW_TASK_OBJ *task_ptr)
 			list_delete(&task_ptr->task_list);   
           	/*add to the ready list again*/    
 			add_ready_list(&raw_ready_queue, task_ptr);
+			task_ptr->task_state = RAW_RDY;
+			task_ptr->block_status = RAW_B_ABORT;
 			
 			#if (CONFIG_RAW_MUTEX > 0)
 			mutex_state_change(task_ptr);
 			#endif
 
-			task_ptr->task_state = RAW_RDY;
-			task_ptr->block_status = RAW_B_ABORT;
 			task_ptr->block_obj = 0;
 			
 			break;

@@ -170,13 +170,13 @@ void tick_list_update(void)
 						/*remove task on the block list because task is timeout*/
 						list_delete(&p_tcb->task_list); 
 						add_ready_list(&raw_ready_queue, p_tcb);
+						p_tcb->block_status = RAW_B_TIMEOUT; 
+						p_tcb->task_state = RAW_RDY; 
 						
 						#if (CONFIG_RAW_MUTEX > 0)
 						mutex_state_change(p_tcb);
 						#endif
-						
-						p_tcb->block_status = RAW_B_TIMEOUT; 
-						p_tcb->task_state = RAW_RDY; 
+
 						p_tcb->block_obj = 0;
 						break;
 						
@@ -185,13 +185,13 @@ void tick_list_update(void)
 						tick_list_remove(p_tcb);
 						/*remove task on the block list because task is timeout*/
 						list_delete(&p_tcb->task_list); 
-
+						p_tcb->block_status = RAW_B_TIMEOUT; 
+						p_tcb->task_state = RAW_SUSPENDED;  
+						
 						#if (CONFIG_RAW_MUTEX > 0)
 						mutex_state_change(p_tcb);
 						#endif
-						
-						p_tcb->block_status = RAW_B_TIMEOUT; 
-						p_tcb->task_state = RAW_SUSPENDED;  
+					
 						p_tcb->block_obj = 0;
 						break;
 					 
