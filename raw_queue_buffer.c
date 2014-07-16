@@ -246,7 +246,7 @@ RAW_U16 queue_buffer_post(RAW_QUEUE_BUFFER *q_b, RAW_VOID *p_void, MSG_SIZE_TYPE
 		return RAW_SUCCESS;
 	}
 	
-	task_ptr = list_entry(block_list_head->next, RAW_TASK_OBJ, task_list);
+	task_ptr = raw_list_entry(block_list_head->next, RAW_TASK_OBJ, task_list);
 	
 	raw_memcpy(task_ptr->msg, p_void, msg_size);
 	task_ptr->qb_msg_size = msg_size;
@@ -255,7 +255,7 @@ RAW_U16 queue_buffer_post(RAW_QUEUE_BUFFER *q_b, RAW_VOID *p_void, MSG_SIZE_TYPE
 		
 	RAW_CRITICAL_EXIT();
 
-	TRACE_QUEUE_BUFFER_WAKE_TASK(raw_task_active, list_entry(block_list_head->next, RAW_TASK_OBJ, task_list), p_void, msg_size, opt_send_method);
+	TRACE_QUEUE_BUFFER_WAKE_TASK(raw_task_active, raw_list_entry(block_list_head->next, RAW_TASK_OBJ, task_list), p_void, msg_size, opt_send_method);
 
 	raw_sched();    
 	return RAW_SUCCESS;
@@ -556,7 +556,7 @@ RAW_U16 raw_queue_buffer_delete(RAW_QUEUE_BUFFER *q_b)
 	
 	/*All task blocked on this queue is waken up*/
 	while (!is_list_empty(block_list_head))  {
-		delete_pend_obj(list_entry(block_list_head->next, RAW_TASK_OBJ, task_list));	
+		delete_pend_obj(raw_list_entry(block_list_head->next, RAW_TASK_OBJ, task_list));	
 	}                             
 	
 	RAW_CRITICAL_EXIT();

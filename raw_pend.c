@@ -52,7 +52,7 @@ RAW_INLINE void add_to_priority_list(LIST *head, RAW_TASK_OBJ *task_ptr)
 	
 	/*Find the right position to insert*/ 
 	for (q = list_start->next; q != list_end; q = q->next) {
-		if (list_entry(q, RAW_TASK_OBJ, task_list)->priority > val) {
+		if (raw_list_entry(q, RAW_TASK_OBJ, task_list)->priority > val) {
 			break;
 		}
 	}
@@ -208,7 +208,7 @@ void get_ready_task(RAW_RUN_QUEUE *rq)
 	node = rq->task_ready_list[highest_pri].next;
 
 	/*Get the highest priority task object*/
-	high_ready_obj = list_entry(node, RAW_TASK_OBJ, task_list);
+	high_ready_obj = raw_list_entry(node, RAW_TASK_OBJ, task_list);
 	
 }
 
@@ -223,7 +223,7 @@ void get_ready_task(RAW_RUN_QUEUE *rq)
 	node = rq->task_ready_list[highest_pri].next;
 
 	/*Get the highest priority task object*/
-	high_ready_obj = list_entry(node, RAW_TASK_OBJ, task_list);
+	high_ready_obj = raw_list_entry(node, RAW_TASK_OBJ, task_list);
 	
 }
 

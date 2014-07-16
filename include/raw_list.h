@@ -38,7 +38,7 @@ typedef struct LIST {
 } LIST;
 
 
-#define list_entry(node, type, member)    ((type *)((RAW_U8 *)(node) - (RAW_U32)(&((type *)0)->member)))
+#define raw_list_entry(node, type, member)    ((type *)((RAW_U8 *)(node) - (RAW_U32)(&((type *)0)->member)))
 
 
 /*

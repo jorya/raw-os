@@ -218,7 +218,7 @@ void idle_tick_isr(void)
 	/*if list is not empty*/
  	while (iter != head) {
 
-		a =  list_entry(iter, ACTIVE_EVENT_STRUCT, idle_tick_list);
+		a =  raw_list_entry(iter, ACTIVE_EVENT_STRUCT, idle_tick_list);
 		iter_temp =  iter->next;
 
 		if (a->tick_ctr) {

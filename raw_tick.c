@@ -51,7 +51,7 @@ RAW_INLINE void tick_list_priority_insert(LIST *head, RAW_TASK_OBJ *task_ptr)
 
 	for (q = list_start->next; q != list_end; q = q->next) {
 		
-		task_iter_temp = list_entry(q, RAW_TASK_OBJ, tick_list);
+		task_iter_temp = raw_list_entry(q, RAW_TASK_OBJ, tick_list);
 		
 		/*sorted by remain time*/
 		
@@ -150,7 +150,7 @@ void tick_list_update(void)
 		if (iter != tick_head_ptr) {
 
 			iter_temp =  iter->next;
-			p_tcb =  list_entry(iter, RAW_TASK_OBJ, tick_list);
+			p_tcb =  raw_list_entry(iter, RAW_TASK_OBJ, tick_list);
 
 			/*Since time list is sorted by remain time, so just campare  the absolute time*/
 			if (raw_tick_count == p_tcb->tick_match) {

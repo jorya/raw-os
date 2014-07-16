@@ -324,7 +324,7 @@ void hybrid_int_process(void)
 				hybrid_node = raw_ready_queue.task_ready_list[hybrid_highest_pri].next;
 
 				/*Get the highest priority task object*/
-				high_ready_obj = list_entry(hybrid_node, RAW_TASK_OBJ, task_list);
+				high_ready_obj = raw_list_entry(hybrid_node, RAW_TASK_OBJ, task_list);
 
 				/*if highest task is currently task, then no need to do switch and just return*/
 				if (high_ready_obj == raw_task_active) { 

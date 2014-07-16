@@ -295,7 +295,7 @@ RAW_U16 event_set(RAW_EVENT *event_ptr, RAW_U32 flags_to_set, RAW_U8 set_option)
 	/*if list is not empty*/
  	while (iter != event_head_ptr) {
 
-		task_ptr =  list_entry(iter, RAW_TASK_OBJ, task_list);
+		task_ptr =  raw_list_entry(iter, RAW_TASK_OBJ, task_list);
 		iter_temp =  iter->next;
 		
 		if (task_ptr->raw_suspend_option & RAW_FLAGS_AND_MASK)  {
@@ -470,7 +470,7 @@ RAW_U16 raw_event_delete(RAW_EVENT *event_ptr)
 	/*All task blocked on this queue is waken up until list is empty*/
 	while (!is_list_empty(block_list_head)) {
 		
-		delete_pend_obj(list_entry(block_list_head->next, RAW_TASK_OBJ, task_list));	
+		delete_pend_obj(raw_list_entry(block_list_head->next, RAW_TASK_OBJ, task_list));	
 	}    
 
 	event_ptr->flags = 0u;

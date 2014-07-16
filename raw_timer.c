@@ -55,7 +55,7 @@ static void timer_list_priority_insert(LIST   *head, RAW_TIMER *timer_ptr)
 	
 	for (q = list_start->next; q != list_end; q = q->next) {
 
-		task_iter_temp = list_entry(q, RAW_TIMER, timer_list);
+		task_iter_temp = raw_list_entry(q, RAW_TIMER, timer_list);
 
 		/*sorted by remain time*/
 		
@@ -486,7 +486,7 @@ void timer_task(void *pa)
 
 				/*Must use iter_temp because iter may be remove later.*/
 				iter_temp = iter->next;
-				timer_ptr =  list_entry(iter, RAW_TIMER, timer_list);
+				timer_ptr =  raw_list_entry(iter, RAW_TIMER, timer_list);
 
 				/*if timeout*/
 				if (raw_timer_count == timer_ptr->match) {  

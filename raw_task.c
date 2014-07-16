@@ -1499,11 +1499,11 @@ RAW_U16 raw_iter_block_task(LIST *object_head, RAW_VOID  (*debug_function)(RAW_T
 		iter_temp  = iter->next;
 		
 		if (debug_function) {
-			debug_function(list_entry(iter, RAW_TASK_OBJ, task_list));
+			debug_function(raw_list_entry(iter, RAW_TASK_OBJ, task_list));
 		}
 
 		if (opt) {
-			raw_wake_object(list_entry(object_head->next, RAW_TASK_OBJ, task_list));
+			raw_wake_object(raw_list_entry(object_head->next, RAW_TASK_OBJ, task_list));
 		}
 		/*move to list next*/
 		iter = iter_temp;

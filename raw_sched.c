@@ -184,7 +184,7 @@ void calculate_time_slice(RAW_U8 task_prio)
 	}
 
 	/*Always look at the first task on the ready list*/
-	task_ptr = list_entry(head->next, RAW_TASK_OBJ, task_list);
+	task_ptr = raw_list_entry(head->next, RAW_TASK_OBJ, task_list);
 
 	/*SCHED_FIFO does not has timeslice, just return*/
 	if (task_ptr->sched_way == SCHED_FIFO) {

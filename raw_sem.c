@@ -135,10 +135,10 @@ RAW_U16 semaphore_put(RAW_SEMAPHORE *semaphore_ptr, RAW_U8 opt_wake_all)
 
 		while (!is_list_empty(block_list_head)) {
 			
-			raw_wake_object(list_entry(block_list_head->next, RAW_TASK_OBJ, task_list));
+			raw_wake_object(raw_list_entry(block_list_head->next, RAW_TASK_OBJ, task_list));
 
 			
-			TRACE_SEM_WAKE_TASK(raw_task_active, list_entry(block_list_head->next, RAW_TASK_OBJ, task_list), opt_wake_all);
+			TRACE_SEM_WAKE_TASK(raw_task_active, raw_list_entry(block_list_head->next, RAW_TASK_OBJ, task_list), opt_wake_all);
 			
 		}
 
@@ -147,9 +147,9 @@ RAW_U16 semaphore_put(RAW_SEMAPHORE *semaphore_ptr, RAW_U8 opt_wake_all)
 	else {
 		
 		/*Wake up the highest priority task block on the semaphore*/
-		raw_wake_object(list_entry(block_list_head->next, RAW_TASK_OBJ, task_list));
+		raw_wake_object(raw_list_entry(block_list_head->next, RAW_TASK_OBJ, task_list));
 
-		TRACE_SEM_WAKE_TASK(raw_task_active, list_entry(block_list_head->next, RAW_TASK_OBJ, task_list), opt_wake_all);
+		TRACE_SEM_WAKE_TASK(raw_task_active, raw_list_entry(block_list_head->next, RAW_TASK_OBJ, task_list), opt_wake_all);
 		
 	}
 	
@@ -565,7 +565,7 @@ RAW_U16 raw_semaphore_delete(RAW_SEMAPHORE *semaphore_ptr)
 	semaphore_ptr->common_block_obj.object_type = 0;
 	/*All task blocked on this queue is waken up*/
 	while (!is_list_empty(block_list_head)) {
-		delete_pend_obj(list_entry(block_list_head->next, RAW_TASK_OBJ, task_list));	
+		delete_pend_obj(raw_list_entry(block_list_head->next, RAW_TASK_OBJ, task_list));	
 	}                             
 
 	RAW_CRITICAL_EXIT();

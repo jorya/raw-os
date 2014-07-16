@@ -150,7 +150,7 @@ void active_queue_event_broadcast(STATE_EVENT *e)
 
 		iter_temp = iter->next;
 
-		me =  list_entry(iter, ACTIVE_OBJECT_STRUCT, active_queue_list[sig]);
+		me =  raw_list_entry(iter, ACTIVE_OBJECT_STRUCT, active_queue_list[sig]);
 
 		active_event_post_end(me, e);
 		iter = iter_temp;

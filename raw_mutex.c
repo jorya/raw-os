@@ -153,7 +153,7 @@ RAW_U8 chg_pri_mutex(RAW_TASK_OBJ *tcb, RAW_U8 priority, RAW_U16 *error)
 			block_list_head = &mtxcb->common_block_obj.block_list;
 			
 			if (!is_list_empty(block_list_head)) {
-				first_block_task = list_entry(block_list_head->next, RAW_TASK_OBJ, task_list); 
+				first_block_task = raw_list_entry(block_list_head->next, RAW_TASK_OBJ, task_list); 
 				pri = first_block_task->priority;
 			}
 			
@@ -220,7 +220,7 @@ static RAW_VOID release_mutex(RAW_TASK_OBJ *tcb, RAW_MUTEX *relmtxcb)
 		  	block_list_head = &mtxcb->common_block_obj.block_list;
 			
 			if (!is_list_empty(block_list_head)) {
-				first_block_task = list_entry(block_list_head->next, RAW_TASK_OBJ, task_list); 
+				first_block_task = raw_list_entry(block_list_head->next, RAW_TASK_OBJ, task_list); 
 				pri = first_block_task->priority;
 			}
 			
@@ -564,7 +564,7 @@ RAW_U16 raw_mutex_put(RAW_MUTEX *mutex_ptr)
 
 	
 	/* there must have task blocked on this mutex object*/ 																												
-	tcb = list_entry(block_list_head->next, RAW_TASK_OBJ, task_list);
+	tcb = raw_list_entry(block_list_head->next, RAW_TASK_OBJ, task_list);
 
 	/*Wake up the occupy task, which is the highst priority task on the list*/																										 
 	raw_wake_object(tcb);
@@ -611,7 +611,7 @@ RAW_VOID raw_task_free_mutex(RAW_TASK_OBJ *tcb)
 		
 		if (!is_list_empty(block_list_head)) {
 			
-			next_tcb = list_entry(block_list_head->next, RAW_TASK_OBJ, task_list);
+			next_tcb = raw_list_entry(block_list_head->next, RAW_TASK_OBJ, task_list);
 
 			/* Wake wait task */
 			raw_wake_object(next_tcb);
@@ -693,7 +693,7 @@ RAW_U16 raw_mutex_delete(RAW_MUTEX *mutex_ptr)
 	
 	/*All task blocked on this mutex is waken up*/
 	while (!is_list_empty(block_list_head)) {
-		delete_pend_obj(list_entry(block_list_head->next, RAW_TASK_OBJ, task_list));	
+		delete_pend_obj(raw_list_entry(block_list_head->next, RAW_TASK_OBJ, task_list));	
 	}              
 
 	RAW_CRITICAL_EXIT();

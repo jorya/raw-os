@@ -156,7 +156,7 @@ static RAW_U16 internal_raw_mq_send(RAW_MQUEUE *p_q, RAW_VOID *p_void, RAW_U32 s
 	RAW_CRITICAL_ENTER();
 	
 	/*wake hignhest priority task blocked on this queue and send msg to it*/
-	wake_send_msg(list_entry(block_list_head->next, RAW_TASK_OBJ, task_list), sended_block_msg);	
+	wake_send_msg(raw_list_entry(block_list_head->next, RAW_TASK_OBJ, task_list), sended_block_msg);	
 		
 	RAW_CRITICAL_EXIT();
 
@@ -453,7 +453,7 @@ RAW_U16 raw_mqueue_delete(RAW_MQUEUE *p_q)
 	
 	/*All task blocked on this queue is waken up*/
 	while (!is_list_empty(block_list_head))  {
-		delete_pend_obj(list_entry(block_list_head->next, RAW_TASK_OBJ, task_list));	
+		delete_pend_obj(raw_list_entry(block_list_head->next, RAW_TASK_OBJ, task_list));	
 	}                             
 	
 	RAW_CRITICAL_EXIT();
