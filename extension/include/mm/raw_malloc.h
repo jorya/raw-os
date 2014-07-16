@@ -89,8 +89,8 @@ extern RAW_U32               _mem_minfragment;
  *	the lower three bits of the address must be 0.
  *	These low three bits are used in the flag in the area queue.
  */
-#define ROUNDSZ		         0x8U
-#define ROUND(sz)	         ( ((RAW_U32)(sz) + (ROUNDSZ-1)) & ~(ROUNDSZ-1) )
+#define ROUNDSZ_ALIGN		         0x8U
+#define ROUND_MALLOC(sz)	         (((RAW_U32)(sz) + (ROUNDSZ_ALIGN - 1)) & ~(ROUNDSZ_ALIGN - 1))
 
 /* Minimum fragment size */
 #define MIN_FRAGMENT         ( _mem_minfragment )

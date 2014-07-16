@@ -342,7 +342,7 @@ static void *_mem_malloc(RAW_U32 size, MACB *macb)
 		size = MIN_FRAGMENT;
 	}
 
-	size = ROUND(size);
+	size = ROUND_MALLOC(size);
 	if ( size <= 0 ) {
 		return 0;
 	}
@@ -408,7 +408,7 @@ static void *_mem_realloc( void *ptr, RAW_U32 size, MACB *macb )
 		size = MIN_FRAGMENT;
 	}
 
-	size = ROUND(size);
+	size = ROUND_MALLOC(size);
 
 	aq = (LIST *)ptr - 1;
 
