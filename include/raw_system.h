@@ -28,9 +28,9 @@
 #ifndef RAW_SYSTEM_H
 #define RAW_SYSTEM_H
 
-#define RAW_OS_VERSION                              1053
+#define RAW_OS_VERSION                              1054
 
-#define RAW_OS_BUILD_TIME                           "2014/7/03"     
+#define RAW_OS_BUILD_TIME                           "2014/7/20"     
 
 #define IDLE_PRIORITY                               (CONFIG_RAW_PRIO_MAX - 1)
 
