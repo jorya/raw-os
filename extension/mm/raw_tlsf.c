@@ -100,7 +100,7 @@
 #endif
 
 #ifndef TLSF_STATISTIC
-#define	TLSF_STATISTIC 	(0)
+#define	TLSF_STATISTIC 	(1)
 #endif
 
 #ifndef USE_MMAP
@@ -152,6 +152,20 @@
 #include <sys/mman.h>
 #endif
 
+#ifdef USE_PRINTF
+extern void vc_port_printf(char*   f,   ...);
+
+#define PRINT_MSG  vc_port_printf
+#define ERROR_MSG  vc_port_printf
+
+#else
+
+#define PRINT_MSG(fmt, args...)
+#define ERROR_MSG(fmt, args...)
+
+#endif
+
+
 extern RAW_VOID *raw_memset(RAW_VOID *src, RAW_U8 byte, RAW_U32 count);
 extern void *raw_memcpy(void *dest, const void *src, RAW_U32 count);
 
@@ -159,7 +173,7 @@ extern void *raw_memcpy(void *dest, const void *src, RAW_U32 count);
 
 /* The  debug functions  only can  be used  when _DEBUG_TLSF_  is set. */
 #ifndef _DEBUG_TLSF_
-#define _DEBUG_TLSF_  (0)
+#define _DEBUG_TLSF_  (1)
 #endif
 
 /*************************************************************************/
@@ -491,12 +505,12 @@ RAW_U32 init_memory_pool(RAW_U32 mem_pool_size, void *mem_pool)
     bhdr_t *b, *ib;
 
     if (!mem_pool || !mem_pool_size || mem_pool_size < sizeof(tlsf_t) + BHDR_OVERHEAD * 8) {
-       // ERROR_MSG("init_memory_pool (): memory_pool invalid\n");
+		ERROR_MSG("init_memory_pool (): memory_pool invalid\n");
         return -1;
     }
 
     if (((unsigned long) mem_pool & PTR_MASK)) {
-       // ERROR_MSG("init_memory_pool (): mem_pool must be aligned to a word\n");
+		ERROR_MSG("init_memory_pool (): mem_pool must be aligned to a word\n");
         return -1;
     }
     tlsf = (tlsf_t *) mem_pool;
@@ -516,16 +530,6 @@ RAW_U32 init_memory_pool(RAW_U32 mem_pool_size, void *mem_pool)
 
     //TLSF_CREATE_LOCK(&tlsf->lock);
 	TLSF_CREATE_LOCK(&tlsf->lock, (RAW_U8 *)"mutex1", RAW_MUTEX_INHERIT_POLICY, 0);
-
-	//pthread_mutex_unlock(&tlsf->lock);
-	//TLSF_RELEASE_LOCK(&tlsf->lock);
-	
-
-	//    TLSF_ACQUIRE_LOCK(&((tlsf_t *)mp)->lock);
-
-   // ret = malloc_ex(size, mp);
-
- //   TLSF_RELEASE_LOCK(&((tlsf_t *)mp)->lock);
 
     ib = process_area(GET_NEXT_BLOCK
                       (mem_pool, ROUNDUP_SIZE(sizeof(tlsf_t))), ROUNDDOWN_SIZE(mem_pool_size - sizeof(tlsf_t)));
