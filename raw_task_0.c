@@ -456,6 +456,7 @@ static void int_msg_handler(TASK_0_EVENT_TYPE ev, void *msg_data)
 
 	if (int_msg_ret != RAW_SUCCESS) {
 
+		TRACE_INT_MSG_HANDLE_ERROR(ev, int_msg_ret);
 		RAW_ASSERT(0);
 	}
 

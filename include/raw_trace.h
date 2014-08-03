@@ -142,6 +142,7 @@ void _trace_queue_ep_time_record(RAW_QUEUE *p_q, RAW_VOID *p_void);
 
 void _trace_queue_ap_time_record(RAW_QUEUE *p_q, RAW_VOID *p_void, RAW_U8 opt);
 
+void _trace_int_msg_handle_error(TASK_0_EVENT_TYPE ev, RAW_U16 int_msg_ret);
 
 
 #define TRACE_INIT()  _trace_init()
@@ -266,6 +267,8 @@ void _trace_queue_ap_time_record(RAW_QUEUE *p_q, RAW_VOID *p_void, RAW_U8 opt);
 
 #define TRACE_QUEUE_AP_TIME_RECORD(p_q, p_void, opt)   _trace_queue_ap_time_record(p_q, p_void, opt)
 
+#define TRACE_INT_MSG_HANDLE_ERROR(ev, int_msg_ret)    _trace_int_msg_handle_error(ev, int_msg_ret)
+
 #else
 
 #define TRACE_INIT()
@@ -389,6 +392,8 @@ void _trace_queue_ap_time_record(RAW_QUEUE *p_q, RAW_VOID *p_void, RAW_U8 opt);
 #define TRACE_QUEUE_EP_TIME_RECORD(p_q, p_void)
 
 #define TRACE_QUEUE_AP_TIME_RECORD(p_q, p_void, opt)
+
+#define TRACE_INT_MSG_HANDLE_ERROR(ev, int_msg_ret)
 
 #endif
 
