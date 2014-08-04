@@ -227,25 +227,8 @@ RAW_U16 raw_event_get(RAW_EVENT *event_ptr, RAW_U32 requested_flags, RAW_U8 get_
 	/*So the task is waked up, need know which reason cause wake up.*/
 	error_status = block_state_post_process(raw_task_active, 0);
 
-	/*if it is not successed then we do not need to clear the flags just return the error status*/ 
-	if (error_status != RAW_SUCCESS) {
-
-		return error_status;
-	}
-
-	RAW_CRITICAL_ENTER();
-
-	/*does it need to clear the flags*/
-	if (get_option & RAW_FLAGS_CLEAR_MASK) {
+	return error_status;
 		
-		event_ptr->flags &= ~requested_flags;
-	}
-
-	RAW_CRITICAL_EXIT();
-	
-	return RAW_SUCCESS;
-
-	
 }
 
 
@@ -259,6 +242,7 @@ RAW_U16 event_set(RAW_EVENT *event_ptr, RAW_U32 flags_to_set, RAW_U8 set_option)
 	RAW_TASK_OBJ *task_ptr;
 	
 	RAW_U8 status;
+	RAW_U32 current_event_flags;
 	
 	RAW_SR_ALLOC();
 
@@ -290,6 +274,7 @@ RAW_U16 event_set(RAW_EVENT *event_ptr, RAW_U32 flags_to_set, RAW_U8 set_option)
 		event_ptr->flags |= flags_to_set;    
 	}
 
+	current_event_flags = event_ptr->flags;
 	iter = event_head_ptr->next;
 
 	/*if list is not empty*/
@@ -300,7 +285,7 @@ RAW_U16 event_set(RAW_EVENT *event_ptr, RAW_U32 flags_to_set, RAW_U8 set_option)
 		
 		if (task_ptr->raw_suspend_option & RAW_FLAGS_AND_MASK)  {
 
-			if ((event_ptr->flags  & task_ptr ->raw_suspend_flags) == task_ptr ->raw_suspend_flags) {
+			if ((current_event_flags  & task_ptr ->raw_suspend_flags) == task_ptr ->raw_suspend_flags) {
 				status =  RAW_TRUE;
 			}
 			
@@ -312,7 +297,7 @@ RAW_U16 event_set(RAW_EVENT *event_ptr, RAW_U32 flags_to_set, RAW_U8 set_option)
 		
 		else {
 
-			if (event_ptr->flags  &  task_ptr ->raw_suspend_flags) {
+			if (current_event_flags  &  task_ptr ->raw_suspend_flags) {
 				
 				status =  RAW_TRUE;
 			}
@@ -325,10 +310,16 @@ RAW_U16 event_set(RAW_EVENT *event_ptr, RAW_U32 flags_to_set, RAW_U8 set_option)
 		
 		if (status == RAW_TRUE) {
 
-			(*(RAW_U32 *)(task_ptr->raw_additional_suspend_info)) = event_ptr->flags;
+			(*(RAW_U32 *)(task_ptr->raw_additional_suspend_info)) = current_event_flags;
 			
 			/*Ok the task condition is met, just wake this task*/
 			raw_wake_object(task_ptr);
+
+			/*does it need to clear the flags*/
+			if (task_ptr->raw_suspend_option & RAW_FLAGS_CLEAR_MASK) {
+
+				event_ptr->flags &= ~(task_ptr ->raw_suspend_flags);
+			}
 
 			TRACE_EVENT_WAKE(raw_task_active, task_ptr);
 
