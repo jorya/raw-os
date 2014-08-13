@@ -48,12 +48,11 @@ static MACB malloc_macb;
 #define chkalloc     chkalloc_test
 
 
-void *_mem_malloc( RAW_U32 size, MACB *macb );
-void *_mem_calloc( RAW_U32 nmemb, RAW_U32 size, MACB *macb );
-void *_mem_realloc( void *ptr, RAW_U32 size, MACB *macb );
-void  _mem_free( void *ptr, MACB *macb );
-void  _mem_malloctest( int mode, MACB *macb );
-RAW_U16 _mem_malloccheck( void *ptr, MACB *macb );
+static void *_mem_malloc( RAW_U32 size, MACB *macb );
+static void *_mem_calloc( RAW_U32 nmemb, RAW_U32 size, MACB *macb );
+static void *_mem_realloc( void *ptr, RAW_U32 size, MACB *macb );
+static void  _mem_free( void *ptr, MACB *macb );
+
 
 /*
  * Checks for errors in memory allocation information. When mode < 0,
