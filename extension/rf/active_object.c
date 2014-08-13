@@ -323,20 +323,10 @@ RAW_U16 active_event_recall(ACTIVE_OBJECT_STRUCT *me, RAW_QUEUE *q)
 	STATE_EVENT *event;
 	RAW_U16 recalled;
 	RAW_U16 err;
-	RAW_SR_ALLOC();
-
+	
 	err = raw_queue_receive (q, RAW_NO_WAIT, (RAW_VOID  **)&event);
 
 	if (err == RAW_SUCCESS) {
-		
-		RAW_CPU_DISABLE();
-
-		if (event->which_pool) {  
-			
-			event->ref_count++;
-		}
-
-		RAW_CPU_ENABLE();
 
 		active_event_post_front(me, event);
 
