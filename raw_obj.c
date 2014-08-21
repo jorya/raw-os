@@ -51,11 +51,11 @@ RAW_IDLE_COUNT_TYPE       raw_idle_count;
 
 /*tick attribute*/
 RAW_TICK_TYPE             raw_tick_count;
-LIST                      tick_head[TICK_HEAD_ARRAY];
+LIST                      tick_head;
 
 #if (CONFIG_RAW_TIMER > 0)
 
-LIST                      timer_head[TIMER_HEAD_NUMBERS];
+LIST                      timer_head;
 RAW_TICK_TYPE             raw_timer_count;
 RAW_U32                   raw_timer_ctrl;
 RAW_TASK_OBJ              raw_timer_obj;

@@ -90,10 +90,10 @@ extern RAW_IDLE_COUNT_TYPE          raw_idle_count;
 extern PORT_STACK                   idle_stack[IDLE_STACK_SIZE];
 
 
-extern LIST                         tick_head[TICK_HEAD_ARRAY];
+extern LIST                         tick_head;
 
 #if (CONFIG_RAW_TIMER > 0)
-extern LIST                         timer_head[TIMER_HEAD_NUMBERS];
+extern LIST                         timer_head;
 extern RAW_TICK_TYPE                raw_timer_count;
 extern RAW_U32                      raw_timer_ctrl;
 extern RAW_TASK_OBJ                 raw_timer_obj;

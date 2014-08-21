@@ -31,13 +31,9 @@
 
 static void timer_list_init(void)
 {
-	RAW_U16 i;
 
-	for (i = 0; i < TIMER_HEAD_NUMBERS; i++ ) {
-		
-		list_init(&timer_head[i]);
-	}
-
+	list_init(&timer_head);
+	
 }
 
 
@@ -186,7 +182,6 @@ RAW_U16 raw_timer_create(RAW_TIMER *timer_ptr, RAW_U8  *name_ptr,
 */
 RAW_U16 raw_timer_activate(RAW_TIMER *timer_ptr, RAW_VOID *expiration_input)
 {
-	RAW_U16 position;
 	RAW_U16 mutex_ret;
 	
 	#if (RAW_TIMER_FUNCTION_CHECK > 0)
@@ -226,13 +221,12 @@ RAW_U16 raw_timer_activate(RAW_TIMER *timer_ptr, RAW_VOID *expiration_input)
 	RAW_ASSERT(mutex_ret == RAW_SUCCESS);
 		
 	timer_ptr->match  = raw_timer_count + timer_ptr->init_count;
-	position   = (RAW_U16)(timer_ptr->match & (TIMER_HEAD_NUMBERS - 1) );
 	/*Sort by remain time*/
 	timer_ptr->remain = timer_ptr->init_count;
 	/*Used by timer delete*/
-	timer_ptr->to_head = &timer_head[position];
+	timer_ptr->to_head = &timer_head;
 	
-	timer_list_priority_insert(&timer_head[position], timer_ptr);
+	timer_list_priority_insert(&timer_head, timer_ptr);
 	timer_ptr->timer_state = TIMER_ACTIVE;
 	raw_mutex_put(&timer_mutex);
 
@@ -452,7 +446,6 @@ RAW_U16 raw_timer_delete(RAW_TIMER *timer_ptr)
 */
 void timer_task(void *pa) 
 {
-	RAW_U16 							position;
 	LIST 								*timer_head_ptr;
 	LIST 								*iter;
 	LIST 								*iter_temp;
@@ -474,8 +467,8 @@ void timer_task(void *pa)
 
 		/*calculate which  timer_head*/
 		raw_timer_count++;                                          
-		position = (RAW_U16)(raw_timer_count & (TIMER_HEAD_NUMBERS - 1) );
-		timer_head_ptr  = &timer_head[position];
+	
+		timer_head_ptr  = &timer_head;
 
 		iter = timer_head_ptr->next;
 		
@@ -501,9 +494,8 @@ void timer_task(void *pa)
 						timer_ptr->remain = timer_ptr->reschedule_ticks;
 
 						timer_ptr->match  = raw_timer_count + timer_ptr->remain;
-						position   = (RAW_U16)(timer_ptr->match & (TIMER_HEAD_NUMBERS - 1));
-						timer_ptr->to_head = &timer_head[position];
-						timer_list_priority_insert(&timer_head[position], timer_ptr);
+						timer_ptr->to_head = &timer_head;
+						timer_list_priority_insert(&timer_head, timer_ptr);
 					          
 					} 
 

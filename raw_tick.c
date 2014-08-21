@@ -30,12 +30,9 @@
 
 void tick_list_init(void)
 {
-	RAW_U16 i;
 
-	for (i = 0; i < TICK_HEAD_ARRAY; i++ ) {
-		list_init(&tick_head[i]);
-	}
-
+	list_init(&tick_head);
+	
 }
 	
 RAW_INLINE void tick_list_priority_insert(LIST *head, RAW_TASK_OBJ *task_ptr)
@@ -71,15 +68,12 @@ void  tick_list_insert(RAW_TASK_OBJ *task_ptr, RAW_TICK_TYPE time)
 {
 	LIST     *tick_head_ptr;
 
-	RAW_U16   spoke;
-
 	if (time) {
 	                               
 		task_ptr->tick_match = raw_tick_count + time;
 		task_ptr->tick_remain = time;
 
-		spoke   = (RAW_U16)(task_ptr->tick_match  &  (TICK_HEAD_ARRAY - 1) );
-		tick_head_ptr = &tick_head[spoke];
+		tick_head_ptr = &tick_head;
 
 		tick_list_priority_insert(tick_head_ptr, task_ptr);
 
@@ -133,15 +127,12 @@ void tick_list_update(void)
 	LIST                            *iter;
 	LIST                            *iter_temp;
 
-	RAW_U16   spoke;
-
 	RAW_SR_ALLOC();
 
 	RAW_CRITICAL_ENTER();
 	
 	raw_tick_count++;                                                     
-	spoke    = (RAW_U16)(raw_tick_count &  (TICK_HEAD_ARRAY - 1) );
-	tick_head_ptr  = &tick_head[spoke];
+	tick_head_ptr  = &tick_head;
 	iter    = tick_head_ptr->next;
 	
 	while (RAW_TRUE) {

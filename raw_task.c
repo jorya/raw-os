@@ -1540,8 +1540,9 @@ RAW_U32 raw_get_system_global_space(void)
 	RAW_U32 data_space;
 	
 	data_space =  sizeof(raw_os_active) + sizeof(idle_task_exit) + sizeof(raw_ready_queue)
-		                 +sizeof(raw_sched_lock) +sizeof(raw_int_nesting) + sizeof(high_ready_obj)
-		                 + sizeof(raw_task_active) + sizeof(raw_idle_obj) + sizeof(idle_stack);
+		                 + sizeof(raw_sched_lock) + sizeof(raw_int_nesting) + sizeof(high_ready_obj)
+		                 + sizeof(raw_task_active) + sizeof(raw_idle_obj) + sizeof(idle_stack)
+		                 + sizeof(tick_head);
 
 	
 	#if (CONFIG_RAW_TIMER > 0)

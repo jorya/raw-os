@@ -160,11 +160,10 @@
 
 
 #if (CONFIG_RAW_TIMER > 0)
+
 /*set timer task stack size, adjust as you need*/
 #define TIMER_STACK_SIZE                                            256
 #define TIMER_TASK_PRIORITY                                         5
-/*Must be 2^n size!*/
-#define TIMER_HEAD_NUMBERS                                          4
 
 #endif
 
@@ -188,9 +187,6 @@
 #define TICK_TASK_STACK_SIZE                                        256
 #define TICK_TASK_PRIORITY                                          1
 #endif
-
-/*Must be 2^n size!, such as 4, 8, 16,32, etc.......*/
-#define TICK_HEAD_ARRAY                                             8
 
 /*default  task time slice*/
 #define TIME_SLICE_DEFAULT                                          50

@@ -78,9 +78,6 @@ void idle_event_init(void);
 RAW_U16 event_post(ACTIVE_EVENT_STRUCT *me, RAW_U16 sig, void *para, RAW_U8 opt_send_method);
 RAW_U16 idle_event_end_post(ACTIVE_EVENT_STRUCT *me, RAW_U16 sig, void *para);
 RAW_U16 idle_event_front_post(ACTIVE_EVENT_STRUCT *me, RAW_U16 sig, void *para);
-void idle_tick_isr(void);
-RAW_U16 idle_tick_arm(ACTIVE_EVENT_STRUCT *me, RAW_TICK_TYPE ticks);
-RAW_U16 idle_tick_disarm(ACTIVE_EVENT_STRUCT *me);
 void idle_run(void); 
 void idle_event_user(void);
 
