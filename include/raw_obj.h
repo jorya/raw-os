@@ -131,6 +131,11 @@ typedef struct RAW_TASK_OBJ
 	RAW_U32                   raw_suspend_flags;
 	RAW_VOID                  *raw_additional_suspend_info;
 	#endif
+
+	#if (CONFIG_RAW_TASK_TIME > 0)
+	TASK_INTER_TIME_TYPE          task_time_start;
+	TASK_INTER_TIME_TYPE          task_time_total;
+	#endif
 		   
 } RAW_TASK_OBJ;
 

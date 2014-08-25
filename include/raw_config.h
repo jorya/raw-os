@@ -193,6 +193,7 @@
 /*allowed interrupted nested level*/
 #define INT_NESTED_LEVEL                                            100
 
+#define CONFIG_RAW_TASK_TIME                                        0
 #define RAW_CONFIG_CPU_TIME                                         0
 #define RAW_SCHE_LOCK_MEASURE_CHECK                                 0
 #define RAW_CPU_INT_DIS_MEASURE_CHECK                               0

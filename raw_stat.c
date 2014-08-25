@@ -80,6 +80,24 @@ void raw_stack_check(void)
 
 #endif
 
+#if (CONFIG_RAW_TASK_TIME > 0)
+
+void raw_task_time_check(void)
+{
+	PORT_TASK_TIMER_TYPE task_current_time;
+	PORT_TASK_TIMER_TYPE task_exec_time;
+	
+	task_current_time = RAW_TASK_TIME_GET();
+
+	task_exec_time  = task_current_time - (PORT_TASK_TIMER_TYPE)raw_task_active->task_time_start;
+	raw_task_active->task_time_total += task_exec_time;
+	high_ready_obj->task_time_start = task_current_time;
+
+}
+
+#endif
+
+
 #if (RAW_SCHE_LOCK_MEASURE_CHECK > 0)
 
 void sche_disable_measure_start(void)

@@ -29,6 +29,7 @@
 #define RAW_STAT_H
 
 void raw_stack_check(void);
+void raw_task_time_check(void);
 void sche_disable_measure_start(void);
 void sche_disable_measure_stop(void);
 void int_disable_measure_start(void);
