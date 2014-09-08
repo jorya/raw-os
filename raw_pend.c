@@ -69,7 +69,7 @@ RAW_INLINE void bit_clear(void *base, RAW_U8 offset)
 	cp = (RAW_U8 *)base;
 	cp += offset >> 3;
 
-	mask = _BIT_SET_N(offset);
+	mask = RAW_BIT_SET_N(offset);
 
 	*cp &= (RAW_U8)(~mask);
 }
@@ -82,7 +82,7 @@ RAW_INLINE void bit_set( void *base, RAW_U8 offset)
 	cp = (RAW_U8 *)base;
 	cp += offset >> 3;
 
-	mask = _BIT_SET_N(offset);
+	mask = RAW_BIT_SET_N(offset);
 
 	*cp |= mask;
 }

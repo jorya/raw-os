@@ -45,11 +45,9 @@
 
 
 #if (CONFIG_RAW_LITTLE_ENDIAN > 0)
-#define _BIT_SET_N(n) ((RAW_U8)0x01 << ((n) & 7))
-#define _BIT_SHIFT(n) ((RAW_U8)(n) << 1)
+#define RAW_BIT_SET_N(n) ((RAW_U8)0x01 << ((n) & 7))
 #else
-#define _BIT_SET_N(n) ((RAW_U8)0x80 >> ((n) & 7))
-#define _BIT_SHIFT(n) ((RAW_U8)n >> 1 )
+#define RAW_BIT_SET_N(n) ((RAW_U8)0x80 >> ((n) & 7))
 #endif
 
 
