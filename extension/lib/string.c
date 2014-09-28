@@ -22,7 +22,7 @@
 */
 
 
-
+#include <raw_api.h>
 #include <lib_string.h>
 
 
@@ -43,7 +43,7 @@
  *
  * Unlike memcpy(), memmove() copes with overlapping areas.
  */
-void *raw_memmove(void *dest, const void *src, size_t count)
+void *raw_memmove(void *dest, const void *src, RAW_U32 count)
 {
 	char *tmp;
 	const char *s;
@@ -72,7 +72,7 @@ void *raw_memmove(void *dest, const void *src, size_t count)
  * @ct: Another area of memory
  * @count: The size of the area.
  */
-int raw_memcmp(const void *cs, const void *ct, size_t count)
+int raw_memcmp(const void *cs, const void *ct, RAW_U32 count)
 {
 	const unsigned char *su1, *su2;
 	int res = 0;
@@ -112,7 +112,7 @@ char *raw_strcpy(char *dest, const char *src)
  * count, the remainder of @dest will be padded with %NUL.
  *
  */
-char *raw_strncpy(char *dest, const char *src, size_t count)
+char *raw_strncpy(char *dest, const char *src, RAW_U32 count)
 {
 	char *tmp = dest;
 
@@ -147,7 +147,7 @@ char *raw_strcat(char *dest, const char *src)
  * Note that in contrast to strncpy(), strncat() ensures the result is
  * terminated.
  */
-char *raw_strncat(char *dest, const char *src, size_t count)
+char *raw_strncat(char *dest, const char *src, RAW_U32 count)
 {
 	char *tmp = dest;
 
@@ -169,7 +169,7 @@ char *raw_strncat(char *dest, const char *src, size_t count)
  * strlen - Find the length of a string
  * @s: The string to be sized
  */
-size_t raw_strlen(const char *s)
+RAW_U32 raw_strlen(const char *s)
 {
 	const char *sc;
 
@@ -186,7 +186,7 @@ size_t raw_strlen(const char *s)
  * @ct: Another string
  * @count: The maximum number of bytes to compare
  */
-int raw_strncmp(const char *cs, const char *ct, size_t count)
+int raw_strncmp(const char *cs, const char *ct, RAW_U32 count)
 {
 	unsigned char c1, c2;
 
@@ -311,7 +311,7 @@ PARSE_END:
  */
 const unsigned char *search_conf(const unsigned char *cp, const unsigned char *name)
 {
-	size_t		len = raw_strlen((char*)name);
+	RAW_U32		len = raw_strlen((char*)name);
 	const unsigned char	*p;
 
 	while ( *cp != '\0' ) {
@@ -319,7 +319,7 @@ const unsigned char *search_conf(const unsigned char *cp, const unsigned char *n
 			for ( p = cp; *p > ' ' && *p != '#'; ++p ) {
 				;
 			}
-			if ( (size_t)(p - cp) == len && raw_memcmp(cp, name, len) == 0 ) {
+			if ( (RAW_U32)(p - cp) == len && raw_memcmp(cp, name, len) == 0 ) {
 				return cp; /* Found */
 			}
 		}

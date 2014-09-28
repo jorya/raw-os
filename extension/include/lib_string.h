@@ -28,18 +28,14 @@
 extern "C" {
 #endif
 
-#ifndef size_t
-#define size_t  unsigned int
-#endif
-
-void *raw_memmove(void *dest, const void *src, size_t count);
-int  raw_memcmp(const void *cs, const void *ct, size_t count);
+void *raw_memmove(void *dest, const void *src, RAW_U32 count);
+int  raw_memcmp(const void *cs, const void *ct, RAW_U32 count);
 char *raw_strcpy(char *dest, const char *src);
-char *raw_strncpy(char *dest, const char *src, size_t count);
+char *raw_strncpy(char *dest, const char *src, RAW_U32 count);
 char *raw_strcat(char *dest, const char *src);
-char *raw_strncat(char *dest, const char *src, size_t count);
-size_t raw_strlen(const char *s);
-int raw_strncmp(const char *cs, const char *ct, size_t count);
+char *raw_strncat(char *dest, const char *src, RAW_U32 count);
+RAW_U32 raw_strlen(const char *s);
+int raw_strncmp(const char *cs, const char *ct, RAW_U32 count);
 int raw_strcmp(const char *cs, const char *ct);
 long int raw_strtol(const char *nptr, char **endptr, int base);
 const unsigned char *search_conf(const unsigned char *cp, const unsigned char *name);

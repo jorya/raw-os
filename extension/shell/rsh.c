@@ -34,7 +34,7 @@
  * The callback function that is executed when "help" is entered.  This is the
  * only default command that is always present.
  */
-static RAW_S32 rsh_help_command(RAW_S8 *pcWriteBuffer, size_t xWriteBufferLen, const RAW_S8 *pcCommandString );
+static RAW_S32 rsh_help_command(RAW_S8 *pcWriteBuffer, RAW_U32 xWriteBufferLen, const RAW_S8 *pcCommandString );
 
 /*
  * Return the number of parameters that follow the command name.
@@ -114,7 +114,7 @@ RAW_VOID rsh_register_command(const xCommandLineInput * const pxCommandToRegiste
 static const xCommandLineInputListItem *current_process_command_point;
 
 
-RAW_S32 rsh_process_command( const RAW_S8 * const pcCommandInput, RAW_S8 *pcWriteBuffer, size_t xWriteBufferLen  )
+RAW_S32 rsh_process_command( const RAW_S8 * const pcCommandInput, RAW_S8 *pcWriteBuffer, RAW_U32 xWriteBufferLen  )
 {
 	RAW_S32 xReturn = 0;
 	const RAW_S8 *pcRegisteredCommandString;
@@ -270,7 +270,7 @@ const RAW_S8 *rsh_get_parameter( const RAW_S8 *pcCommandString, RAW_S32 uxWanted
 
 static const xCommandLineInputListItem *current_help_command_point;
 
-static RAW_S32 rsh_help_command( RAW_S8 *pcWriteBuffer, size_t xWriteBufferLen, const RAW_S8 *pcCommandString )
+static RAW_S32 rsh_help_command( RAW_S8 *pcWriteBuffer, RAW_U32 xWriteBufferLen, const RAW_S8 *pcCommandString )
 {
 	
 	RAW_S32 xReturn;

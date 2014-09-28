@@ -37,7 +37,7 @@ commands must comply.  pcWriteBuffer is a buffer into which the output from
 executing the command can be written, xWriteBufferLen is the length, in bytes of 
 the pcWriteBuffer buffer, and pcCommandString is the entire string as input by
 the user (from which parameters can be extracted).*/
-typedef RAW_S32 (*pdCOMMAND_LINE_CALLBACK)( RAW_S8 *pcWriteBuffer, size_t xWriteBufferLen, const RAW_S8 * pcCommandString );
+typedef RAW_S32 (*pdCOMMAND_LINE_CALLBACK)( RAW_S8 *pcWriteBuffer, RAW_U32 xWriteBufferLen, const RAW_S8 * pcCommandString );
 
 /* The structure that defines command line commands.  A command line command
 should be defined by declaring a const structure of this type. */
@@ -76,7 +76,7 @@ RAW_VOID rsh_register_command(const xCommandLineInput * const pxCommandToRegiste
  * pcCmdIntProcessCommand is not reentrant.  It must not be called from more
  * than one task - or at least - by more than one task at a time.
  */
-RAW_S32 rsh_process_command( const RAW_S8 * const pcCommandInput, RAW_S8 * pcWriteBuffer, size_t xWriteBufferLen  );
+RAW_S32 rsh_process_command( const RAW_S8 * const pcCommandInput, RAW_S8 * pcWriteBuffer, RAW_U32 xWriteBufferLen  );
 
 /*-----------------------------------------------------------*/
 
