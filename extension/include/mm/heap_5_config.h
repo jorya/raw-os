@@ -27,11 +27,21 @@
 	#define portPOINTER_SIZE_TYPE unsigned long
 #endif
 
-void *mem_4_malloc(size_t xWantedSize);
-void mem_4_free(void *pv);
-size_t mem_4_free_get(void);
-size_t mem_4_ever_free_heap(void);
 
+/* Used by heap_5.c. */
+typedef struct HeapRegion
+{
+	RAW_U8 *pucStartAddress;
+	size_t xSizeInBytes;
+} HeapRegion_t;
+
+
+void *mem_5_malloc(size_t xWantedSize);
+void mem_5_free(void *pv);
+size_t mem_5_free_get(void);
+
+void mem_5_heap_regions(const HeapRegion_t * const pxHeapRegions);
+size_t mem_5_ever_free_heap(void);
 
 #endif
 
