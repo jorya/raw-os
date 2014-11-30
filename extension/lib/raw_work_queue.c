@@ -33,6 +33,36 @@
 
 OBJECT_WORK_QUEUE_MSG *free_work_queue_msg;
 
+
+
+/*Provide workqueue level system tick process, to impromve interrupt response, refer to example hot to use it*/
+
+void tick_work_handler(RAW_U32 arg, void *msg)
+{
+	msg = msg;
+
+	#if (CONFIG_RAW_USER_HOOK > 0)
+	raw_tick_hook();
+	#endif
+
+	/*update system time to calculate whether task timeout happens*/
+	/*Need not another task to handle tick process*/
+	tick_list_update();
+
+	/*update task time slice if possible*/
+	/*arg is important!Please refer to example how to use it*/
+	#if (CONFIG_SCHED_FIFO_RR > 0)
+	calculate_time_slice(arg);
+	#endif
+	
+	/*inform the timer task to update software timer*/	
+	#if (CONFIG_RAW_TIMER > 0)
+	call_timer_task();
+	#endif
+
+}
+
+
 static void work_queue_task(void *pa)
 {
 	RAW_U16 ret;

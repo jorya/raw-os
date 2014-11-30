@@ -55,6 +55,8 @@ typedef struct WORK_QUEUE_STRUCT {
 #endif
 
 
+void tick_work_handler(RAW_U32 arg, void *msg);
+
 RAW_U16 work_queue_create(WORK_QUEUE_STRUCT *wq, RAW_U8 work_task_priority, RAW_U32 work_queue_stack_size, 
 								PORT_STACK *work_queue_stack_base, RAW_VOID **msg_start, RAW_U32 work_msg_size);
 
