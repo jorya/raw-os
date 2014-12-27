@@ -85,7 +85,13 @@
 #define heapBITS_PER_BYTE		( ( size_t ) 8 )
 
 /* Allocate the memory for the heap. */
+#if (configAPPLICATION_ALLOCATED_HEAP == 1)
+/* The application writer has already defined the array used for the RTOS
+heap - probably so it can be placed in a special segment or address. */
+extern unsigned char ucHeap[configTOTAL_HEAP_SIZE];
+#else
 static unsigned char ucHeap[ configTOTAL_HEAP_SIZE ];
+#endif
 
 /* Define the linked list structure.  This is used to link free blocks in order
 of their memory address. */

@@ -3,6 +3,8 @@
 #define HEAP_4_CONFIG_H
 
 
+#define configAPPLICATION_ALLOCATED_HEAP  0
+
 #define portBYTE_ALIGNMENT          4
 
 #define configTOTAL_HEAP_SIZE       4096
