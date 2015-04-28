@@ -63,7 +63,7 @@ typedef struct xCOMMAND_INPUT_LIST
  * handled by the command interpreter.  Once a command has been registered it
  * can be executed from the command line.
  */
-RAW_VOID rsh_register_command(const xCommandLineInput * const pxCommandToRegister, xCommandLineInputListItem *pxNewListItem);
+void rsh_register_command(const xCommandLineInput * const pxCommandToRegister, xCommandLineInputListItem *pxNewListItem);
 
 /*
  * Runs the command interpreter for the command string "pcCommandInput".  Any

@@ -31,7 +31,7 @@
 #define RAW_BYTE_H
 
 
-typedef struct RAW_BYTE_POOL_STRUCT
+typedef struct raw_byte_pool_struct
 {
 	RAW_COMMON_BLOCK_OBJECT            common_block_obj;
 
@@ -56,9 +56,9 @@ typedef struct RAW_BYTE_POOL_STRUCT
 #define  RAW_BYTE_BLOCK_MIN      20u
 #define  RAW_BYTE_POOL_MIN       100u
 
-RAW_U16 raw_byte_pool_create(RAW_BYTE_POOL_STRUCT *pool_ptr, RAW_U8 *name_ptr, RAW_VOID *pool_start, RAW_U32 pool_size);
+RAW_U16 raw_byte_pool_create(RAW_BYTE_POOL_STRUCT *pool_ptr, RAW_U8 *name_ptr, void *pool_start, RAW_U32 pool_size);
 
-RAW_U16 raw_byte_allocate(RAW_BYTE_POOL_STRUCT *pool_ptr, RAW_VOID **memory_ptr, RAW_U32 memory_size);
+RAW_U16 raw_byte_allocate(RAW_BYTE_POOL_STRUCT *pool_ptr, void **memory_ptr, RAW_U32 memory_size);
 
 RAW_U16 raw_byte_release(RAW_BYTE_POOL_STRUCT *pool_ptr, void  *memory_ptr);
 

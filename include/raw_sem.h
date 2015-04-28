@@ -29,20 +29,20 @@
 #ifndef RAW_SEM_H
 #define RAW_SEM_H
 
-typedef struct RAW_SEMAPHORE
+typedef struct raw_semaphore
 { 
 	RAW_COMMON_BLOCK_OBJECT       common_block_obj;
 	RAW_U32                       count;
-	RAW_VOID                      (*semphore_send_notify)(struct RAW_SEMAPHORE *queue_ptr);	
+	void                      (*semphore_send_notify)(struct raw_semaphore *queue_ptr);	
 	
 } RAW_SEMAPHORE;
 
 
-typedef RAW_VOID (*SEMPHORE_SEND_NOTIFY)(RAW_SEMAPHORE *queue_ptr);
+typedef void (*SEMPHORE_SEND_NOTIFY)(RAW_SEMAPHORE *queue_ptr);
 
-#define RAW_SEMAPHORE_COUNT   0xffffffff
-#define WAKE_ALL_SEM          0x1
-#define WAKE_ONE_SEM          0x0
+#define RAW_SEMAPHORE_MAX_COUNT   0xffffffffu
+#define WAKE_ALL_SEM              0x1u
+#define WAKE_ONE_SEM              0x0u
 
 RAW_U16 raw_semaphore_create(RAW_SEMAPHORE *semaphore_ptr, RAW_U8 *name_ptr, RAW_U32 initial_count);
 RAW_U16 raw_semaphore_put(RAW_SEMAPHORE *semaphore_ptr);

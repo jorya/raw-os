@@ -28,19 +28,19 @@
 #ifndef RAW_TIMER_H
 #define RAW_TIMER_H
 
-typedef struct RAW_TIMER {
+typedef struct raw_timer {
 
 	LIST                                    timer_list;
 	LIST                                    *to_head;
 
 	RAW_U8                                  *name;    
-	RAW_U16                                 (*raw_timeout_function)(RAW_VOID *arg);       
+	RAW_U16                                 (*raw_timeout_function)(void *arg);       
 
 	RAW_TICK_TYPE                           match;                
 	RAW_TICK_TYPE                           remain; 
 	RAW_TICK_TYPE                           init_count;
 	RAW_TICK_TYPE                           reschedule_ticks;
-	RAW_VOID                                *raw_timeout_param;
+	void                                *raw_timeout_param;
 	RAW_U8                                  timer_state;
 	RAW_U8                                  object_type;
     
@@ -54,18 +54,18 @@ typedef struct RAW_TIMER {
 #define TIMER_CALLBACK_STOP                 0x88
 
 
-typedef struct RAW_TIMER_HEAD {
-	struct  RAW_TIMER       *first_timer_ptr;      
+typedef struct raw_timer_head {
+	struct  raw_timer       *first_timer_ptr;      
 }RAW_TIMER_HEAD;
 
 
 
 RAW_U16 raw_timer_create(RAW_TIMER *timer_ptr, RAW_U8  *name_ptr,
-                              RAW_U16  (*expiration_function)(RAW_VOID *expiration_input), RAW_VOID *expiration_input,
+                              RAW_U16  (*expiration_function)(void *expiration_input), void *expiration_input,
                               RAW_TICK_TYPE initial_ticks, RAW_TICK_TYPE reschedule_ticks, RAW_U8 auto_activate);
 
 
-RAW_U16 raw_timer_activate(RAW_TIMER *timer_ptr, RAW_VOID *expiration_input);
+RAW_U16 raw_timer_activate(RAW_TIMER *timer_ptr, void *expiration_input);
 
 
 #if (CONFIG_RAW_TIMER_DEACTIVATE > 0)

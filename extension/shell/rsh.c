@@ -77,7 +77,7 @@ static RAW_U8 command_length_get(const RAW_S8 *command)
 
 /*-----------------------------------------------------------*/
 
-RAW_VOID rsh_register_command(const xCommandLineInput * const pxCommandToRegister, xCommandLineInputListItem *pxNewListItem)
+void rsh_register_command(const xCommandLineInput * const pxCommandToRegister, xCommandLineInputListItem *pxNewListItem)
 {
 
 	/* Check the parameter is not NULL. */

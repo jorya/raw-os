@@ -30,7 +30,7 @@
 #define RAW_QUEUE_BUFFER_H
 
 
-typedef struct RAW_QUEUE_BUFFER
+typedef struct raw_queue_buffer
 { 
 	RAW_COMMON_BLOCK_OBJECT       common_block_obj;
 	
@@ -39,7 +39,7 @@ typedef struct RAW_QUEUE_BUFFER
 	MSG_SIZE_TYPE	              frbufsz; /* Free buffer size */
 	MSG_SIZE_TYPE	              head;	   /* First message store address */
 	MSG_SIZE_TYPE	              tail;	   /* Next to the last message store address */
-	RAW_VOID                      *buffer; /* Message buffer address */
+	void                      *buffer; /* Message buffer address */
 	
 } RAW_QUEUE_BUFFER;
 
@@ -55,10 +55,10 @@ typedef MSG_SIZE_TYPE           HEADER;
 #define ROUND_BUFFER_SIZE(sz)   (((sz) + (ROUND_SIZE - 1)) & ~(ROUND_SIZE - 1))
 
 
-RAW_U16 raw_queue_buffer_create(RAW_QUEUE_BUFFER *q_b, RAW_U8 *p_name, RAW_VOID *msg_buffer, MSG_SIZE_TYPE buffer_size, MSG_SIZE_TYPE max_msg_size);
-RAW_U16 queue_buffer_post(RAW_QUEUE_BUFFER *q_b, RAW_VOID *p_void, MSG_SIZE_TYPE msg_size, RAW_U8 opt_send_method);
-RAW_U16 raw_queue_buffer_end_post(RAW_QUEUE_BUFFER *q_b, RAW_VOID *p_void, MSG_SIZE_TYPE msg_size);
-RAW_U16 raw_queue_buffer_receive(RAW_QUEUE_BUFFER *q_b, RAW_TICK_TYPE wait_option, RAW_VOID *msg, MSG_SIZE_TYPE *receive_size);
+RAW_U16 raw_queue_buffer_create(RAW_QUEUE_BUFFER *q_b, RAW_U8 *p_name, void *msg_buffer, MSG_SIZE_TYPE buffer_size, MSG_SIZE_TYPE max_msg_size);
+RAW_U16 queue_buffer_post(RAW_QUEUE_BUFFER *q_b, void *p_void, MSG_SIZE_TYPE msg_size, RAW_U8 opt_send_method);
+RAW_U16 raw_queue_buffer_end_post(RAW_QUEUE_BUFFER *q_b, void *p_void, MSG_SIZE_TYPE msg_size);
+RAW_U16 raw_queue_buffer_receive(RAW_QUEUE_BUFFER *q_b, RAW_TICK_TYPE wait_option, void *msg, MSG_SIZE_TYPE *receive_size);
 
 #if (CONFIG_RAW_QUEUE_BUFFER_FLUSH > 0) 
 RAW_U16 raw_queue_buffer_flush(RAW_QUEUE_BUFFER  *q_b);

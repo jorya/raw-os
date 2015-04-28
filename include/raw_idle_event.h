@@ -29,7 +29,7 @@
 #ifndef RAW_IDLE_EVENT_H
 #define RAW_IDLE_EVENT_H
 
-typedef struct IDLE_QUEUE_MSG {
+typedef struct idle_queue_msg {
 
 	RAW_U16 sig;
 	void *para;
@@ -37,7 +37,7 @@ typedef struct IDLE_QUEUE_MSG {
 } IDLE_QUEUE_MSG;
 
 
-typedef struct ACTIVE_EVENT_STRUCT {
+typedef struct active_event_struct {
 
 	STM_STRUCT super;                
 	
@@ -62,7 +62,7 @@ typedef struct ACTIVE_EVENT_STRUCT {
 } ACTIVE_EVENT_STRUCT;
 
 
-typedef struct ACTIVE_EVENT_STRUCT_CB {
+typedef struct active_event_struct_cb {
     ACTIVE_EVENT_STRUCT *act;        
     IDLE_QUEUE_MSG    *queue;          
     RAW_U8 end;                 

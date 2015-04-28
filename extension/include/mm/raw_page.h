@@ -37,7 +37,7 @@ extern "C" {
 /*
  * Page
  */
-typedef struct PAGE{
+typedef struct page{
 
 	RAW_U8	mem[2048];
 	
@@ -50,7 +50,7 @@ typedef struct PAGE{
 /*
  * Page management queue
  */
-typedef struct PAGE_DESCRIPTOR {
+typedef struct page_descriptor {
 	RAW_S8  cont;		/* 1 if multiple pages in succession */
 	RAW_S8  use;		/* 1 if page in use */
 	RAW_S32 next;
@@ -74,7 +74,7 @@ typedef struct PAGE_DESCRIPTOR {
  *	freeque is sorted in order from the smallest number of
  *	successive free pages.
  */
-typedef struct PAGETBL{
+typedef struct pagetbl{
 
 	RAW_S32                            maxpage;	/* Total number of pages */
 	RAW_S32                            freepage;	/* Number of free pages */
@@ -86,9 +86,9 @@ typedef struct PAGETBL{
 } PAGETBL;
 
 
-RAW_U16 raw_page_init(RAW_VOID *start, RAW_VOID *end);
-RAW_VOID *raw_page_allocate(RAW_S32 pages);
-RAW_S32 raw_page_free(RAW_VOID *adr);
+RAW_U16 raw_page_init(void *start, void *end);
+void *raw_page_allocate(RAW_S32 pages);
+RAW_S32 raw_page_free(void *adr);
 PAGETBL *system_page_table_get(void);
 
 

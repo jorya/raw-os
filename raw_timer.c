@@ -108,7 +108,7 @@ static void timer_list_remove(RAW_TIMER *timer_ptr)
 ************************************************************************************************************************
 */
 RAW_U16 raw_timer_create(RAW_TIMER *timer_ptr, RAW_U8  *name_ptr, 
-            RAW_U16  (*expiration_function)(RAW_VOID *expiration_input), RAW_VOID *expiration_input,
+            RAW_U16  (*expiration_function)(void *expiration_input), void *expiration_input,
           RAW_TICK_TYPE initial_ticks, RAW_TICK_TYPE reschedule_ticks, RAW_U8 auto_activate)
 
 {
@@ -180,7 +180,7 @@ RAW_U16 raw_timer_create(RAW_TIMER *timer_ptr, RAW_U8  *name_ptr,
 *             
 ************************************************************************************************************************
 */
-RAW_U16 raw_timer_activate(RAW_TIMER *timer_ptr, RAW_VOID *expiration_input)
+RAW_U16 raw_timer_activate(RAW_TIMER *timer_ptr, void *expiration_input)
 {
 	RAW_U16 mutex_ret;
 	

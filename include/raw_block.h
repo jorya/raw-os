@@ -30,7 +30,7 @@
 #ifndef RAW_BLOCK_H
 #define RAW_BLOCK_H
 
-typedef struct MEM_POOL
+typedef struct mem_pool
 {
 	RAW_COMMON_BLOCK_OBJECT             common_block_obj;
 
@@ -44,9 +44,9 @@ typedef struct MEM_POOL
 } MEM_POOL;
 
 
-RAW_U16  raw_block_pool_create(MEM_POOL *pool_ptr, RAW_U8  *name_ptr, RAW_U32  block_size, RAW_VOID  *pool_start, RAW_U32  pool_size);
-RAW_U16 raw_block_allocate(MEM_POOL *pool_ptr, RAW_VOID **block_ptr);
-RAW_U16 raw_block_release(MEM_POOL *pool_ptr, RAW_VOID *block_ptr);
+RAW_U16  raw_block_pool_create(MEM_POOL *pool_ptr, RAW_U8  *name_ptr, RAW_U32  block_size, void  *pool_start, RAW_U32  pool_size);
+RAW_U16 raw_block_allocate(MEM_POOL *pool_ptr, void **block_ptr);
+RAW_U16 raw_block_release(MEM_POOL *pool_ptr, void *block_ptr);
 
 
 #endif

@@ -29,7 +29,7 @@
 #ifndef RAW_OBJECT_H
 #define RAW_OBJECT_H
 
-enum RAW_TASK_STATUS
+typedef enum raw_task_status
 {
 	RAW_RDY = 0,
 	RAW_PEND,
@@ -41,10 +41,10 @@ enum RAW_TASK_STATUS
 	RAW_DLY_SUSPENDED,
 	RAW_DELETED,
 	RAW_INVALID_STATE
-};
+} RAW_TASK_STATUS;
 
 
-typedef	struct RAW_COMMON_BLOCK_OBJECT {	
+typedef	struct raw_common_block_object {	
 	
 	LIST                      block_list;
 	RAW_U8                    *name;
@@ -54,9 +54,9 @@ typedef	struct RAW_COMMON_BLOCK_OBJECT {
 } RAW_COMMON_BLOCK_OBJECT;
 
 
-typedef struct RAW_TASK_OBJ
+typedef struct raw_task_obj
 {
-	RAW_VOID                 *task_stack;
+	void                 *task_stack;
 
 	#if (CONFIG_RAW_MPU_ENABLE > 0)
 	RAW_MPU_SETTINGS         mpu_settings;
@@ -66,7 +66,7 @@ typedef struct RAW_TASK_OBJ
 	
 	#if (CONFIG_USER_DATA_POINTER > 0)
 	/*for user data extension*/
-	RAW_VOID                 *user_data_pointer[CONFIG_USER_DATA_POINTER];
+	void                 *user_data_pointer[CONFIG_USER_DATA_POINTER];
 	
 	#endif
 
@@ -87,7 +87,7 @@ typedef struct RAW_TASK_OBJ
 	#endif
 	
 	#if (CONFIG_RAW_MUTEX > 0)
-	struct RAW_MUTEX         *mtxlist;
+	struct raw_mutex         *mtxlist;
 	#endif
 
 	LIST                     task_debug_list;
@@ -102,7 +102,7 @@ typedef struct RAW_TASK_OBJ
 
 	LIST                     *tick_head;
 
-	RAW_VOID                 *msg;
+	void                 *msg;
 
 	MSG_SIZE_TYPE            msg_size;
 
@@ -119,17 +119,17 @@ typedef struct RAW_TASK_OBJ
 	RAW_COMMON_BLOCK_OBJECT  *block_obj; 
 
 	#if (CONFIG_RAW_TASK_QUEUE_SIZE > 0)
-	struct RAW_QUEUE_SIZE *task_queue_size_obj;
+	struct raw_queue_size    *task_queue_size_obj;
 	#endif
 	
 	#if (CONFIG_RAW_TASK_SEMAPHORE > 0)
-	struct RAW_SEMAPHORE *task_semaphore_obj;
+	struct raw_semaphore     *task_semaphore_obj;
 	#endif
 	
 	#if (CONFIG_RAW_EVENT > 0)
 	RAW_U8                    raw_suspend_option;
 	RAW_U32                   raw_suspend_flags;
-	RAW_VOID                  *raw_additional_suspend_info;
+	void                  *raw_additional_suspend_info;
 	#endif
 
 	#if (CONFIG_RAW_TASK_TIME > 0)
@@ -143,7 +143,7 @@ typedef struct RAW_TASK_OBJ
 #define  NUM_WORDS					((CONFIG_RAW_PRIO_MAX + 31) / 32)
 
 
-typedef	struct RAW_RUN_QUEUE {
+typedef	struct raw_run_queue {
 
 	RAW_U8                    highest_priority;
 	
@@ -154,7 +154,7 @@ typedef	struct RAW_RUN_QUEUE {
 } RAW_RUN_QUEUE;
 		
 
-typedef struct RAW_OBJECT_DEBUG {
+typedef struct raw_object_debug {
 	
 	/*Debug task head*/
 	LIST                      task_head;

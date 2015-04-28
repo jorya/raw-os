@@ -124,7 +124,7 @@ static void work_queue_task(void *pa)
 ************************************************************************************************************************
 */
 RAW_U16 work_queue_create(WORK_QUEUE_STRUCT *wq, RAW_U8 work_task_priority, RAW_U32 work_queue_stack_size, 
-								PORT_STACK *work_queue_stack_base, RAW_VOID **msg_start, RAW_U32 work_msg_size)
+								PORT_STACK *work_queue_stack_base, void **msg_start, RAW_U32 work_msg_size)
 {
 	RAW_U16 ret;
 	

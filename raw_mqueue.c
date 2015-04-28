@@ -52,7 +52,7 @@
 *             
 ************************************************************************************************************************
 */
-RAW_U16 raw_mq_init(RAW_MQUEUE *mqueue, RAW_U8 *name_ptr, USER_MALLOC malloc_fun, USER_FREE free_fun, RAW_VOID **msg_start, RAW_U32 msg_size)
+RAW_U16 raw_mq_init(RAW_MQUEUE *mqueue, RAW_U8 *name_ptr, USER_MALLOC malloc_fun, USER_FREE free_fun, void **msg_start, RAW_U32 msg_size)
 {
 
 	mqueue->malloc_fun = malloc_fun;
@@ -92,7 +92,7 @@ RAW_INLINE void msg_insert(RAW_MQUEUE *info, RAW_MQUEUE_MSG *ptr)
 	info->messages[k + 1] = ptr;
 }
 
-static RAW_U16 internal_raw_mq_send(RAW_MQUEUE *p_q, RAW_VOID *p_void, RAW_U32 size, RAW_U32 msg_prio)
+static RAW_U16 internal_raw_mq_send(RAW_MQUEUE *p_q, void *p_void, RAW_U32 size, RAW_U32 msg_prio)
 {
 	
 	LIST *block_list_head;
@@ -193,7 +193,7 @@ static RAW_U16 internal_raw_mq_send(RAW_MQUEUE *p_q, RAW_VOID *p_void, RAW_U32 s
 *             
 ************************************************************************************************************************
 */
-RAW_U16 raw_mq_send(RAW_MQUEUE *mqueue, RAW_VOID *msg_ptr, RAW_U32 msg_len, RAW_U32 msg_prio)
+RAW_U16 raw_mq_send(RAW_MQUEUE *mqueue, void *msg_ptr, RAW_U32 msg_len, RAW_U32 msg_prio)
 {
 	RAW_U16 ret;
 	
@@ -238,7 +238,7 @@ RAW_U16 raw_mq_send(RAW_MQUEUE *mqueue, RAW_VOID *msg_ptr, RAW_U32 msg_len, RAW_
 *             
 ************************************************************************************************************************
 */
-RAW_U16 raw_mq_receive (RAW_MQUEUE *p_q,  RAW_VOID **p_void, RAW_U32 *msg_len, RAW_U32 *msg_prio, RAW_TICK_TYPE wait_option)
+RAW_U16 raw_mq_receive (RAW_MQUEUE *p_q,  void **p_void, RAW_U32 *msg_len, RAW_U32 *msg_prio, RAW_TICK_TYPE wait_option)
 {
 	RAW_U16 result;
 	RAW_MQUEUE_MSG *msg_in;

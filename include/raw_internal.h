@@ -44,29 +44,29 @@ void     raw_timer_init(void);
 
 void     change_pend_list_priority(RAW_TASK_OBJ *task_ptr);
 
-RAW_U16  raw_wake_object(RAW_TASK_OBJ *task_ptr);
+void     raw_wake_object(RAW_TASK_OBJ *task_ptr);
 void     tick_list_remove(RAW_TASK_OBJ *task_ptr);
 void     tick_list_insert(RAW_TASK_OBJ *task_ptr, RAW_TICK_TYPE time);
                  
-RAW_U16  wake_send_msg(RAW_TASK_OBJ *task_ptr, RAW_VOID *msg);
-RAW_U16  wake_send_msg_size(RAW_TASK_OBJ *task_ptr, RAW_VOID *msg, RAW_U32 msg_size);
+void     wake_send_msg(RAW_TASK_OBJ *task_ptr, void *msg);
+void     wake_send_msg_size(RAW_TASK_OBJ *task_ptr, void *msg, RAW_U32 msg_size);
 
-RAW_U16  raw_pend_object(RAW_COMMON_BLOCK_OBJECT  *block_common_obj, RAW_TASK_OBJ *task_ptr, RAW_TICK_TYPE timeout);
-RAW_U16  delete_pend_obj(RAW_TASK_OBJ *task_ptr);
-RAW_VOID raw_idle_task (void *p_arg);
+void     raw_pend_object(RAW_COMMON_BLOCK_OBJECT  *block_common_obj, RAW_TASK_OBJ *task_ptr, RAW_TICK_TYPE timeout);
+void     delete_pend_obj(RAW_TASK_OBJ *task_ptr);
+void     raw_idle_task (void *p_arg);
 
 void     tick_list_update(void);
-RAW_U16  block_state_post_process(RAW_TASK_OBJ  *task_ptr, RAW_VOID  **msg);
+RAW_OS_ERROR  block_state_post_process(RAW_TASK_OBJ  *task_ptr, void  **msg);
 
 void     run_queue_init(RAW_RUN_QUEUE *rq);
 
 RAW_S32  bit_search_first_one(RAW_U32 *base, RAW_U8 offset,  RAW_S32 width);
 RAW_U8   chg_pri_mutex(RAW_TASK_OBJ *tcb, RAW_U8 priority, RAW_U16 *error);
-RAW_U16  change_internal_task_priority(RAW_TASK_OBJ *task_ptr, RAW_U8 new_priority);
+RAW_OS_ERROR  change_internal_task_priority(RAW_TASK_OBJ *task_ptr, RAW_U8 new_priority);
 
-RAW_VOID mtx_chg_pri(RAW_TASK_OBJ *tcb, RAW_U8 oldpri);
-RAW_VOID raw_task_free_mutex(RAW_TASK_OBJ *tcb);
-RAW_VOID mutex_state_change(RAW_TASK_OBJ *tcb);
+void     mtx_chg_pri(RAW_TASK_OBJ *tcb, RAW_U8 oldpri);
+void     raw_task_free_mutex(RAW_TASK_OBJ *tcb);
+void     mutex_state_change(RAW_TASK_OBJ *tcb);
 void     tick_task_start(void);
 void     sche_disable_measure_start(void);
 void     sche_disable_measure_stop(void);

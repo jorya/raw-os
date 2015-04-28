@@ -190,7 +190,7 @@ RAW_U8 chg_pri_mutex(RAW_TASK_OBJ *tcb, RAW_U8 priority, RAW_U16 *error)
  *	(A) The highest priority in all mutexes in which 'tcb' task locks.
  *	(B) The base priority of 'tcb' task.
  */
-static RAW_VOID release_mutex(RAW_TASK_OBJ *tcb, RAW_MUTEX *relmtxcb)
+static void release_mutex(RAW_TASK_OBJ *tcb, RAW_MUTEX *relmtxcb)
 {
 	RAW_MUTEX	*mtxcb, **prev;
 	RAW_U8	newpri, pri;
@@ -249,7 +249,7 @@ static RAW_VOID release_mutex(RAW_TASK_OBJ *tcb, RAW_MUTEX *relmtxcb)
 /*
  * Processing if the priority of wait task changes
  */
-RAW_VOID mtx_chg_pri(RAW_TASK_OBJ *tcb, RAW_U8 oldpri)
+void mtx_chg_pri(RAW_TASK_OBJ *tcb, RAW_U8 oldpri)
 {
 	RAW_MUTEX		*mtxcb;
 	RAW_TASK_OBJ	*mtxtsk;
@@ -308,7 +308,7 @@ RAW_VOID mtx_chg_pri(RAW_TASK_OBJ *tcb, RAW_U8 oldpri)
 /*
  * Processing if the task blocked on mutex is timeout or aborted or deleted
  */
-RAW_VOID mutex_state_change(RAW_TASK_OBJ *tcb)
+void mutex_state_change(RAW_TASK_OBJ *tcb)
 {
 	RAW_MUTEX		*mtxcb;
 	RAW_TASK_OBJ	*mtxtsk;
@@ -597,7 +597,7 @@ RAW_U16 raw_mutex_put(RAW_MUTEX *mutex_ptr)
 }
 
 
-RAW_VOID raw_task_free_mutex(RAW_TASK_OBJ *tcb)
+void raw_task_free_mutex(RAW_TASK_OBJ *tcb)
 {
 	RAW_MUTEX	*mtxcb, *next_mtxcb;
 	RAW_TASK_OBJ	*next_tcb;

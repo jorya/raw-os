@@ -61,7 +61,7 @@ RAW_U16 raw_semaphore_create(RAW_SEMAPHORE *semaphore_ptr, RAW_U8 *name_ptr, RAW
 		return RAW_NULL_OBJECT;
 	}
 
-	if (initial_count == 0xffffffff) {
+	if (initial_count == RAW_SEMAPHORE_MAX_COUNT) {
 
 		return RAW_SEMAPHORE_OVERFLOW;
 
@@ -108,7 +108,7 @@ RAW_U16 semaphore_put(RAW_SEMAPHORE *semaphore_ptr, RAW_U8 opt_wake_all)
 	/*if no block task on this list just return*/
 	if (is_list_empty(block_list_head)) {        
 	    
-		if (semaphore_ptr->count == RAW_SEMAPHORE_COUNT) {
+		if (semaphore_ptr->count == RAW_SEMAPHORE_MAX_COUNT) {
 
 			RAW_CRITICAL_EXIT();
 			TRACE_SEMAPHORE_OVERFLOW(raw_task_active, semaphore_ptr);

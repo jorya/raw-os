@@ -23,7 +23,7 @@
 #include <raw_api.h>
 #include <rb_tree.h>
 
-static RAW_VOID __rb_rotate_left(struct rb_node *node, struct rb_root *root)
+static void __rb_rotate_left(struct rb_node *node, struct rb_root *root)
 {
 	struct rb_node *right = node->rb_right;
 	struct rb_node *parent = rb_parent(node);
@@ -46,7 +46,7 @@ static RAW_VOID __rb_rotate_left(struct rb_node *node, struct rb_root *root)
 	rb_set_parent(node, right);
 }
 
-static RAW_VOID __rb_rotate_right(struct rb_node *node, struct rb_root *root)
+static void __rb_rotate_right(struct rb_node *node, struct rb_root *root)
 {
 	struct rb_node *left = node->rb_left;
 	struct rb_node *parent = rb_parent(node);
@@ -69,7 +69,7 @@ static RAW_VOID __rb_rotate_right(struct rb_node *node, struct rb_root *root)
 	rb_set_parent(node, left);
 }
 
-RAW_VOID rb_insert_color(struct rb_node *node, struct rb_root *root)
+void rb_insert_color(struct rb_node *node, struct rb_root *root)
 {
 	struct rb_node *parent, *gparent;
 
@@ -134,7 +134,7 @@ RAW_VOID rb_insert_color(struct rb_node *node, struct rb_root *root)
 	rb_set_black(root->rb_node);
 }
 
-static RAW_VOID __rb_erase_color(struct rb_node *node, struct rb_node *parent,
+static void __rb_erase_color(struct rb_node *node, struct rb_node *parent,
 			     struct rb_root *root)
 {
 	struct rb_node *other;
@@ -214,7 +214,7 @@ static RAW_VOID __rb_erase_color(struct rb_node *node, struct rb_node *parent,
 		rb_set_black(node);
 }
 
-RAW_VOID rb_erase(struct rb_node *node, struct rb_root *root)
+void rb_erase(struct rb_node *node, struct rb_root *root)
 {
 	struct rb_node *child, *parent;
 	RAW_S32 color;
@@ -360,7 +360,7 @@ struct rb_node *rb_prev(const struct rb_node *node)
 	return parent;
 }
 
-RAW_VOID rb_replace_node(struct rb_node *victim, struct rb_node *new,
+void rb_replace_node(struct rb_node *victim, struct rb_node *new,
 		     struct rb_root *root)
 {
 	struct rb_node *parent = rb_parent(victim);

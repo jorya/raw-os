@@ -506,9 +506,9 @@ static void  _mem_free( void *ptr, MACB *macb )
 }
 
 
-RAW_VOID *raw_malloc(RAW_U32 size)
+void *raw_malloc(RAW_U32 size)
 {
-	RAW_VOID *addr;
+	void *addr;
 	MACB	*macb =  &malloc_macb;
 	
 	if (raw_int_nesting) {
@@ -526,7 +526,7 @@ RAW_VOID *raw_malloc(RAW_U32 size)
 }
 
 
-RAW_VOID raw_free(void *ptr)
+void raw_free(void *ptr)
 {
 	MACB	*macb =  &malloc_macb;
 	
@@ -543,10 +543,10 @@ RAW_VOID raw_free(void *ptr)
 }
 
 
-RAW_VOID *raw_calloc(RAW_U32 nmemb, RAW_U32 size)
+void *raw_calloc(RAW_U32 nmemb, RAW_U32 size)
 {
 
-	RAW_VOID *addr;
+	void *addr;
 	MACB	*macb =  &malloc_macb;
 	
 	if (raw_int_nesting) {
@@ -566,10 +566,10 @@ RAW_VOID *raw_calloc(RAW_U32 nmemb, RAW_U32 size)
 
 
 
-RAW_VOID *raw_realloc(void *ptr, RAW_U32 size)
+void *raw_realloc(void *ptr, RAW_U32 size)
 {
 
-	RAW_VOID *addr;
+	void *addr;
 	
 	MACB	*macb =  &malloc_macb;
 	
@@ -610,7 +610,7 @@ RAW_VOID *raw_realloc(void *ptr, RAW_U32 size)
 ************************************************************************************************************************
 */
 
-RAW_VOID raw_malloc_init()
+void raw_malloc_init()
 {
 	 
 	MACB	*macb = (MACB*)((RAW_U32)(&malloc_macb) & ~0x00000007U);

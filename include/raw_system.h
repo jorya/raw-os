@@ -28,9 +28,9 @@
 #ifndef RAW_SYSTEM_H
 #define RAW_SYSTEM_H
 
-#define RAW_OS_VERSION                              1058
+#define RAW_OS_VERSION                              1060
 
-#define RAW_OS_BUILD_TIME                           "2014/11/12"     
+#define RAW_OS_BUILD_TIME                           "2015/04/28"     
 
 #define IDLE_PRIORITY                               (CONFIG_RAW_PRIO_MAX - 1)
 
@@ -55,7 +55,7 @@
 /* *****************************************************************************
  * Below are all the possible error codes the os can generate
  * ***************************************************************************** */
-enum 
+typedef enum raw_os_error
 {
    
 	RAW_SUCCESS                          = 0,
@@ -127,20 +127,20 @@ enum
 	RAW_IDLE_TICK_ADD_FAILED,
 	RAW_IDLE_TICK_DELETE_FAILED
 	
-};
+} RAW_OS_ERROR;
 
 
 
 
 
-enum 
+enum raw_block_state
 {
 	RAW_B_OK = 0,
 	RAW_B_ABORT,
 	RAW_B_TIMEOUT,
 	RAW_B_DEL
    
-};
+} RAW_BLOCK_STATE;
 
 
 #define RAW_NO_WAIT      RAW_INTERNAL_NO_WAIT   
@@ -149,7 +149,7 @@ enum
 #define SEND_TO_FRONT     0x1
 #define SEND_TO_END       0x2
 
-enum {
+typedef enum raw_int_msg_type{
                                                
 	RAW_TYPE_Q_FRONT        = 0,
 	RAW_TYPE_Q_END,
@@ -166,10 +166,10 @@ enum {
 	RAW_TYPE_IDLE_END_EVENT_POST,
 	RAW_TYPE_IDLE_FRONT_EVENT_POST
 	
-};
+} RAW_INT_MSG_TYPE;
 
 
-enum 
+enum raw_object_type
 {
 
 	RAW_SEM_OBJ_TYPE = 0x11,
@@ -183,20 +183,20 @@ enum
 	RAW_EVENT_OBJ_TYPE,
 	RAW_MQUEUE_OBJ_TYPE
 	
-};
+} RAW_OBJECT_TYPE;
 
-RAW_U16  raw_enter_interrupt(void);
-RAW_VOID raw_time_tick(void);
-RAW_VOID raw_finish_int(void);
+RAW_OS_ERROR raw_enter_interrupt(void);
+void     raw_time_tick(void);
+void     raw_finish_int(void);
 
-RAW_U16 raw_os_init(void);
-RAW_U16 raw_os_start(void);
+RAW_OS_ERROR raw_os_init(void);
+RAW_OS_ERROR raw_os_start(void);
 
-RAW_VOID *raw_memset(RAW_VOID  *src, RAW_U8  byte, RAW_U32 count);
-RAW_VOID *raw_memcpy(RAW_VOID *dest, const RAW_VOID *src, RAW_U32 count);
+void *raw_memset(void  *src, RAW_U8  byte, RAW_U32 count);
+void *raw_memcpy(void *dest, const void *src, RAW_U32 count);
 
 RAW_TICK_TYPE raw_system_time_get(void);
-RAW_U16 raw_system_time_set(RAW_TICK_TYPE time);
+RAW_OS_ERROR raw_system_time_set(RAW_TICK_TYPE time);
 
 #endif
 

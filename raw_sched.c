@@ -75,7 +75,7 @@ void raw_sched(void)
 *             
 ************************************************************************************************************************
 */
-RAW_U16 raw_os_init(void)
+RAW_OS_ERROR raw_os_init(void)
 {
 
 	TRACE_INIT();
@@ -137,7 +137,7 @@ RAW_U16 raw_os_init(void)
 *             
 ************************************************************************************************************************
 */
-RAW_U16 raw_os_start(void)
+RAW_OS_ERROR raw_os_start(void)
 {
 
 	if (raw_os_active == RAW_OS_STOPPED) {

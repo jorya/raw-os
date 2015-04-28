@@ -28,7 +28,7 @@
 
 #include <raw_api.h>
 
-RAW_VOID raw_idle_task (void *p_arg)
+void raw_idle_task (void *p_arg)
 {
 	RAW_SR_ALLOC();
 	

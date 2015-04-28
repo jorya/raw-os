@@ -31,7 +31,7 @@
 #ifndef ACTIVE_TIME_EVENT_H
 #define ACTIVE_TIME_EVENT_H
 
-typedef struct TIME_EVENT_STRUCT {
+typedef struct time_event_struct {
   
     STATE_EVENT          father;
 	

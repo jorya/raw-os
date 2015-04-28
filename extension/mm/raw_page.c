@@ -363,9 +363,9 @@ PAGETBL *system_page_table_get(void)
 *             
 ************************************************************************************************************************
 */
-RAW_VOID *raw_page_allocate(RAW_S32 pages)
+void *raw_page_allocate(RAW_S32 pages)
 {
-	RAW_VOID *addr;
+	void *addr;
 
 	if (!pages) {
 		return 0;
@@ -406,7 +406,7 @@ RAW_VOID *raw_page_allocate(RAW_S32 pages)
 *             
 ************************************************************************************************************************
 */
-RAW_S32 raw_page_free(RAW_VOID *adr)
+RAW_S32 raw_page_free(void *adr)
 {
 	RAW_S32 num_free_page;
 
@@ -449,7 +449,7 @@ RAW_S32 raw_page_free(RAW_VOID *adr)
 *             
 ************************************************************************************************************************
 */
-RAW_U16 raw_page_init(RAW_VOID *start, RAW_VOID *end)
+RAW_U16 raw_page_init(void *start, void *end)
 {
 	if (raw_int_nesting) {
 

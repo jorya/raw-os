@@ -51,7 +51,7 @@
 *             
 ************************************************************************************************************************
 */
-RAW_U16 raw_queue_create(RAW_QUEUE *p_q, RAW_U8 *p_name, RAW_VOID **msg_start, MSG_SIZE_TYPE number)
+RAW_OS_ERROR raw_queue_create(RAW_QUEUE *p_q, RAW_U8 *p_name, void **msg_start, MSG_SIZE_TYPE number)
 {
 	
 	
@@ -95,7 +95,7 @@ RAW_U16 raw_queue_create(RAW_QUEUE *p_q, RAW_U8 *p_name, RAW_VOID **msg_start, M
 }
 
 
-RAW_U16 msg_post(RAW_QUEUE *p_q, RAW_VOID *p_void, RAW_U8 opt_send_method, RAW_U8 opt_wake_all)             
+RAW_OS_ERROR msg_post(RAW_QUEUE *p_q, void *p_void, RAW_U8 opt_send_method, RAW_U8 opt_wake_all)             
 {
 	LIST *block_list_head;
 
@@ -223,7 +223,7 @@ RAW_U16 msg_post(RAW_QUEUE *p_q, RAW_VOID *p_void, RAW_U8 opt_send_method, RAW_U
 *             
 ************************************************************************************************************************
 */
-RAW_U16 raw_queue_front_post(RAW_QUEUE *p_q, RAW_VOID *p_void)
+RAW_OS_ERROR raw_queue_front_post(RAW_QUEUE *p_q, void *p_void)
 {
 
 	#if (RAW_QUEUE_FUNCTION_CHECK > 0)
@@ -280,7 +280,7 @@ RAW_U16 raw_queue_front_post(RAW_QUEUE *p_q, RAW_VOID *p_void)
 *             
 ************************************************************************************************************************
 */
-RAW_U16 raw_queue_end_post(RAW_QUEUE *p_q, RAW_VOID *p_void)
+RAW_OS_ERROR raw_queue_end_post(RAW_QUEUE *p_q, void *p_void)
 {
 	#if (RAW_QUEUE_FUNCTION_CHECK > 0)
 
@@ -336,7 +336,7 @@ RAW_U16 raw_queue_end_post(RAW_QUEUE *p_q, RAW_VOID *p_void)
 *             
 ************************************************************************************************************************
 */
-RAW_U16 raw_queue_post_notify(RAW_QUEUE *p_q, RAW_VOID *p_void)
+RAW_OS_ERROR raw_queue_post_notify(RAW_QUEUE *p_q, void *p_void)
 {
 	#if (RAW_QUEUE_FUNCTION_CHECK > 0)
 
@@ -391,7 +391,7 @@ RAW_U16 raw_queue_post_notify(RAW_QUEUE *p_q, RAW_VOID *p_void)
 *             
 ************************************************************************************************************************
 */
-RAW_U16 raw_queue_all_post(RAW_QUEUE *p_q, RAW_VOID *p_void, RAW_U8 opt)
+RAW_OS_ERROR raw_queue_all_post(RAW_QUEUE *p_q, void *p_void, RAW_U8 opt)
 {
 	#if (RAW_QUEUE_FUNCTION_CHECK > 0)
 
@@ -445,7 +445,7 @@ RAW_U16 raw_queue_all_post(RAW_QUEUE *p_q, RAW_VOID *p_void, RAW_U8 opt)
 *             
 ************************************************************************************************************************
 */
-RAW_U16 raw_queue_send_notify(RAW_QUEUE *p_q, QUEUE_SEND_NOTIFY notify_function)
+RAW_OS_ERROR raw_queue_send_notify(RAW_QUEUE *p_q, QUEUE_SEND_NOTIFY notify_function)
 {
 
 	RAW_SR_ALLOC();
@@ -511,10 +511,10 @@ RAW_U16 raw_queue_send_notify(RAW_QUEUE *p_q, QUEUE_SEND_NOTIFY notify_function)
 *             
 ************************************************************************************************************************
 */
-RAW_U16 raw_queue_receive(RAW_QUEUE *p_q, RAW_TICK_TYPE wait_option, RAW_VOID **msg)
+RAW_OS_ERROR raw_queue_receive(RAW_QUEUE *p_q, RAW_TICK_TYPE wait_option, void **msg)
 {
 
-	RAW_VOID *pmsg;
+	void *pmsg;
 	RAW_U16 result;
 	
 	RAW_SR_ALLOC();
@@ -582,7 +582,7 @@ RAW_U16 raw_queue_receive(RAW_QUEUE *p_q, RAW_TICK_TYPE wait_option, RAW_VOID **
 
 
 	if (wait_option == RAW_NO_WAIT) {   
-		*msg = (RAW_VOID *)0;
+		*msg = (void *)0;
 		RAW_CRITICAL_EXIT();
 		return RAW_NO_PEND_WAIT;
 	} 
@@ -598,7 +598,7 @@ RAW_U16 raw_queue_receive(RAW_QUEUE *p_q, RAW_TICK_TYPE wait_option, RAW_VOID **
 	
 	raw_sched();                                             
 
-	*msg      = (RAW_VOID      *)0;
+	*msg      = (void      *)0;
 	result = block_state_post_process(raw_task_active, msg);
 	
 	return result;
@@ -624,7 +624,7 @@ RAW_U16 raw_queue_receive(RAW_QUEUE *p_q, RAW_TICK_TYPE wait_option, RAW_VOID **
 *             
 ************************************************************************************************************************
 */
-RAW_U16 raw_queue_full_check(RAW_QUEUE *p_q)
+RAW_OS_ERROR raw_queue_full_check(RAW_QUEUE *p_q)
 {
 	RAW_SR_ALLOC();
 
@@ -695,7 +695,7 @@ RAW_U16 raw_queue_full_check(RAW_QUEUE *p_q)
 ************************************************************************************************************************
 */
 #if (CONFIG_RAW_QUEUE_FLUSH > 0) 
-RAW_U16 raw_queue_flush(RAW_QUEUE  *p_q)
+RAW_OS_ERROR raw_queue_flush(RAW_QUEUE  *p_q)
 {
 	RAW_SR_ALLOC();
 	
@@ -755,7 +755,7 @@ RAW_U16 raw_queue_flush(RAW_QUEUE  *p_q)
 ************************************************************************************************************************
 */
 #if (CONFIG_RAW_QUEUE_DELETE > 0)
-RAW_U16 raw_queue_delete(RAW_QUEUE *p_q)
+RAW_OS_ERROR raw_queue_delete(RAW_QUEUE *p_q)
 {
 	LIST  *block_list_head;
 	
@@ -826,7 +826,7 @@ RAW_U16 raw_queue_delete(RAW_QUEUE *p_q)
 ************************************************************************************************************************
 */
 #if (CONFIG_RAW_QUEUE_GET_INFORMATION > 0)
-RAW_U16 raw_queue_get_information(RAW_QUEUE *p_q, RAW_MSG_INFO *msg_information)
+RAW_OS_ERROR raw_queue_get_information(RAW_QUEUE *p_q, RAW_MSG_INFO *msg_information)
 {
 	LIST *block_list_head;
 	

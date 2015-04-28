@@ -41,7 +41,7 @@ STATE_EVENT *active_event_get(ACTIVE_OBJECT_STRUCT *me)
 	RAW_U16 err;
 	STATE_EVENT *e;
 
-	err = raw_queue_receive (&me->active_queue, RAW_WAIT_FOREVER, (RAW_VOID  **)&e);
+	err = raw_queue_receive (&me->active_queue, RAW_WAIT_FOREVER, (void  **)&e);
 
 	if (err != RAW_SUCCESS) {
 
@@ -206,7 +206,7 @@ static void active_task_function(void *pdata)
 ************************************************************************************************************************
 */
 void active_object_create(ACTIVE_OBJECT_STRUCT *me, RAW_U8 prio,
-                   RAW_VOID **msg_start, RAW_U32 qLen,
+                   void **msg_start, RAW_U32 qLen,
                    void *stkSto, RAW_U32 stkSize,
                    STATE_EVENT *event)
 {
@@ -324,7 +324,7 @@ RAW_U16 active_event_recall(ACTIVE_OBJECT_STRUCT *me, RAW_QUEUE *q)
 	RAW_U16 recalled;
 	RAW_U16 err;
 	
-	err = raw_queue_receive (q, RAW_NO_WAIT, (RAW_VOID  **)&event);
+	err = raw_queue_receive (q, RAW_NO_WAIT, (void  **)&event);
 
 	if (err == RAW_SUCCESS) {
 

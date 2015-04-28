@@ -58,7 +58,7 @@ void *active_event_memory_allocate(MEM_POOL *pool, RAW_U16 sig)
 	STATE_EVENT *event;
 	RAW_U16 ret;
 
-	ret = raw_block_allocate(pool, (RAW_VOID **)&event);
+	ret = raw_block_allocate(pool, (void **)&event);
 
 	if (ret != RAW_SUCCESS) {
 

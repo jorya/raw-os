@@ -63,11 +63,11 @@ typedef struct MemoryAllocateControlBlock {
 	
 } MACB;
 
-RAW_VOID  raw_malloc_init(void);
-RAW_VOID *raw_malloc(RAW_U32 size);
-RAW_VOID  raw_free(void *ptr);
-RAW_VOID *raw_calloc(RAW_U32 nmemb, RAW_U32 size);
-RAW_VOID *raw_realloc(void *ptr, RAW_U32 size);
+void  raw_malloc_init(void);
+void *raw_malloc(RAW_U32 size);
+void  raw_free(void *ptr);
+void *raw_calloc(RAW_U32 nmemb, RAW_U32 size);
+void *raw_realloc(void *ptr, RAW_U32 size);
 RAW_U16 check_malloc_test(void *ptr, int mode);
 
 

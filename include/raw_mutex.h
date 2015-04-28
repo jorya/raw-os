@@ -34,14 +34,14 @@
 #define RAW_MUTEX_CEILING_POLICY	0x00000003U	/* Upper limit priority protocol */
 #define RAW_MUTEX_NONE_POLICY		0x00000004U /*None policy is used*/
 
-typedef struct RAW_MUTEX
+typedef struct raw_mutex
 { 
 	RAW_COMMON_BLOCK_OBJECT       common_block_obj;
 	
 	/*mutex owner task*/
 	RAW_TASK_OBJ                  *mtxtsk;
 
-	struct RAW_MUTEX              *mtxlist;	/* Mutex get list */
+	struct raw_mutex              *mtxlist;	/* Mutex get list */
 
 	RAW_U8                        policy;
 	RAW_U8                        ceiling_prio;

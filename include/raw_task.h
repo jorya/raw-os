@@ -30,60 +30,60 @@
 #ifndef RAW_TASK_H
 #define RAW_TASK_H
 
-typedef  RAW_VOID    (*RAW_TASK_ENTRY)(RAW_VOID *p_arg);
+typedef  void    (*RAW_TASK_ENTRY)(void *p_arg);
 
-RAW_U16 raw_task_create(RAW_TASK_OBJ  *task_obj, RAW_U8  *task_name,  RAW_VOID   *task_arg, 
+RAW_OS_ERROR raw_task_create(RAW_TASK_OBJ  *task_obj, RAW_U8  *task_name,  void   *task_arg, 
                              RAW_U8  task_prio,  RAW_U32  time_slice,  PORT_STACK  *task_stack_base, 
                              RAW_U32 stack_size, RAW_TASK_ENTRY task_entry, RAW_U8 auto_start);
 
 
-RAW_U16 raw_disable_sche(void);
+RAW_OS_ERROR raw_disable_sche(void);
 
-RAW_U16 raw_enable_sche(void);
+RAW_OS_ERROR raw_enable_sche(void);
 
-RAW_U16 raw_sleep(RAW_TICK_TYPE dly);
-RAW_U16 raw_time_sleep(RAW_U16 hours, RAW_U16 minutes, RAW_U16 seconds, RAW_U32 milli);
+RAW_OS_ERROR raw_sleep(RAW_TICK_TYPE dly);
+RAW_OS_ERROR raw_time_sleep(RAW_U16 hours, RAW_U16 minutes, RAW_U16 seconds, RAW_U32 milli);
 
 #if (CONFIG_RAW_TASK_SUSPEND > 0)
-RAW_U16 raw_task_suspend(RAW_TASK_OBJ *task_ptr);
-RAW_U16 raw_task_resume(RAW_TASK_OBJ *task_ptr);
-RAW_U16 task_suspend(RAW_TASK_OBJ *task_ptr);
-RAW_U16 task_resume(RAW_TASK_OBJ *task_ptr);
+RAW_OS_ERROR raw_task_suspend(RAW_TASK_OBJ *task_ptr);
+RAW_OS_ERROR raw_task_resume(RAW_TASK_OBJ *task_ptr);
+RAW_OS_ERROR task_suspend(RAW_TASK_OBJ *task_ptr);
+RAW_OS_ERROR task_resume(RAW_TASK_OBJ *task_ptr);
 
 #endif
 
 #if (CONFIG_RAW_TASK_PRIORITY_CHANGE > 0)
-RAW_U16 raw_task_priority_change (RAW_TASK_OBJ *task_ptr, RAW_U8 new_priority, RAW_U8 *old_priority);
+RAW_OS_ERROR raw_task_priority_change (RAW_TASK_OBJ *task_ptr, RAW_U8 new_priority, RAW_U8 *old_priority);
 #endif
 
 #if (CONFIG_RAW_TASK_DELETE > 0)
-RAW_U16 raw_task_delete(RAW_TASK_OBJ *task_ptr);
+RAW_OS_ERROR raw_task_delete(RAW_TASK_OBJ *task_ptr);
 #endif
 
 #if (CONFIG_RAW_TASK_WAIT_ABORT > 0)
-RAW_U16 raw_task_wait_abort(RAW_TASK_OBJ *task_ptr);
+RAW_OS_ERROR raw_task_wait_abort(RAW_TASK_OBJ *task_ptr);
 #endif
 
 #if (CONFIG_SCHED_FIFO_RR > 0)
-RAW_U16 raw_task_time_slice_change(RAW_TASK_OBJ *task_ptr, RAW_U32 new_time_slice);
-RAW_U16 raw_set_sched_way(RAW_TASK_OBJ *task_ptr, RAW_U8 policy);
-RAW_U16 raw_get_sched_way(RAW_TASK_OBJ *task_ptr, RAW_U8 *policy_ptr);
+RAW_OS_ERROR raw_task_time_slice_change(RAW_TASK_OBJ *task_ptr, RAW_U32 new_time_slice);
+RAW_OS_ERROR raw_set_sched_way(RAW_TASK_OBJ *task_ptr, RAW_U8 policy);
+RAW_OS_ERROR raw_get_sched_way(RAW_TASK_OBJ *task_ptr, RAW_U8 *policy_ptr);
 #endif
 
 RAW_TASK_OBJ  *raw_task_identify(void);
 
 #if (CONFIG_RAW_TASK_STACK_CHECK > 0)
-RAW_U16 raw_task_stack_check(RAW_TASK_OBJ  *task_obj, RAW_U32 *free_stack);
+RAW_OS_ERROR raw_task_stack_check(RAW_TASK_OBJ  *task_obj, RAW_U32 *free_stack);
 #endif
 
 #if (CONFIG_USER_DATA_POINTER > 0)
-RAW_VOID raw_set_task_user_point(RAW_TASK_OBJ *task_ptr, RAW_VOID *user_point, RAW_U32 point_position);
+void raw_set_task_user_point(RAW_TASK_OBJ *task_ptr, void *user_point, RAW_U32 point_position);
 
-RAW_VOID *raw_get_task_user_point(RAW_TASK_OBJ *task_ptr, RAW_U32 point_position);
+void *raw_get_task_user_point(RAW_TASK_OBJ *task_ptr, RAW_U32 point_position);
 #endif
 
 #if (CONFIG_RAW_DEBUG > 0)
-RAW_U16 raw_iter_block_task(LIST *object_head, RAW_VOID  (*debug_function)(RAW_TASK_OBJ *arg), RAW_U8 opt);
+RAW_OS_ERROR raw_iter_block_task(LIST *object_head, void  (*debug_function)(RAW_TASK_OBJ *arg), RAW_U8 opt);
 RAW_U32 raw_get_system_global_space(void);
 #endif
 

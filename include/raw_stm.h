@@ -34,11 +34,11 @@
 typedef RAW_U16 STM_SIGNAL;
 
 
-typedef struct STATE_EVENT {
+typedef struct state_event {
 
 	RAW_U16     sig;
 	RAW_U8      ref_count;
-	RAW_VOID    *which_pool; 
+	void    *which_pool; 
 	
 	
 	  
@@ -49,7 +49,7 @@ typedef struct STATE_EVENT {
 typedef RAW_U16 (*stm_state_handler)(void *me, STATE_EVENT *e);
 
 
-typedef struct STM_STRUCT {
+typedef struct stm_struct {
 	
     stm_state_handler state;        
     stm_state_handler temp; 
@@ -89,14 +89,14 @@ typedef struct STM_STRUCT {
 #define STM_MAX_NEST_DEPTH      6
 
 
-enum RAW_Reserved_Signals {
+typedef enum raw_reserved_signals {
 
     STM_ENTRY_SIG = 1,                  
     STM_EXIT_SIG,                        
     STM_INIT_SIG,
     STM_TIMEOUT_SIG,                        
     STM_USER_SIG     
-};
+} RAW_RESERVED_SIGNALS;
 
 
 

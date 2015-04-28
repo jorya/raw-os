@@ -30,9 +30,9 @@
 #define RAW_QUEUE_SIZE_H
 
 
-typedef struct RAW_MSG_SIZE {
+typedef struct raw_msg_size {
 
-	struct  RAW_MSG_SIZE        *next;							
+	struct  raw_msg_size        *next;							
 	void                        *msg_ptr; 						 
 	MSG_SIZE_TYPE                msg_size;
 	
@@ -41,7 +41,7 @@ typedef struct RAW_MSG_SIZE {
 
 
 
-typedef struct RAW_QUEUE_SIZE
+typedef struct raw_queue_size
 { 
 	RAW_COMMON_BLOCK_OBJECT       common_block_obj;
 
@@ -57,26 +57,26 @@ typedef struct RAW_QUEUE_SIZE
 } RAW_QUEUE_SIZE;
 
 
-RAW_U16 raw_queue_size_create(RAW_QUEUE_SIZE  *p_q, RAW_U8 *p_name, RAW_MSG_SIZE *msg_start, MSG_SIZE_TYPE number);
-RAW_U16 raw_queue_size_receive (RAW_QUEUE_SIZE *p_q, RAW_TICK_TYPE wait_option, RAW_VOID  **msg_ptr, MSG_SIZE_TYPE *receive_size);
-RAW_U16 raw_queue_size_front_post(RAW_QUEUE_SIZE *p_q, RAW_VOID  *p_void, MSG_SIZE_TYPE size);
-RAW_U16 raw_queue_size_end_post(RAW_QUEUE_SIZE *p_q, RAW_VOID  *p_void, MSG_SIZE_TYPE size);
-RAW_U16 raw_queue_size_all_post(RAW_QUEUE_SIZE *p_q, RAW_VOID  *p_void, MSG_SIZE_TYPE size, RAW_U8 opt);
-RAW_U16 raw_queue_size_full_check(RAW_QUEUE_SIZE *p_q);
-RAW_U16 msg_size_post(RAW_QUEUE_SIZE *p_q, RAW_MSG_SIZE *p_void,  MSG_SIZE_TYPE size,  RAW_U8 opt_send_method, RAW_U8 opt_wake_all);             
+RAW_OS_ERROR raw_queue_size_create(RAW_QUEUE_SIZE  *p_q, RAW_U8 *p_name, RAW_MSG_SIZE *msg_start, MSG_SIZE_TYPE number);
+RAW_OS_ERROR raw_queue_size_receive (RAW_QUEUE_SIZE *p_q, RAW_TICK_TYPE wait_option, void  **msg_ptr, MSG_SIZE_TYPE *receive_size);
+RAW_OS_ERROR raw_queue_size_front_post(RAW_QUEUE_SIZE *p_q, void  *p_void, MSG_SIZE_TYPE size);
+RAW_OS_ERROR raw_queue_size_end_post(RAW_QUEUE_SIZE *p_q, void  *p_void, MSG_SIZE_TYPE size);
+RAW_OS_ERROR raw_queue_size_all_post(RAW_QUEUE_SIZE *p_q, void  *p_void, MSG_SIZE_TYPE size, RAW_U8 opt);
+RAW_OS_ERROR raw_queue_size_full_check(RAW_QUEUE_SIZE *p_q);
+RAW_OS_ERROR msg_size_post(RAW_QUEUE_SIZE *p_q, RAW_MSG_SIZE *p_void,  MSG_SIZE_TYPE size,  RAW_U8 opt_send_method, RAW_U8 opt_wake_all);             
 
 
 #if (CONFIG_RAW_QUEUE_SIZE_FLUSH > 0) 
-RAW_U16 raw_queue_size_flush(RAW_QUEUE_SIZE  *p_q);
+RAW_OS_ERROR raw_queue_size_flush(RAW_QUEUE_SIZE  *p_q);
 #endif
 
 
 #if (CONFIG_RAW_QUEUE_SIZE_DELETE > 0)
-RAW_U16 raw_queue_size_delete(RAW_QUEUE_SIZE *p_q);
+RAW_OS_ERROR raw_queue_size_delete(RAW_QUEUE_SIZE *p_q);
 #endif
 
 #if (CONFIG_RAW_QUEUE_SIZE_GET_INFORMATION > 0)
-RAW_U16 raw_queue_size_get_information(RAW_QUEUE_SIZE *p_q, MSG_SIZE_TYPE *queue_free_msg_size, MSG_SIZE_TYPE *queue_peak_msg_size, MSG_SIZE_TYPE *queue_current_msg);
+RAW_OS_ERROR raw_queue_size_get_information(RAW_QUEUE_SIZE *p_q, MSG_SIZE_TYPE *queue_free_msg_size, MSG_SIZE_TYPE *queue_peak_msg_size, MSG_SIZE_TYPE *queue_current_msg);
 #endif
 
 

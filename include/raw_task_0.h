@@ -29,14 +29,14 @@
 #ifndef RAW_TASK_0_H
 #define RAW_TASK_0_H
 
-typedef struct EVENT_HANLDER {
+typedef struct event_hanlder {
 
 	void  (*handle_event)(TASK_0_EVENT_TYPE ev, void *event_data);
 	
 } EVENT_HANLDER;
 
 
-typedef struct EVENT_STRUCT {
+typedef struct event_struct {
 	
 	TASK_0_EVENT_TYPE ev;
 	void *event_data;
@@ -45,12 +45,12 @@ typedef struct EVENT_STRUCT {
 } EVENT_STRUCT;
 
 
-typedef struct OBJECT_INT_MSG {
+typedef struct object_int_msg {
 	
 	RAW_U8                  type;
 	RAW_U8                  opt;
 	
-	struct OBJECT_INT_MSG   *next;
+	struct object_int_msg   *next;
 	
 	void                    *object;
 	void                    *msg;                           

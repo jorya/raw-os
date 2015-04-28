@@ -30,7 +30,7 @@
 #define RAW_EVENT_H
 
 
-typedef struct RAW_EVENT
+typedef struct raw_event
 { 
 	RAW_COMMON_BLOCK_OBJECT    common_block_obj;
 	RAW_U32                    flags;

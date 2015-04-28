@@ -31,7 +31,7 @@
 
 #define ACTIVE_OBJECT_H
 
-typedef struct ACTIVE_OBJECT_STRUCT {
+typedef struct active_object_struct {
  	/*State machine*/  
     STM_STRUCT        father;
 
@@ -55,7 +55,7 @@ void active_event_post_end(ACTIVE_OBJECT_STRUCT *me, STATE_EVENT *event);
 void active_event_post_front(ACTIVE_OBJECT_STRUCT *me, STATE_EVENT *event);
 STATE_EVENT *active_event_get(ACTIVE_OBJECT_STRUCT *me);
 void active_object_create(ACTIVE_OBJECT_STRUCT *me, RAW_U8 prio,
-                   RAW_VOID **msg_start, RAW_U32 qLen,
+                   void **msg_start, RAW_U32 qLen,
                    void *stkSto, RAW_U32 stkSize,
                    STATE_EVENT *event);
 

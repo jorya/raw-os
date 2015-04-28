@@ -166,7 +166,7 @@ extern void vc_port_printf(char*   f,   ...);
 #endif
 
 
-extern RAW_VOID *raw_memset(RAW_VOID *src, RAW_U8 byte, RAW_U32 count);
+extern void *raw_memset(void *src, RAW_U8 byte, RAW_U32 count);
 extern void *raw_memcpy(void *dest, const void *src, RAW_U32 count);
 
 

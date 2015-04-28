@@ -100,7 +100,7 @@
 #define SYSTEM_LOCK_PROCESS_QUEUE()	\
 					do {\
 						if (raw_sched_lock >= 2u) {\
-							*msg = (RAW_VOID *)0;\
+							*msg = (void *)0;\
 							RAW_CRITICAL_EXIT();\
 							return RAW_SCHED_DISABLE;\
 						}\
@@ -136,7 +136,7 @@
 #define SYSTEM_LOCK_PROCESS_QUEUE()	\
 					do {\
 						if (raw_sched_lock) {\
-							*msg = (RAW_VOID *)0;\
+							*msg = (void *)0;\
 							RAW_CRITICAL_EXIT();\
 							return RAW_SCHED_DISABLE;\
 						}\

@@ -32,9 +32,9 @@
 /*
  * Doubly-link list
  */
-typedef struct LIST {
-	struct LIST	*next;
-	struct LIST	*previous;
+typedef struct list {
+	struct list	*next;
+	struct list	*previous;
 } LIST;
 
 

@@ -47,7 +47,7 @@
 *             
 ************************************************************************************************************************
 */
-RAW_VOID raw_finish_int(void)
+void raw_finish_int(void)
 {
 
 	RAW_SR_ALLOC();
@@ -112,7 +112,7 @@ RAW_VOID raw_finish_int(void)
 *             
 ************************************************************************************************************************
 */
-RAW_VOID raw_time_tick(void)
+void raw_time_tick(void)
 {
 
 	#if (CONFIG_RAW_TASK_0 > 0)
@@ -170,7 +170,7 @@ RAW_VOID raw_time_tick(void)
 *             
 ************************************************************************************************************************
 */
-RAW_U16 raw_enter_interrupt(void)
+RAW_OS_ERROR raw_enter_interrupt(void)
 {
 	RAW_SR_ALLOC();
 
@@ -216,7 +216,7 @@ RAW_TICK_TYPE  raw_system_time_get(void)
 }
 
 
-RAW_U16 block_state_post_process(RAW_TASK_OBJ  *task_ptr, RAW_VOID  **msg)
+RAW_OS_ERROR block_state_post_process(RAW_TASK_OBJ  *task_ptr, void  **msg)
 {
 	RAW_U8 state;
 	RAW_U16 error_status = 0;
@@ -280,7 +280,7 @@ RAW_U16 block_state_post_process(RAW_TASK_OBJ  *task_ptr, RAW_VOID  **msg)
 *             
 ************************************************************************************************************************
 */
-RAW_U16 raw_system_time_set(RAW_TICK_TYPE time)
+RAW_OS_ERROR raw_system_time_set(RAW_TICK_TYPE time)
 {
 	RAW_SR_ALLOC();
 
@@ -300,7 +300,7 @@ RAW_U16 raw_system_time_set(RAW_TICK_TYPE time)
 
 #if (CONFIG_SYSTEM_MEMOPT > 0)
 
-RAW_VOID *raw_memset(RAW_VOID *src, RAW_U8 byte, RAW_U32 count)
+void *raw_memset(void *src, RAW_U8 byte, RAW_U32 count)
 {
 	RAW_U8 *xs = src;
 
@@ -313,7 +313,7 @@ RAW_VOID *raw_memset(RAW_VOID *src, RAW_U8 byte, RAW_U32 count)
 }
 
 
-RAW_VOID *raw_memcpy(RAW_VOID *dest, const RAW_VOID *src, RAW_U32 count)
+void *raw_memcpy(void *dest, const void *src, RAW_U32 count)
 {
 	RAW_U8 *tmp = dest;
 	const RAW_U8 *s = src;

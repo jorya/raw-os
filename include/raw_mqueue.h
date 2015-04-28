@@ -31,26 +31,26 @@
 #define RAW_MQUEUE_H
 
 
-typedef  RAW_VOID    *(*USER_MALLOC)(RAW_U32 arg);
-typedef  RAW_VOID    (*USER_FREE)(RAW_VOID *arg);
+typedef  void    *(*USER_MALLOC)(RAW_U32 arg);
+typedef  void    (*USER_FREE)(void *arg);
 
 
 typedef struct RAW_MQUEUE_MSG {
 	RAW_U32          m_type;          
 	RAW_U32          m_ts;
-	RAW_VOID         *msg;
+	void         *msg;
 
 } RAW_MQUEUE_MSG;
 
 
 
-typedef struct RAW_MQUEUE { 
+typedef struct raw_mqueue { 
 	
 	RAW_COMMON_BLOCK_OBJECT           common_block_obj;
 	RAW_U32                           mq_curmsgs;
 	RAW_U32                           peak_numbers;  /* Peak number of entries in the queue */
 	RAW_U32                           mq_maxmsg;
-	RAW_VOID                          **messages;
+	void                          **messages;
 	USER_MALLOC                       malloc_fun;
 	USER_FREE                         free_fun;
 	
@@ -60,10 +60,10 @@ typedef struct RAW_MQUEUE {
 #define WAKE_ONE_MQUEUE            0x0
 
 
-RAW_U16 raw_mq_init(RAW_MQUEUE *mqueue, RAW_U8 *name_ptr, USER_MALLOC malloc_fun, USER_FREE free_fun, RAW_VOID **msg_start, RAW_U32 msg_size);
+RAW_U16 raw_mq_init(RAW_MQUEUE *mqueue, RAW_U8 *name_ptr, USER_MALLOC malloc_fun, USER_FREE free_fun, void **msg_start, RAW_U32 msg_size);
 
-RAW_U16 raw_mq_send(RAW_MQUEUE *mqueue, RAW_VOID *msg_ptr, RAW_U32 msg_len, RAW_U32 msg_prio);
-RAW_U16 raw_mq_receive (RAW_MQUEUE *p_q, RAW_VOID  **p_void, RAW_U32 *msg_len, RAW_U32 *msg_prio, RAW_TICK_TYPE wait_option);
+RAW_U16 raw_mq_send(RAW_MQUEUE *mqueue, void *msg_ptr, RAW_U32 msg_len, RAW_U32 msg_prio);
+RAW_U16 raw_mq_receive (RAW_MQUEUE *p_q, void  **p_void, RAW_U32 *msg_len, RAW_U32 *msg_prio, RAW_TICK_TYPE wait_option);
 
 #if (CONFIG_RAW_MQUEUE_FLUSH > 0)
 

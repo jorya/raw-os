@@ -230,7 +230,7 @@ void get_ready_task(RAW_RUN_QUEUE *rq)
 #endif
 
 
-static RAW_U16 pend_task_wake_up(RAW_TASK_OBJ *task_ptr)
+static void pend_task_wake_up(RAW_TASK_OBJ *task_ptr)
 {
 
 	/*wake up task depend on the different state of task*/
@@ -275,44 +275,33 @@ static RAW_U16 pend_task_wake_up(RAW_TASK_OBJ *task_ptr)
 
 	/*task is nothing blocked on so reset it to 0*/
 	task_ptr->block_obj = 0;
-	
-	return RAW_SUCCESS;
-
 
 }
 
 
-
-
-
-RAW_U16 raw_wake_object(RAW_TASK_OBJ *task_ptr)
+void raw_wake_object(RAW_TASK_OBJ *task_ptr)
 {
-	return pend_task_wake_up(task_ptr);	
+	pend_task_wake_up(task_ptr);	
 }
 
 
 
-RAW_U16 wake_send_msg(RAW_TASK_OBJ *task_ptr, RAW_VOID *msg)
+void wake_send_msg(RAW_TASK_OBJ *task_ptr, void *msg)
 {
-
 	task_ptr->msg = msg; 
-	
-	return pend_task_wake_up(task_ptr);																
+	pend_task_wake_up(task_ptr);																
 }
 
 
-RAW_U16 wake_send_msg_size(RAW_TASK_OBJ *task_ptr, RAW_VOID *msg, RAW_U32 msg_size)
+void wake_send_msg_size(RAW_TASK_OBJ *task_ptr, void *msg, RAW_U32 msg_size)
 {
-	
 	task_ptr->msg = msg; 
 	task_ptr->msg_size = msg_size;
-	
-	return pend_task_wake_up(task_ptr);
-												
+	pend_task_wake_up(task_ptr);												
 }
 
 
-RAW_U16 raw_pend_object(RAW_COMMON_BLOCK_OBJECT  *block_common_obj, RAW_TASK_OBJ *task_ptr, RAW_TICK_TYPE timeout)
+void raw_pend_object(RAW_COMMON_BLOCK_OBJECT  *block_common_obj, RAW_TASK_OBJ *task_ptr, RAW_TICK_TYPE timeout)
 {
 
 	/*timeout 0 should not happen here, it has been processed before*/
@@ -357,11 +346,10 @@ RAW_U16 raw_pend_object(RAW_COMMON_BLOCK_OBJECT  *block_common_obj, RAW_TASK_OBJ
 		
 	}
 	
-	return RAW_SUCCESS;
 }
 
 
-RAW_U16 delete_pend_obj(RAW_TASK_OBJ *task_ptr)																	
+void delete_pend_obj(RAW_TASK_OBJ *task_ptr)																	
 {
 	switch (task_ptr->task_state) {
 		case RAW_PEND:
@@ -397,8 +385,6 @@ RAW_U16 delete_pend_obj(RAW_TASK_OBJ *task_ptr)
 
 	/*task is nothing blocked on so reset it to 0*/
 	task_ptr->block_obj = 0;
-	
-	return RAW_SUCCESS;
 
 }
 
