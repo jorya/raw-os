@@ -30,15 +30,15 @@
 #ifndef RAW_TASK_SEM_H
 #define RAW_TASK_SEM_H
 
-RAW_U16 raw_task_semaphore_create(RAW_TASK_OBJ *task_obj, RAW_SEMAPHORE *semaphore_ptr, RAW_U8 *name_ptr, RAW_U32 initial_count); 
+RAW_OS_ERROR raw_task_semaphore_create(RAW_TASK_OBJ *task_obj, RAW_SEMAPHORE *semaphore_ptr, RAW_U8 *name_ptr, RAW_U32 initial_count); 
 
-RAW_U16 raw_task_semaphore_put(RAW_TASK_OBJ *task_obj);
+RAW_OS_ERROR raw_task_semaphore_put(RAW_TASK_OBJ *task_obj);
 
-RAW_U16 raw_task_semaphore_get(RAW_TICK_TYPE wait_option);
+RAW_OS_ERROR raw_task_semaphore_get(RAW_TICK_TYPE wait_option);
 
-RAW_U16 raw_task_semaphore_set(RAW_TASK_OBJ *task_obj, RAW_U32 sem_count);
+RAW_OS_ERROR raw_task_semaphore_set(RAW_TASK_OBJ *task_obj, RAW_U32 sem_count);
 
-RAW_U16 raw_task_semaphore_delete(RAW_TASK_OBJ *task_obj);
+RAW_OS_ERROR raw_task_semaphore_delete(RAW_TASK_OBJ *task_obj);
 
 #endif
 

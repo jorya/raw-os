@@ -55,21 +55,21 @@ typedef MSG_SIZE_TYPE           HEADER;
 #define ROUND_BUFFER_SIZE(sz)   (((sz) + (ROUND_SIZE - 1)) & ~(ROUND_SIZE - 1))
 
 
-RAW_U16 raw_queue_buffer_create(RAW_QUEUE_BUFFER *q_b, RAW_U8 *p_name, void *msg_buffer, MSG_SIZE_TYPE buffer_size, MSG_SIZE_TYPE max_msg_size);
-RAW_U16 queue_buffer_post(RAW_QUEUE_BUFFER *q_b, void *p_void, MSG_SIZE_TYPE msg_size, RAW_U8 opt_send_method);
-RAW_U16 raw_queue_buffer_end_post(RAW_QUEUE_BUFFER *q_b, void *p_void, MSG_SIZE_TYPE msg_size);
-RAW_U16 raw_queue_buffer_receive(RAW_QUEUE_BUFFER *q_b, RAW_TICK_TYPE wait_option, void *msg, MSG_SIZE_TYPE *receive_size);
+RAW_OS_ERROR raw_queue_buffer_create(RAW_QUEUE_BUFFER *q_b, RAW_U8 *p_name, void *msg_buffer, MSG_SIZE_TYPE buffer_size, MSG_SIZE_TYPE max_msg_size);
+RAW_OS_ERROR queue_buffer_post(RAW_QUEUE_BUFFER *q_b, void *p_void, MSG_SIZE_TYPE msg_size);
+RAW_OS_ERROR raw_queue_buffer_end_post(RAW_QUEUE_BUFFER *q_b, void *p_void, MSG_SIZE_TYPE msg_size);
+RAW_OS_ERROR raw_queue_buffer_receive(RAW_QUEUE_BUFFER *q_b, RAW_TICK_TYPE wait_option, void *msg, MSG_SIZE_TYPE *receive_size);
 
 #if (CONFIG_RAW_QUEUE_BUFFER_FLUSH > 0) 
-RAW_U16 raw_queue_buffer_flush(RAW_QUEUE_BUFFER  *q_b);
+RAW_OS_ERROR raw_queue_buffer_flush(RAW_QUEUE_BUFFER  *q_b);
 #endif
 
 #if (CONFIG_RAW_QUEUE_BUFFER_DELETE > 0)
-RAW_U16 raw_queue_buffer_delete(RAW_QUEUE_BUFFER *q_b);
+RAW_OS_ERROR raw_queue_buffer_delete(RAW_QUEUE_BUFFER *q_b);
 #endif
 
 #if (CONFIG_RAW_QUEUE_BUFFER_GET_INFORMATION > 0)
-RAW_U16 raw_queue_buffer_get_information(RAW_QUEUE_BUFFER  *q_b, RAW_U32 *queue_buffer_free_size, RAW_U32 *queue_buffer_size);
+RAW_OS_ERROR raw_queue_buffer_get_information(RAW_QUEUE_BUFFER  *q_b, RAW_U32 *queue_buffer_free_size, RAW_U32 *queue_buffer_size);
 #endif
 
 #endif

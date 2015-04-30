@@ -49,13 +49,13 @@ typedef struct raw_mutex
 	
 } RAW_MUTEX;
 
-RAW_U16 raw_mutex_create(RAW_MUTEX *mutex_ptr, RAW_U8 *name_ptr, RAW_U8 policy, RAW_U8 ceiling_prio);
+RAW_OS_ERROR raw_mutex_create(RAW_MUTEX *mutex_ptr, RAW_U8 *name_ptr, RAW_U8 policy, RAW_U8 ceiling_prio);
 
-RAW_U16 raw_mutex_get(RAW_MUTEX *mutex_ptr, RAW_TICK_TYPE wait_option);
-RAW_U16 raw_mutex_put(RAW_MUTEX *mutex_ptr);
+RAW_OS_ERROR raw_mutex_get(RAW_MUTEX *mutex_ptr, RAW_TICK_TYPE wait_option);
+RAW_OS_ERROR raw_mutex_put(RAW_MUTEX *mutex_ptr);
 
 #if (CONFIG_RAW_MUTEX_DELETE > 0)
-RAW_U16  raw_mutex_delete(RAW_MUTEX *mutex_ptr);
+RAW_OS_ERROR raw_mutex_delete(RAW_MUTEX *mutex_ptr);
 #endif
 
 

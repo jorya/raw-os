@@ -77,7 +77,7 @@ static void task_0_tick_handler(TASK_0_EVENT_TYPE ev, void *event_data)
 *             
 ************************************************************************************************************************
 */
-RAW_U16 task_0_tick_post(void)
+RAW_OS_ERROR task_0_tick_post(void)
 {
 	RAW_U16 ret;
 	
@@ -87,7 +87,7 @@ RAW_U16 task_0_tick_post(void)
 }
 
 
-static RAW_U16 task_0_post(EVENT_HANLDER *p, TASK_0_EVENT_TYPE ev, void *event_data, RAW_U8 opt_send_method)
+static RAW_OS_ERROR task_0_post(EVENT_HANLDER *p, TASK_0_EVENT_TYPE ev, void *event_data, RAW_U8 opt_send_method)
 {
 	RAW_U16 task_0_event_position;
 	RAW_SR_ALLOC();
@@ -169,7 +169,7 @@ static RAW_U16 task_0_post(EVENT_HANLDER *p, TASK_0_EVENT_TYPE ev, void *event_d
 *             
 ************************************************************************************************************************
 */
-RAW_U16 raw_task_0_post(EVENT_HANLDER *p, TASK_0_EVENT_TYPE ev, void *event_data)
+RAW_OS_ERROR raw_task_0_post(EVENT_HANLDER *p, TASK_0_EVENT_TYPE ev, void *event_data)
 {
 
 	return task_0_post(p, ev, event_data, SEND_TO_END);
@@ -194,7 +194,7 @@ RAW_U16 raw_task_0_post(EVENT_HANLDER *p, TASK_0_EVENT_TYPE ev, void *event_data
 *             
 ************************************************************************************************************************
 */
-RAW_U16 raw_task_0_front_post(EVENT_HANLDER *p, TASK_0_EVENT_TYPE ev, void *event_data)
+RAW_OS_ERROR raw_task_0_front_post(EVENT_HANLDER *p, TASK_0_EVENT_TYPE ev, void *event_data)
 {
 
 	return task_0_post(p, ev, event_data, SEND_TO_FRONT);
@@ -505,7 +505,7 @@ static void int_msg_init(void)
 
 
 
-RAW_U16 int_msg_post(RAW_U8 type, void *p_obj, void *p_void, MSG_SIZE_TYPE msg_size, RAW_U32 flags, RAW_U8 opt)
+RAW_OS_ERROR int_msg_post(RAW_U8 type, void *p_obj, void *p_void, MSG_SIZE_TYPE msg_size, RAW_U32 flags, RAW_U8 opt)
 {
 	void *msg_data;
 

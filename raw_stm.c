@@ -74,7 +74,7 @@ RAW_U16 hsm_top(void  *me, STATE_EVENT *e)
 *             
 ************************************************************************************************************************
 */
-RAW_U16 fsm_init(STM_STRUCT *me, STATE_EVENT *e) 
+void fsm_init(STM_STRUCT *me, STATE_EVENT *e) 
 {
     RAW_U16 ret;
 	
@@ -98,9 +98,6 @@ RAW_U16 fsm_init(STM_STRUCT *me, STATE_EVENT *e)
 
 	/*change to new state*/
     me->state = me->temp; 
-
-	return STM_SUCCESS;
-
    
 }
 

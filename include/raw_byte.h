@@ -56,11 +56,11 @@ typedef struct raw_byte_pool_struct
 #define  RAW_BYTE_BLOCK_MIN      20u
 #define  RAW_BYTE_POOL_MIN       100u
 
-RAW_U16 raw_byte_pool_create(RAW_BYTE_POOL_STRUCT *pool_ptr, RAW_U8 *name_ptr, void *pool_start, RAW_U32 pool_size);
+RAW_OS_ERROR raw_byte_pool_create(RAW_BYTE_POOL_STRUCT *pool_ptr, RAW_U8 *name_ptr, void *pool_start, RAW_U32 pool_size);
 
-RAW_U16 raw_byte_allocate(RAW_BYTE_POOL_STRUCT *pool_ptr, void **memory_ptr, RAW_U32 memory_size);
+RAW_OS_ERROR raw_byte_allocate(RAW_BYTE_POOL_STRUCT *pool_ptr, void **memory_ptr, RAW_U32 memory_size);
 
-RAW_U16 raw_byte_release(RAW_BYTE_POOL_STRUCT *pool_ptr, void  *memory_ptr);
+RAW_OS_ERROR raw_byte_release(RAW_BYTE_POOL_STRUCT *pool_ptr, void  *memory_ptr);
 
 
 #endif

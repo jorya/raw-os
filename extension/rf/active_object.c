@@ -38,7 +38,7 @@
 
 STATE_EVENT *active_event_get(ACTIVE_OBJECT_STRUCT *me) 
 {
-	RAW_U16 err;
+	RAW_OS_ERROR err;
 	STATE_EVENT *e;
 
 	err = raw_queue_receive (&me->active_queue, RAW_WAIT_FOREVER, (void  **)&e);
@@ -73,7 +73,7 @@ STATE_EVENT *active_event_get(ACTIVE_OBJECT_STRUCT *me)
 */
 void active_event_post_end(ACTIVE_OBJECT_STRUCT *me, STATE_EVENT *event)
 {
-	RAW_U16 ret;
+	RAW_OS_ERROR err;
 
 	RAW_SR_ALLOC();
 	
@@ -86,9 +86,9 @@ void active_event_post_end(ACTIVE_OBJECT_STRUCT *me, STATE_EVENT *event)
 
 	RAW_CPU_ENABLE();
 
-	ret = raw_queue_end_post(&me->active_queue, (void *)event);
+	err = raw_queue_end_post(&me->active_queue, (void *)event);
 
-	if (ret != RAW_SUCCESS) {
+	if (err != RAW_SUCCESS) {
 
 		RAW_ASSERT(0);
 
@@ -122,7 +122,7 @@ void active_event_post_end(ACTIVE_OBJECT_STRUCT *me, STATE_EVENT *event)
 void active_event_post_front(ACTIVE_OBJECT_STRUCT *me, STATE_EVENT *event)
 {
 
-	RAW_U16 ret;
+	RAW_OS_ERROR err;
 
 	RAW_SR_ALLOC();
 
@@ -134,9 +134,9 @@ void active_event_post_front(ACTIVE_OBJECT_STRUCT *me, STATE_EVENT *event)
 
 	RAW_CPU_ENABLE();
 
-	ret = raw_queue_front_post(&me->active_queue, (void *)event);
+	err = raw_queue_front_post(&me->active_queue, (void *)event);
 
-	if (ret != RAW_SUCCESS) {
+	if (err != RAW_SUCCESS) {
 
 		RAW_ASSERT(0);
 
@@ -151,7 +151,7 @@ void active_event_post_front(ACTIVE_OBJECT_STRUCT *me, STATE_EVENT *event)
 static void active_task_function(void *pdata) 
 {       
 	STATE_EVENT *e;
-	RAW_U16 ret;
+	RAW_OS_ERROR err;
 
 	ACTIVE_OBJECT_STRUCT *object = pdata;
 
@@ -167,9 +167,9 @@ static void active_task_function(void *pdata)
 	}
 
 
-	ret = raw_task_delete(raw_task_identify());
+	err = raw_task_delete(raw_task_identify());
 
-	if (ret != RAW_SUCCESS) {
+	if (err != RAW_SUCCESS) {
 
 		RAW_ASSERT(0);
 
@@ -210,7 +210,7 @@ void active_object_create(ACTIVE_OBJECT_STRUCT *me, RAW_U8 prio,
                    void *stkSto, RAW_U32 stkSize,
                    STATE_EVENT *event)
 {
-	RAW_U16 err;
+	RAW_OS_ERROR err;
 
 	err = raw_queue_create(&me->active_queue, (RAW_U8 *)"queue", msg_start, qLen);
 
@@ -258,7 +258,7 @@ void active_object_create(ACTIVE_OBJECT_STRUCT *me, RAW_U8 prio,
 */
 void active_object_delete(ACTIVE_OBJECT_STRUCT *me)
 {
-	RAW_U16 err;
+	RAW_OS_ERROR err;
 	me->user_data = 0;                        
 	err = raw_queue_delete(&me->active_queue);
 
@@ -289,11 +289,11 @@ void active_object_delete(ACTIVE_OBJECT_STRUCT *me)
 */
 void active_event_defer_post(RAW_QUEUE *q, STATE_EVENT *event)
 {
-	RAW_U16 ret;
+	RAW_OS_ERROR err;
 
-	ret = raw_queue_end_post(q, (void *)event);
+	err = raw_queue_end_post(q, (void *)event);
 
-	if (ret != RAW_SUCCESS) {
+	if (err != RAW_SUCCESS) {
 
 		RAW_ASSERT(0);
 

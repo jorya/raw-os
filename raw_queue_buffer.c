@@ -71,7 +71,7 @@ RAW_INLINE RAW_BOOLEAN is_buffer_empty(RAW_QUEUE_BUFFER *q_b)
 *             
 ************************************************************************************************************************
 */
-RAW_U16 raw_queue_buffer_create(RAW_QUEUE_BUFFER *q_b, RAW_U8 *p_name, void *msg_buffer, MSG_SIZE_TYPE buffer_size, MSG_SIZE_TYPE max_msg_size)
+RAW_OS_ERROR raw_queue_buffer_create(RAW_QUEUE_BUFFER *q_b, RAW_U8 *p_name, void *msg_buffer, MSG_SIZE_TYPE buffer_size, MSG_SIZE_TYPE max_msg_size)
 {
 	MSG_SIZE_TYPE bufsz;
 	RAW_U8        queue_buffer_align_mask;
@@ -199,7 +199,7 @@ static RAW_U32 buffer_to_msg(RAW_QUEUE_BUFFER *q_b, void *msg)
 	return actsz;
 }
 
-RAW_U16 queue_buffer_post(RAW_QUEUE_BUFFER *q_b, void *p_void, MSG_SIZE_TYPE msg_size, RAW_U8 opt_send_method)
+RAW_OS_ERROR queue_buffer_post(RAW_QUEUE_BUFFER *q_b, void *p_void, MSG_SIZE_TYPE msg_size)
 {
 
 	LIST *block_list_head;
@@ -221,7 +221,7 @@ RAW_U16 queue_buffer_post(RAW_QUEUE_BUFFER *q_b, void *p_void, MSG_SIZE_TYPE msg
 
 		RAW_CRITICAL_EXIT();
 
-		TRACE_QUEUE_BUFFER_MAX(raw_task_active, q_b, p_void, msg_size, opt_send_method); 
+		TRACE_QUEUE_BUFFER_MAX(raw_task_active, q_b, p_void, msg_size); 
 		
 		return RAW_QUEUE_BUFFER_FULL;
 	}
@@ -229,19 +229,12 @@ RAW_U16 queue_buffer_post(RAW_QUEUE_BUFFER *q_b, void *p_void, MSG_SIZE_TYPE msg
 
 	/*Queue buffer is not full here, if there is no blocked receive task*/
 	if (is_list_empty(block_list_head)) {        
-
-		if (opt_send_method == SEND_TO_END)  { 
-			msg_to_end_buffer(q_b, p_void, msg_size);
-		}
-
-		else {
-
-
-		}
+ 
+		msg_to_end_buffer(q_b, p_void, msg_size);
 		
 		RAW_CRITICAL_EXIT();
 
-		TRACE_QUEUE_BUFFER_POST(raw_task_active, q_b, p_void, msg_size, opt_send_method);
+		TRACE_QUEUE_BUFFER_POST(raw_task_active, q_b, p_void, msg_size);
 		
 		return RAW_SUCCESS;
 	}
@@ -255,7 +248,7 @@ RAW_U16 queue_buffer_post(RAW_QUEUE_BUFFER *q_b, void *p_void, MSG_SIZE_TYPE msg
 		
 	RAW_CRITICAL_EXIT();
 
-	TRACE_QUEUE_BUFFER_WAKE_TASK(raw_task_active, raw_list_entry(block_list_head->next, RAW_TASK_OBJ, task_list), p_void, msg_size, opt_send_method);
+	TRACE_QUEUE_BUFFER_WAKE_TASK(raw_task_active, raw_list_entry(block_list_head->next, RAW_TASK_OBJ, task_list), p_void, msg_size);
 
 	raw_sched();    
 	return RAW_SUCCESS;
@@ -290,7 +283,7 @@ RAW_U16 queue_buffer_post(RAW_QUEUE_BUFFER *q_b, void *p_void, MSG_SIZE_TYPE msg
 *             
 ************************************************************************************************************************
 */
-RAW_U16 raw_queue_buffer_end_post(RAW_QUEUE_BUFFER *q_b, void *p_void, MSG_SIZE_TYPE msg_size)
+RAW_OS_ERROR raw_queue_buffer_end_post(RAW_QUEUE_BUFFER *q_b, void *p_void, MSG_SIZE_TYPE msg_size)
 {
 
 
@@ -324,7 +317,7 @@ RAW_U16 raw_queue_buffer_end_post(RAW_QUEUE_BUFFER *q_b, void *p_void, MSG_SIZE_
 	
 	#endif
 
-	return queue_buffer_post(q_b, p_void, msg_size, SEND_TO_END);
+	return queue_buffer_post(q_b, p_void, msg_size);
 
 }
 
@@ -362,7 +355,7 @@ RAW_U16 raw_queue_buffer_end_post(RAW_QUEUE_BUFFER *q_b, void *p_void, MSG_SIZE_
 *             
 ************************************************************************************************************************
 */
-RAW_U16 raw_queue_buffer_receive(RAW_QUEUE_BUFFER *q_b, RAW_TICK_TYPE wait_option, void *msg, MSG_SIZE_TYPE *receive_size)
+RAW_OS_ERROR raw_queue_buffer_receive(RAW_QUEUE_BUFFER *q_b, RAW_TICK_TYPE wait_option, void *msg, MSG_SIZE_TYPE *receive_size)
 {
 	RAW_U16 result;
 	
@@ -461,7 +454,7 @@ RAW_U16 raw_queue_buffer_receive(RAW_QUEUE_BUFFER *q_b, RAW_TICK_TYPE wait_optio
 */
 #if (CONFIG_RAW_QUEUE_BUFFER_FLUSH > 0) 
 
-RAW_U16 raw_queue_buffer_flush(RAW_QUEUE_BUFFER  *q_b)
+RAW_OS_ERROR raw_queue_buffer_flush(RAW_QUEUE_BUFFER  *q_b)
 {
 
 	RAW_SR_ALLOC();
@@ -521,7 +514,7 @@ RAW_U16 raw_queue_buffer_flush(RAW_QUEUE_BUFFER  *q_b)
 */
 #if (CONFIG_RAW_QUEUE_BUFFER_DELETE > 0)
 
-RAW_U16 raw_queue_buffer_delete(RAW_QUEUE_BUFFER *q_b)
+RAW_OS_ERROR raw_queue_buffer_delete(RAW_QUEUE_BUFFER *q_b)
 {
 	LIST  *block_list_head;
 	
@@ -592,7 +585,7 @@ RAW_U16 raw_queue_buffer_delete(RAW_QUEUE_BUFFER *q_b)
 */
 #if (CONFIG_RAW_QUEUE_BUFFER_GET_INFORMATION > 0)
 
-RAW_U16 raw_queue_buffer_get_information(RAW_QUEUE_BUFFER  *q_b, RAW_U32 *queue_buffer_free_size, RAW_U32 *queue_buffer_size)
+RAW_OS_ERROR raw_queue_buffer_get_information(RAW_QUEUE_BUFFER  *q_b, RAW_U32 *queue_buffer_free_size, RAW_U32 *queue_buffer_size)
 {
 	RAW_SR_ALLOC();
 	

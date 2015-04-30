@@ -60,26 +60,26 @@ typedef struct raw_mqueue {
 #define WAKE_ONE_MQUEUE            0x0
 
 
-RAW_U16 raw_mq_init(RAW_MQUEUE *mqueue, RAW_U8 *name_ptr, USER_MALLOC malloc_fun, USER_FREE free_fun, void **msg_start, RAW_U32 msg_size);
+RAW_OS_ERROR raw_mq_init(RAW_MQUEUE *mqueue, RAW_U8 *name_ptr, USER_MALLOC malloc_fun, USER_FREE free_fun, void **msg_start, RAW_U32 msg_size);
 
-RAW_U16 raw_mq_send(RAW_MQUEUE *mqueue, void *msg_ptr, RAW_U32 msg_len, RAW_U32 msg_prio);
-RAW_U16 raw_mq_receive (RAW_MQUEUE *p_q, void  **p_void, RAW_U32 *msg_len, RAW_U32 *msg_prio, RAW_TICK_TYPE wait_option);
+RAW_OS_ERROR raw_mq_send(RAW_MQUEUE *mqueue, void *msg_ptr, RAW_U32 msg_len, RAW_U32 msg_prio);
+RAW_OS_ERROR raw_mq_receive (RAW_MQUEUE *p_q, void  **p_void, RAW_U32 *msg_len, RAW_U32 *msg_prio, RAW_TICK_TYPE wait_option);
 
 #if (CONFIG_RAW_MQUEUE_FLUSH > 0)
 
-RAW_U16 raw_mqueue_flush(RAW_MQUEUE  *p_q);
+RAW_OS_ERROR raw_mqueue_flush(RAW_MQUEUE  *p_q);
 
 #endif
 
 #if (CONFIG_RAW_MQUEUE_DELETE > 0)
 
-RAW_U16 raw_mqueue_delete(RAW_MQUEUE *p_q);
+RAW_OS_ERROR raw_mqueue_delete(RAW_MQUEUE *p_q);
 
 #endif
 
 #if (CONFIG_RAW_MQUEUE_GET_INFORMATION > 0)
 
-RAW_U16 raw_mqueue_get_information(RAW_MQUEUE *p_q, RAW_U32 *queue_peak_msg_size, RAW_U32 *mq_curmsgs, RAW_U32 *mq_maxmsg);
+RAW_OS_ERROR raw_mqueue_get_information(RAW_MQUEUE *p_q, RAW_U32 *queue_peak_msg_size, RAW_U32 *mq_curmsgs, RAW_U32 *mq_maxmsg);
 										 
 #endif
 

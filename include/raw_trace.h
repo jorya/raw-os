@@ -128,11 +128,11 @@ void _trace_queue_size_delete(RAW_TASK_OBJ *task_obj, RAW_QUEUE_SIZE *queue_size
 
 void _trace_queue_buffer_create(RAW_TASK_OBJ *task_obj, RAW_QUEUE_BUFFER *queue_buffer_obj);
 
-void _trace_buffer_max(RAW_TASK_OBJ *task_obj, RAW_QUEUE_BUFFER *queue_buffer_obj, void *p_void, MSG_SIZE_TYPE msg_size, RAW_U8 opt_send_method);
+void _trace_buffer_max(RAW_TASK_OBJ *task_obj, RAW_QUEUE_BUFFER *queue_buffer_obj, void *p_void, MSG_SIZE_TYPE msg_size);
 
-void _trace_buffer_post(RAW_TASK_OBJ *task_obj, RAW_QUEUE_BUFFER *queue_buffer_obj, void *p_void, MSG_SIZE_TYPE msg_size, RAW_U8 opt_send_method);
+void _trace_buffer_post(RAW_TASK_OBJ *task_obj, RAW_QUEUE_BUFFER *queue_buffer_obj, void *p_void, MSG_SIZE_TYPE msg_size);
 
-void _trace_queue_buffer_wake_task(RAW_TASK_OBJ *task_obj, RAW_TASK_OBJ *task_waked_up, void *p_void, MSG_SIZE_TYPE msg_size, RAW_U8 opt_send_method);
+void _trace_queue_buffer_wake_task(RAW_TASK_OBJ *task_obj, RAW_TASK_OBJ *task_waked_up, void *p_void, MSG_SIZE_TYPE msg_size);
 
 void _trace_queue_buffer_get_block(RAW_TASK_OBJ *task_obj, RAW_QUEUE_BUFFER *queue_buffer_obj, RAW_TICK_TYPE wait_option);
 
@@ -253,11 +253,11 @@ void _trace_int_msg_handle_error(TASK_0_EVENT_TYPE ev, RAW_U16 int_msg_ret);
 
 #define TRACE_QUEUE_BUFFER_CREATE(task_obj, queue_buffer_obj) _trace_queue_buffer_create(task_obj, queue_buffer_obj)
 
-#define TRACE_QUEUE_BUFFER_MAX(task_obj, queue_buffer_obj, msg, msg_size, opt_send_method) _trace_buffer_max(task_obj, queue_buffer_obj, msg, msg_size, opt_send_method)
+#define TRACE_QUEUE_BUFFER_MAX(task_obj, queue_buffer_obj, msg, msg_size) _trace_buffer_max(task_obj, queue_buffer_obj, msg, msg_size)
 
-#define TRACE_QUEUE_BUFFER_POST(task_obj, queue_buffer_obj, msg, msg_size, opt_send_method) _trace_buffer_post(task_obj, queue_buffer_obj, msg, msg_size, opt_send_method)
+#define TRACE_QUEUE_BUFFER_POST(task_obj, queue_buffer_obj, msg, msg_size) _trace_buffer_post(task_obj, queue_buffer_obj, msg, msg_size)
 
-#define TRACE_QUEUE_BUFFER_WAKE_TASK(task_obj, task_waked_up, p_void, msg_size, opt_send_method) _trace_queue_buffer_wake_task(task_obj, task_waked_up, p_void, msg_size, opt_send_method)
+#define TRACE_QUEUE_BUFFER_WAKE_TASK(task_obj, task_waked_up, p_void, msg_size) _trace_queue_buffer_wake_task(task_obj, task_waked_up, p_void, msg_size)
 
 #define TRACE_QUEUE_BUFFER_GET_BLOCK(task, queue_buffer_obj, wait_option) _trace_queue_buffer_get_block(task, queue_buffer_obj, wait_option)
 
@@ -379,11 +379,11 @@ void _trace_int_msg_handle_error(TASK_0_EVENT_TYPE ev, RAW_U16 int_msg_ret);
 
 #define TRACE_QUEUE_BUFFER_CREATE(task_obj, queue_buffer_obj)
 
-#define TRACE_QUEUE_BUFFER_MAX(task_obj, queue_buffer_obj, msg, msg_size, opt_send_method)
+#define TRACE_QUEUE_BUFFER_MAX(task_obj, queue_buffer_obj, msg, msg_size)
 
-#define TRACE_QUEUE_BUFFER_POST(task_obj, queue_buffer_obj, msg, msg_size, opt_send_method)
+#define TRACE_QUEUE_BUFFER_POST(task_obj, queue_buffer_obj, msg, msg_size)
 
-#define TRACE_QUEUE_BUFFER_WAKE_TASK(task_obj, task_waked_up, p_void, msg_size, opt_send_method)
+#define TRACE_QUEUE_BUFFER_WAKE_TASK(task_obj, task_waked_up, p_void, msg_size)
 
 #define TRACE_QUEUE_BUFFER_GET_BLOCK(task, queue_obj, wait_option)
 

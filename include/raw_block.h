@@ -44,9 +44,9 @@ typedef struct mem_pool
 } MEM_POOL;
 
 
-RAW_U16  raw_block_pool_create(MEM_POOL *pool_ptr, RAW_U8  *name_ptr, RAW_U32  block_size, void  *pool_start, RAW_U32  pool_size);
-RAW_U16 raw_block_allocate(MEM_POOL *pool_ptr, void **block_ptr);
-RAW_U16 raw_block_release(MEM_POOL *pool_ptr, void *block_ptr);
+RAW_OS_ERROR raw_block_pool_create(MEM_POOL *pool_ptr, RAW_U8  *name_ptr, RAW_U32  block_size, void  *pool_start, RAW_U32  pool_size);
+RAW_OS_ERROR raw_block_allocate(MEM_POOL *pool_ptr, void **block_ptr);
+RAW_OS_ERROR raw_block_release(MEM_POOL *pool_ptr, void *block_ptr);
 
 
 #endif

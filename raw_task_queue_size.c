@@ -51,7 +51,7 @@
 *             
 ************************************************************************************************************************
 */
-RAW_U16 raw_task_qsize_create(RAW_TASK_OBJ *task_obj, RAW_QUEUE_SIZE *queue_size_obj, RAW_U8 *p_name, RAW_MSG_SIZE *msg_start, RAW_U32 number)
+RAW_OS_ERROR raw_task_qsize_create(RAW_TASK_OBJ *task_obj, RAW_QUEUE_SIZE *queue_size_obj, RAW_U8 *p_name, RAW_MSG_SIZE *msg_start, RAW_U32 number)
 {
 	
 	task_obj->task_queue_size_obj = queue_size_obj;
@@ -93,7 +93,7 @@ RAW_U16 raw_task_qsize_create(RAW_TASK_OBJ *task_obj, RAW_QUEUE_SIZE *queue_size
 ************************************************************************************************************************
 */
 
-RAW_U16 raw_task_qsize_receive (RAW_TICK_TYPE wait_option, void  **msg_ptr, RAW_U32 *receive_size)
+RAW_OS_ERROR raw_task_qsize_receive (RAW_TICK_TYPE wait_option, void  **msg_ptr, RAW_U32 *receive_size)
 {
 
 	return raw_queue_size_receive (raw_task_active->task_queue_size_obj, wait_option, msg_ptr, receive_size);
@@ -122,7 +122,7 @@ RAW_U16 raw_task_qsize_receive (RAW_TICK_TYPE wait_option, void  **msg_ptr, RAW_
 *             
 ************************************************************************************************************************
 */
-RAW_U16 raw_task_qsize_front_post(RAW_TASK_OBJ *task_obj, void  *p_void, RAW_U32 size)
+RAW_OS_ERROR raw_task_qsize_front_post(RAW_TASK_OBJ *task_obj, void  *p_void, RAW_U32 size)
 {
 
 	return raw_queue_size_front_post(task_obj->task_queue_size_obj, p_void, size);
@@ -159,7 +159,7 @@ RAW_U16 raw_task_qsize_front_post(RAW_TASK_OBJ *task_obj, void  *p_void, RAW_U32
 *             
 ************************************************************************************************************************
 */
-RAW_U16 raw_task_qsize_end_post(RAW_TASK_OBJ *task_obj, void  *p_void, RAW_U32 size)
+RAW_OS_ERROR raw_task_qsize_end_post(RAW_TASK_OBJ *task_obj, void  *p_void, RAW_U32 size)
 {
 
 	return raw_queue_size_end_post(task_obj->task_queue_size_obj, p_void, size);
@@ -184,7 +184,7 @@ RAW_U16 raw_task_qsize_end_post(RAW_TASK_OBJ *task_obj, void  *p_void, RAW_U32 s
 *             
 ************************************************************************************************************************
 */
-RAW_U16 raw_task_qsize_flush(RAW_TASK_OBJ *task_obj)
+RAW_OS_ERROR raw_task_qsize_flush(RAW_TASK_OBJ *task_obj)
 {
 
 	return raw_queue_size_flush(task_obj->task_queue_size_obj);
@@ -208,7 +208,7 @@ RAW_U16 raw_task_qsize_flush(RAW_TASK_OBJ *task_obj)
 *             
 ************************************************************************************************************************
 */
-RAW_U16 raw_task_qsize_delete(RAW_TASK_OBJ *task_obj)
+RAW_OS_ERROR raw_task_qsize_delete(RAW_TASK_OBJ *task_obj)
 {
 
 	return raw_queue_size_delete(task_obj->task_queue_size_obj);
@@ -234,7 +234,7 @@ RAW_U16 raw_task_qsize_delete(RAW_TASK_OBJ *task_obj)
 *             
 ************************************************************************************************************************
 */
-RAW_U16 raw_task_qsize_get_information(RAW_TASK_OBJ *task_obj, RAW_U32 *queue_free_msg_size, RAW_U32 *queue_peak_msg_size, RAW_U32 *queue_current_msg)
+RAW_OS_ERROR raw_task_qsize_get_information(RAW_TASK_OBJ *task_obj, RAW_U32 *queue_free_msg_size, RAW_U32 *queue_peak_msg_size, RAW_U32 *queue_current_msg)
 {
 
 	return raw_queue_size_get_information(task_obj->task_queue_size_obj, queue_free_msg_size, queue_peak_msg_size, queue_current_msg);

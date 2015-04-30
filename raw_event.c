@@ -48,7 +48,7 @@
 *             
 ************************************************************************************************************************
 */
-RAW_U16 raw_event_create(RAW_EVENT *event_ptr, RAW_U8 *name_ptr, RAW_U32 flags_init)
+RAW_OS_ERROR raw_event_create(RAW_EVENT *event_ptr, RAW_U8 *name_ptr, RAW_U32 flags_init)
 {
 	
 	#if (RAW_EVENT_FUNCTION_CHECK > 0)
@@ -120,7 +120,7 @@ RAW_U16 raw_event_create(RAW_EVENT *event_ptr, RAW_U8 *name_ptr, RAW_U32 flags_i
 *             
 ************************************************************************************************************************
 */
-RAW_U16 raw_event_get(RAW_EVENT *event_ptr, RAW_U32 requested_flags, RAW_U8 get_option, RAW_U32 *actual_flags_ptr, RAW_TICK_TYPE wait_option)
+RAW_OS_ERROR raw_event_get(RAW_EVENT *event_ptr, RAW_U32 requested_flags, RAW_U8 get_option, RAW_U32 *actual_flags_ptr, RAW_TICK_TYPE wait_option)
 {
    	RAW_U16 error_status;
    
@@ -233,7 +233,7 @@ RAW_U16 raw_event_get(RAW_EVENT *event_ptr, RAW_U32 requested_flags, RAW_U8 get_
 
 
 
-RAW_U16 event_set(RAW_EVENT *event_ptr, RAW_U32 flags_to_set, RAW_U8 set_option)
+RAW_OS_ERROR event_set(RAW_EVENT *event_ptr, RAW_U32 flags_to_set, RAW_U8 set_option)
 {
 
 	LIST *iter;
@@ -373,7 +373,7 @@ RAW_U16 event_set(RAW_EVENT *event_ptr, RAW_U32 flags_to_set, RAW_U8 set_option)
 *             
 ************************************************************************************************************************
 */
-RAW_U16 raw_event_set(RAW_EVENT *event_ptr, RAW_U32 flags_to_set, RAW_U8 set_option)
+RAW_OS_ERROR raw_event_set(RAW_EVENT *event_ptr, RAW_U32 flags_to_set, RAW_U8 set_option)
 {
 
 	#if (RAW_EVENT_FUNCTION_CHECK > 0)
@@ -426,7 +426,7 @@ RAW_U16 raw_event_set(RAW_EVENT *event_ptr, RAW_U32 flags_to_set, RAW_U8 set_opt
 ************************************************************************************************************************
 */
 #if (CONFIG_RAW_EVENT_DELETE > 0)
-RAW_U16 raw_event_delete(RAW_EVENT *event_ptr)
+RAW_OS_ERROR raw_event_delete(RAW_EVENT *event_ptr)
 {
 	LIST *block_list_head;
 

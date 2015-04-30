@@ -50,7 +50,7 @@
 */
 #if (CONFIG_RAW_SEMAPHORE > 0)
 
-RAW_U16 raw_semaphore_create(RAW_SEMAPHORE *semaphore_ptr, RAW_U8 *name_ptr, RAW_U32 initial_count)
+RAW_OS_ERROR raw_semaphore_create(RAW_SEMAPHORE *semaphore_ptr, RAW_U8 *name_ptr, RAW_U32 initial_count)
 {
 	
 	
@@ -89,7 +89,7 @@ RAW_U16 raw_semaphore_create(RAW_SEMAPHORE *semaphore_ptr, RAW_U8 *name_ptr, RAW
 }
 
 
-RAW_U16 semaphore_put(RAW_SEMAPHORE *semaphore_ptr, RAW_U8 opt_wake_all)
+RAW_OS_ERROR semaphore_put(RAW_SEMAPHORE *semaphore_ptr, RAW_U8 opt_wake_all)
 {
 	LIST *block_list_head;
 	
@@ -182,7 +182,7 @@ RAW_U16 semaphore_put(RAW_SEMAPHORE *semaphore_ptr, RAW_U8 opt_wake_all)
 *             
 ************************************************************************************************************************
 */
-RAW_U16 raw_semaphore_put(RAW_SEMAPHORE *semaphore_ptr)
+RAW_OS_ERROR raw_semaphore_put(RAW_SEMAPHORE *semaphore_ptr)
 {
 
 	#if (RAW_SEMA_FUNCTION_CHECK > 0)
@@ -223,7 +223,7 @@ RAW_U16 raw_semaphore_put(RAW_SEMAPHORE *semaphore_ptr)
 *             
 ************************************************************************************************************************
 */
-RAW_U16 raw_semaphore_put_notify(RAW_SEMAPHORE *semaphore_ptr)
+RAW_OS_ERROR raw_semaphore_put_notify(RAW_SEMAPHORE *semaphore_ptr)
 {
 
 	#if (RAW_SEMA_FUNCTION_CHECK > 0)
@@ -265,7 +265,7 @@ RAW_U16 raw_semaphore_put_notify(RAW_SEMAPHORE *semaphore_ptr)
 *             
 ************************************************************************************************************************
 */
-RAW_U16 raw_semaphore_put_all(RAW_SEMAPHORE *semaphore_ptr)
+RAW_OS_ERROR raw_semaphore_put_all(RAW_SEMAPHORE *semaphore_ptr)
 {
 
 	#if (RAW_SEMA_FUNCTION_CHECK > 0)
@@ -312,7 +312,7 @@ RAW_U16 raw_semaphore_put_all(RAW_SEMAPHORE *semaphore_ptr)
 *             
 ************************************************************************************************************************
 */
-RAW_U16 raw_semphore_send_notify(RAW_SEMAPHORE *semaphore_ptr, SEMPHORE_SEND_NOTIFY notify_function)
+RAW_OS_ERROR raw_semphore_send_notify(RAW_SEMAPHORE *semaphore_ptr, SEMPHORE_SEND_NOTIFY notify_function)
 {
 	RAW_SR_ALLOC();
 	
@@ -373,7 +373,7 @@ RAW_U16 raw_semphore_send_notify(RAW_SEMAPHORE *semaphore_ptr, SEMPHORE_SEND_NOT
 *             
 ************************************************************************************************************************
 */
-RAW_U16 raw_semaphore_get(RAW_SEMAPHORE *semaphore_ptr, RAW_TICK_TYPE wait_option)
+RAW_OS_ERROR raw_semaphore_get(RAW_SEMAPHORE *semaphore_ptr, RAW_TICK_TYPE wait_option)
 {
 
 	RAW_U16 error_status;
@@ -456,7 +456,7 @@ RAW_U16 raw_semaphore_get(RAW_SEMAPHORE *semaphore_ptr, RAW_TICK_TYPE wait_optio
 */
 #if (CONFIG_RAW_SEMAPHORE_SET > 0)
 
-RAW_U16 raw_semaphore_set(RAW_SEMAPHORE *semaphore_ptr,  RAW_U32 sem_count)
+RAW_OS_ERROR raw_semaphore_set(RAW_SEMAPHORE *semaphore_ptr,  RAW_U32 sem_count)
 {
 	LIST *block_list_head;
 	
@@ -532,7 +532,7 @@ RAW_U16 raw_semaphore_set(RAW_SEMAPHORE *semaphore_ptr,  RAW_U32 sem_count)
 ************************************************************************************************************************
 */
 #if (CONFIG_RAW_SEMAPHORE_DELETE > 0)
-RAW_U16 raw_semaphore_delete(RAW_SEMAPHORE *semaphore_ptr)
+RAW_OS_ERROR raw_semaphore_delete(RAW_SEMAPHORE *semaphore_ptr)
 {
 	LIST *block_list_head;
 	

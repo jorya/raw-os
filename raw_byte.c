@@ -54,7 +54,7 @@
 *             
 ************************************************************************************************************************
 */
-RAW_U16 raw_byte_pool_create(RAW_BYTE_POOL_STRUCT *pool_ptr, RAW_U8 *name_ptr, void *pool_start, RAW_U32 pool_size)
+RAW_OS_ERROR raw_byte_pool_create(RAW_BYTE_POOL_STRUCT *pool_ptr, RAW_U8 *name_ptr, void *pool_start, RAW_U32 pool_size)
 {
 
 	RAW_U8  *block_ptr;                  /* Working block pointer       */
@@ -314,7 +314,7 @@ static void *raw_byte_pool_search(RAW_BYTE_POOL_STRUCT *pool_ptr, RAW_U32 memory
 *             
 ************************************************************************************************************************
 */
-RAW_U16 raw_byte_allocate(RAW_BYTE_POOL_STRUCT *pool_ptr, void **memory_ptr, RAW_U32 memory_size)
+RAW_OS_ERROR raw_byte_allocate(RAW_BYTE_POOL_STRUCT *pool_ptr, void **memory_ptr, RAW_U32 memory_size)
 {
 
 	RAW_U16        status;                 /* Return status              */
@@ -415,7 +415,7 @@ RAW_U16 raw_byte_allocate(RAW_BYTE_POOL_STRUCT *pool_ptr, void **memory_ptr, RAW
 *             
 ************************************************************************************************************************
 */
-RAW_U16  raw_byte_release(RAW_BYTE_POOL_STRUCT *pool_ptr, void *memory_ptr)
+RAW_OS_ERROR raw_byte_release(RAW_BYTE_POOL_STRUCT *pool_ptr, void *memory_ptr)
 {
 	RAW_U8  *work_ptr;           /* Working block pointer      */
 

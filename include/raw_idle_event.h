@@ -74,12 +74,12 @@ typedef struct active_event_struct_cb {
 #define  RAW_IDLE_LOWEST_PRIO 63u
 #define  RAW_IDLE_RDY_TBL_SIZE ((RAW_IDLE_LOWEST_PRIO) / 8u + 1u)
 
-void idle_event_init(void);
-RAW_U16 event_post(ACTIVE_EVENT_STRUCT *me, RAW_U16 sig, void *para, RAW_U8 opt_send_method);
-RAW_U16 idle_event_end_post(ACTIVE_EVENT_STRUCT *me, RAW_U16 sig, void *para);
-RAW_U16 idle_event_front_post(ACTIVE_EVENT_STRUCT *me, RAW_U16 sig, void *para);
-void idle_run(void); 
-void idle_event_user(void);
+void         idle_event_init(void);
+RAW_OS_ERROR event_post(ACTIVE_EVENT_STRUCT *me, RAW_U16 sig, void *para, RAW_U8 opt_send_method);
+RAW_OS_ERROR idle_event_end_post(ACTIVE_EVENT_STRUCT *me, RAW_U16 sig, void *para);
+RAW_OS_ERROR idle_event_front_post(ACTIVE_EVENT_STRUCT *me, RAW_U16 sig, void *para);
+void         idle_run(void); 
+void         idle_event_user(void);
 
 #endif
 

@@ -48,7 +48,7 @@
 *             
 ************************************************************************************************************************
 */
-RAW_U16 raw_mutex_create(RAW_MUTEX *mutex_ptr, RAW_U8 *name_ptr, RAW_U8 policy, RAW_U8 ceiling_prio)
+RAW_OS_ERROR raw_mutex_create(RAW_MUTEX *mutex_ptr, RAW_U8 *name_ptr, RAW_U8 policy, RAW_U8 ceiling_prio)
 {
 	
 	
@@ -362,7 +362,7 @@ void mutex_state_change(RAW_TASK_OBJ *tcb)
 *             
 ************************************************************************************************************************
 */
-RAW_U16 raw_mutex_get(RAW_MUTEX *mutex_ptr, RAW_TICK_TYPE wait_option)
+RAW_OS_ERROR raw_mutex_get(RAW_MUTEX *mutex_ptr, RAW_TICK_TYPE wait_option)
 
 {
 	RAW_U16 		error_status;
@@ -501,7 +501,7 @@ RAW_U16 raw_mutex_get(RAW_MUTEX *mutex_ptr, RAW_TICK_TYPE wait_option)
 *             
 ************************************************************************************************************************
 */
-RAW_U16 raw_mutex_put(RAW_MUTEX *mutex_ptr)
+RAW_OS_ERROR raw_mutex_put(RAW_MUTEX *mutex_ptr)
 {
 
 	LIST 				*block_list_head;
@@ -661,7 +661,7 @@ void raw_task_free_mutex(RAW_TASK_OBJ *tcb)
 */
 #if (CONFIG_RAW_MUTEX_DELETE > 0)
 
-RAW_U16 raw_mutex_delete(RAW_MUTEX *mutex_ptr)
+RAW_OS_ERROR raw_mutex_delete(RAW_MUTEX *mutex_ptr)
 {
 	LIST *block_list_head;
 	

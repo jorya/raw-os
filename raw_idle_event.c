@@ -64,7 +64,7 @@ void idle_event_init(void)
 }
 
 
-RAW_U16 event_post(ACTIVE_EVENT_STRUCT *me, RAW_U16 sig, void *para, RAW_U8 opt_send_method)
+RAW_OS_ERROR event_post(ACTIVE_EVENT_STRUCT *me, RAW_U16 sig, void *para, RAW_U8 opt_send_method)
 {
 
 	ACTIVE_EVENT_STRUCT_CB *acb;
@@ -148,7 +148,7 @@ RAW_U16 event_post(ACTIVE_EVENT_STRUCT *me, RAW_U16 sig, void *para, RAW_U8 opt_
 *             
 ************************************************************************************************************************
 */
-RAW_U16 idle_event_end_post(ACTIVE_EVENT_STRUCT *me, RAW_U16 sig, void *para)
+RAW_OS_ERROR idle_event_end_post(ACTIVE_EVENT_STRUCT *me, RAW_U16 sig, void *para)
 {
 
 	#if (CONFIG_RAW_ZERO_INTERRUPT > 0)
@@ -185,7 +185,7 @@ RAW_U16 idle_event_end_post(ACTIVE_EVENT_STRUCT *me, RAW_U16 sig, void *para)
 *             
 ************************************************************************************************************************
 */
-RAW_U16 idle_event_front_post(ACTIVE_EVENT_STRUCT *me, RAW_U16 sig, void *para)
+RAW_OS_ERROR idle_event_front_post(ACTIVE_EVENT_STRUCT *me, RAW_U16 sig, void *para)
 {
 
 	#if (CONFIG_RAW_ZERO_INTERRUPT > 0)

@@ -60,12 +60,11 @@ typedef struct object_int_msg {
 } OBJECT_INT_MSG;
 
 
-RAW_U16 task_0_tick_post(void);
-RAW_U16 raw_task_0_post(EVENT_HANLDER *p, TASK_0_EVENT_TYPE ev, void *event_data);
-RAW_U16 raw_task_0_front_post(EVENT_HANLDER *p, TASK_0_EVENT_TYPE ev, void *event_data);
+RAW_OS_ERROR task_0_tick_post(void);
+RAW_OS_ERROR raw_task_0_post(EVENT_HANLDER *p, TASK_0_EVENT_TYPE ev, void *event_data);
+RAW_OS_ERROR raw_task_0_front_post(EVENT_HANLDER *p, TASK_0_EVENT_TYPE ev, void *event_data);
 void raw_task_0_init(void);
-RAW_U16 int_msg_post(RAW_U8 type, void *p_obj, void *p_void, MSG_SIZE_TYPE msg_size, RAW_U32 flags, RAW_U8 opt);
-
+RAW_OS_ERROR int_msg_post(RAW_U8 type, void *p_obj, void *p_void, MSG_SIZE_TYPE msg_size, RAW_U32 flags, RAW_U8 opt);
 void hybrid_int_process(void);
 
 #endif

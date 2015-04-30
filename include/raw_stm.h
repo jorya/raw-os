@@ -125,7 +125,7 @@ RAW_U16 hsm_top(void  *me, STATE_EVENT *e);
 
 #define STM_EXIT(state)  STM_TRIG((state), STM_EXIT_SIG)
 
-RAW_U16 fsm_init(STM_STRUCT *me, STATE_EVENT *e); 
+void fsm_init(STM_STRUCT *me, STATE_EVENT *e); 
 void fsm_exceute(STM_STRUCT *me, STATE_EVENT *e); 
 
 void hsm_init(STM_STRUCT *me, STATE_EVENT *e);

@@ -29,19 +29,19 @@
 #ifndef RAW_TASK_QUEUE_SIZE_H
 #define RAW_TASK_QUEUE_SIZE_H
 
-RAW_U16 raw_task_qsize_create(RAW_TASK_OBJ *task_obj, RAW_QUEUE_SIZE *queue_size_obj, RAW_U8 *p_name, RAW_MSG_SIZE *msg_start, RAW_U32 number);
+RAW_OS_ERROR raw_task_qsize_create(RAW_TASK_OBJ *task_obj, RAW_QUEUE_SIZE *queue_size_obj, RAW_U8 *p_name, RAW_MSG_SIZE *msg_start, RAW_U32 number);
 
-RAW_U16 raw_task_qsize_receive (RAW_TICK_TYPE wait_option, void  **msg_ptr, RAW_U32 *receive_size);
+RAW_OS_ERROR raw_task_qsize_receive (RAW_TICK_TYPE wait_option, void  **msg_ptr, RAW_U32 *receive_size);
 
-RAW_U16 raw_task_qsize_front_post(RAW_TASK_OBJ *task_obj, void  *p_void, RAW_U32 size);
+RAW_OS_ERROR raw_task_qsize_front_post(RAW_TASK_OBJ *task_obj, void  *p_void, RAW_U32 size);
 
-RAW_U16 raw_task_qsize_end_post(RAW_TASK_OBJ *task_obj, void  *p_void, RAW_U32 size);
+RAW_OS_ERROR raw_task_qsize_end_post(RAW_TASK_OBJ *task_obj, void  *p_void, RAW_U32 size);
 
-RAW_U16 raw_task_qsize_flush(RAW_TASK_OBJ *task_obj);
+RAW_OS_ERROR raw_task_qsize_flush(RAW_TASK_OBJ *task_obj);
 
-RAW_U16 raw_task_qsize_delete(RAW_TASK_OBJ *task_obj);
+RAW_OS_ERROR raw_task_qsize_delete(RAW_TASK_OBJ *task_obj);
 
-RAW_U16 raw_task_qsize_get_information(RAW_TASK_OBJ *task_obj, RAW_U32 *queue_free_msg_size, RAW_U32 *queue_peak_msg_size, RAW_U32 *queue_current_msg);
+RAW_OS_ERROR raw_task_qsize_get_information(RAW_TASK_OBJ *task_obj, RAW_U32 *queue_free_msg_size, RAW_U32 *queue_peak_msg_size, RAW_U32 *queue_current_msg);
 
 #endif
 
