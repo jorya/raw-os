@@ -122,9 +122,9 @@ RAW_OS_ERROR raw_event_create(RAW_EVENT *event_ptr, RAW_U8 *name_ptr, RAW_U32 fl
 */
 RAW_OS_ERROR raw_event_get(RAW_EVENT *event_ptr, RAW_U32 requested_flags, RAW_U8 get_option, RAW_U32 *actual_flags_ptr, RAW_TICK_TYPE wait_option)
 {
-   	RAW_U16 error_status;
-   
+   	RAW_OS_ERROR error_status;
 	RAW_U8 status;
+	
 	RAW_SR_ALLOC();
 
 	#if (RAW_EVENT_FUNCTION_CHECK > 0)

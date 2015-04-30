@@ -450,7 +450,7 @@ RAW_OS_ERROR raw_enable_sche(void)
 
 RAW_OS_ERROR raw_sleep(RAW_TICK_TYPE dly) 
 {
-	RAW_U16 error_status;
+	RAW_OS_ERROR error_status;
 	
 	RAW_SR_ALLOC();
 
@@ -899,7 +899,7 @@ RAW_OS_ERROR change_internal_task_priority(RAW_TASK_OBJ *task_ptr, RAW_U8 new_pr
 RAW_OS_ERROR raw_task_priority_change (RAW_TASK_OBJ *task_ptr, RAW_U8 new_priority, RAW_U8 *old_priority)
 {
 	RAW_U8 ret_pri = 0;
-	RAW_U16 error;
+	RAW_OS_ERROR error;
 	
 	RAW_SR_ALLOC();
 

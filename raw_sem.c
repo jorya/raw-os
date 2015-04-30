@@ -376,7 +376,7 @@ RAW_OS_ERROR raw_semphore_send_notify(RAW_SEMAPHORE *semaphore_ptr, SEMPHORE_SEN
 RAW_OS_ERROR raw_semaphore_get(RAW_SEMAPHORE *semaphore_ptr, RAW_TICK_TYPE wait_option)
 {
 
-	RAW_U16 error_status;
+	RAW_OS_ERROR error_status;
 
 	RAW_SR_ALLOC();
 

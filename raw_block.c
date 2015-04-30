@@ -171,10 +171,9 @@ RAW_OS_ERROR raw_block_pool_create(MEM_POOL *pool_ptr, RAW_U8 *name_ptr, RAW_U32
 */
 RAW_OS_ERROR raw_block_allocate(MEM_POOL *pool_ptr, void **block_ptr)
 {
-	
-	RAW_U16				status; 							
 
-	RAW_U8		*work_ptr; 						
+	RAW_OS_ERROR	status; 							
+	RAW_U8		    *work_ptr; 						
 
 	RAW_SR_ALLOC();
 

@@ -514,8 +514,8 @@ RAW_OS_ERROR raw_queue_send_notify(RAW_QUEUE *p_q, QUEUE_SEND_NOTIFY notify_func
 RAW_OS_ERROR raw_queue_receive(RAW_QUEUE *p_q, RAW_TICK_TYPE wait_option, void **msg)
 {
 
-	void *pmsg;
-	RAW_U16 result;
+	void          *pmsg;
+	RAW_OS_ERROR  result;
 	
 	RAW_SR_ALLOC();
 
@@ -624,11 +624,11 @@ RAW_OS_ERROR raw_queue_receive(RAW_QUEUE *p_q, RAW_TICK_TYPE wait_option, void *
 *             
 ************************************************************************************************************************
 */
-RAW_OS_ERROR raw_queue_full_check(RAW_QUEUE *p_q)
+RAW_U16 raw_queue_full_check(RAW_QUEUE *p_q)
 {
 	RAW_SR_ALLOC();
 
-	RAW_U16 full_check_ret;
+	RAW_U16  full_check_ret;
 	
 	#if (RAW_QUEUE_FUNCTION_CHECK > 0)
 

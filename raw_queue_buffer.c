@@ -357,7 +357,7 @@ RAW_OS_ERROR raw_queue_buffer_end_post(RAW_QUEUE_BUFFER *q_b, void *p_void, MSG_
 */
 RAW_OS_ERROR raw_queue_buffer_receive(RAW_QUEUE_BUFFER *q_b, RAW_TICK_TYPE wait_option, void *msg, MSG_SIZE_TYPE *receive_size)
 {
-	RAW_U16 result;
+	RAW_OS_ERROR result;
 	
 	RAW_SR_ALLOC();
 

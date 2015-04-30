@@ -195,7 +195,7 @@ static RAW_OS_ERROR internal_raw_mq_send(RAW_MQUEUE *p_q, void *p_void, RAW_U32 
 */
 RAW_OS_ERROR raw_mq_send(RAW_MQUEUE *mqueue, void *msg_ptr, RAW_U32 msg_len, RAW_U32 msg_prio)
 {
-	RAW_U16 ret;
+	RAW_OS_ERROR ret;
 	
 	ret = internal_raw_mq_send(mqueue, msg_ptr, msg_len, msg_prio);
 	return ret;
@@ -240,7 +240,7 @@ RAW_OS_ERROR raw_mq_send(RAW_MQUEUE *mqueue, void *msg_ptr, RAW_U32 msg_len, RAW
 */
 RAW_OS_ERROR raw_mq_receive (RAW_MQUEUE *p_q,  void **p_void, RAW_U32 *msg_len, RAW_U32 *msg_prio, RAW_TICK_TYPE wait_option)
 {
-	RAW_U16 result;
+	RAW_OS_ERROR   result;
 	RAW_MQUEUE_MSG *msg_in;
 	
 	RAW_SR_ALLOC();

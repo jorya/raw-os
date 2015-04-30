@@ -109,7 +109,7 @@ RAW_OS_ERROR raw_mutex_create(RAW_MUTEX *mutex_ptr, RAW_U8 *name_ptr, RAW_U8 pol
  *	In this case, return E_ILUSE.
  *    3.Other than above, return the 'priority'.
  */
-RAW_U8 chg_pri_mutex(RAW_TASK_OBJ *tcb, RAW_U8 priority, RAW_U16 *error)
+RAW_U8 chg_pri_mutex(RAW_TASK_OBJ *tcb, RAW_U8 priority, RAW_OS_ERROR *error)
 {
 	RAW_MUTEX	*mtxcb;
 	RAW_U8	hi_pri, low_pri, pri;
@@ -365,7 +365,7 @@ void mutex_state_change(RAW_TASK_OBJ *tcb)
 RAW_OS_ERROR raw_mutex_get(RAW_MUTEX *mutex_ptr, RAW_TICK_TYPE wait_option)
 
 {
-	RAW_U16 		error_status;
+	RAW_OS_ERROR    error_status;
 	RAW_TASK_OBJ	*mtxtsk;
 	
 	RAW_SR_ALLOC();

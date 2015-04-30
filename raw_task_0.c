@@ -79,7 +79,7 @@ static void task_0_tick_handler(TASK_0_EVENT_TYPE ev, void *event_data)
 */
 RAW_OS_ERROR task_0_tick_post(void)
 {
-	RAW_U16 ret;
+	RAW_OS_ERROR ret;
 	
 	ret = raw_task_0_post(&task_0_event_handler, raw_task_active->priority, 0);
 	

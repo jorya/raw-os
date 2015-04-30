@@ -61,7 +61,7 @@ RAW_OS_ERROR  block_state_post_process(RAW_TASK_OBJ  *task_ptr, void  **msg);
 void     run_queue_init(RAW_RUN_QUEUE *rq);
 
 RAW_S32  bit_search_first_one(RAW_U32 *base, RAW_U8 offset,  RAW_S32 width);
-RAW_U8   chg_pri_mutex(RAW_TASK_OBJ *tcb, RAW_U8 priority, RAW_U16 *error);
+RAW_U8   chg_pri_mutex(RAW_TASK_OBJ *tcb, RAW_U8 priority, RAW_OS_ERROR *error);
 RAW_OS_ERROR  change_internal_task_priority(RAW_TASK_OBJ *task_ptr, RAW_U8 new_priority);
 
 void     mtx_chg_pri(RAW_TASK_OBJ *tcb, RAW_U8 oldpri);

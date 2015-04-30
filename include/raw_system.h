@@ -133,7 +133,7 @@ typedef enum raw_os_error
 
 
 
-enum raw_block_state
+typedef enum raw_block_state
 {
 	RAW_B_OK = 0,
 	RAW_B_ABORT,
@@ -169,7 +169,7 @@ typedef enum raw_int_msg_type{
 } RAW_INT_MSG_TYPE;
 
 
-enum raw_object_type
+typedef enum raw_object_type
 {
 
 	RAW_SEM_OBJ_TYPE = 0x11,

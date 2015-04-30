@@ -218,9 +218,8 @@ RAW_TICK_TYPE  raw_system_time_get(void)
 
 RAW_OS_ERROR block_state_post_process(RAW_TASK_OBJ  *task_ptr, void  **msg)
 {
-	RAW_U8 state;
-	RAW_U16 error_status = 0;
-	
+	RAW_U8        state;
+	RAW_OS_ERROR  error_status;
 	
 	state = task_ptr->block_status;
 	

@@ -317,7 +317,7 @@ static void *raw_byte_pool_search(RAW_BYTE_POOL_STRUCT *pool_ptr, RAW_U32 memory
 RAW_OS_ERROR raw_byte_allocate(RAW_BYTE_POOL_STRUCT *pool_ptr, void **memory_ptr, RAW_U32 memory_size)
 {
 
-	RAW_U16        status;                 /* Return status              */
+	RAW_OS_ERROR   status;                 /* Return status              */
 	RAW_U8         *work_ptr;               /* Working byte pointer       */
 	RAW_TASK_OBJ   *current_work_task;
 	RAW_U8         byte_align_mask;
