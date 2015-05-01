@@ -32,7 +32,7 @@
 /*get mlock*/
 RAW_U16 raw_mlock(RAW_MLOCK *mlock, RAW_U8 num, RAW_TICK_TYPE wait_option)
 {
-	RAW_U16 ret;
+	RAW_OS_ERROR ret;
 	RAW_U32 flag;
 
 	ret = raw_event_get(&mlock->event_ptr, 1 << num, RAW_AND_CLEAR, &flag, wait_option);
@@ -47,7 +47,7 @@ RAW_U16 raw_mlock(RAW_MLOCK *mlock, RAW_U8 num, RAW_TICK_TYPE wait_option)
  */
 RAW_U16 raw_munlock(RAW_MLOCK *mlock, RAW_U8 num)
 {
-	RAW_U16 ret;
+	RAW_OS_ERROR ret;
 
 	ret = raw_event_set(&mlock->event_ptr, 1 << num, RAW_OR);
 	return ret;
@@ -58,7 +58,7 @@ RAW_U16 raw_munlock(RAW_MLOCK *mlock, RAW_U8 num)
  */
 RAW_U16 raw_mlock_create(RAW_MLOCK *mlock, RAW_U8 *name_ptr)
 {
-	RAW_U16 ret;
+	RAW_OS_ERROR ret;
 
 	ret = raw_event_create(&mlock->event_ptr, name_ptr, 0xffffffff);
 
@@ -70,7 +70,7 @@ RAW_U16 raw_mlock_create(RAW_MLOCK *mlock, RAW_U8 *name_ptr)
  */
 RAW_U16 raw_mlock_delete(RAW_MLOCK *mlock)
 {
-	RAW_U16 ret;
+	RAW_OS_ERROR ret;
 
 	ret = raw_event_delete(&mlock->event_ptr);
 

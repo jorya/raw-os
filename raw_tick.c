@@ -228,7 +228,7 @@ void tick_list_update(void)
 
 static void tick_task_process(void *para)
 {
-	RAW_U16 ret;
+	RAW_OS_ERROR ret;
 	
 	while (1) {
 		
@@ -238,10 +238,8 @@ static void tick_task_process(void *para)
 			if (raw_os_active == RAW_OS_RUNNING) {
 				tick_list_update();
 			}
-		}
-		
+		}	
 	}
-
 }
 
 

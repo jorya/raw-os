@@ -182,7 +182,7 @@ RAW_OS_ERROR raw_timer_create(RAW_TIMER *timer_ptr, RAW_U8  *name_ptr,
 */
 RAW_OS_ERROR raw_timer_activate(RAW_TIMER *timer_ptr, void *expiration_input)
 {
-	RAW_U16 mutex_ret;
+	RAW_OS_ERROR mutex_ret;
 	
 	#if (RAW_TIMER_FUNCTION_CHECK > 0)
 	
@@ -256,7 +256,7 @@ RAW_OS_ERROR raw_timer_activate(RAW_TIMER *timer_ptr, void *expiration_input)
 #if (CONFIG_RAW_TIMER_CHANGE > 0)
 RAW_OS_ERROR raw_timer_change(RAW_TIMER *timer_ptr, RAW_TICK_TYPE initial_ticks, RAW_TICK_TYPE reschedule_ticks)
 {
-	RAW_U16 mutex_ret;
+	RAW_OS_ERROR mutex_ret;
 	
 	#if (RAW_TIMER_FUNCTION_CHECK > 0)
 	
@@ -321,7 +321,7 @@ RAW_OS_ERROR raw_timer_change(RAW_TIMER *timer_ptr, RAW_TICK_TYPE initial_ticks,
 #if (CONFIG_RAW_TIMER_DEACTIVATE > 0)
 RAW_OS_ERROR raw_timer_deactivate(RAW_TIMER *timer_ptr)
 {
-	RAW_U16 mutex_ret;
+	RAW_OS_ERROR mutex_ret;
 	
 	#if (RAW_TIMER_FUNCTION_CHECK > 0)
 	
@@ -386,7 +386,7 @@ RAW_OS_ERROR raw_timer_deactivate(RAW_TIMER *timer_ptr)
 #if (CONFIG_RAW_TIMER_DELETE > 0)
 RAW_OS_ERROR raw_timer_delete(RAW_TIMER *timer_ptr)
 {
-	RAW_U16 mutex_ret;
+	RAW_OS_ERROR mutex_ret;
 	
 	#if (RAW_TIMER_FUNCTION_CHECK > 0)
 	

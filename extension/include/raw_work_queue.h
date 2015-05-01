@@ -29,8 +29,6 @@
 #ifndef WORK_QUEUE_H
 #define WORK_QUEUE_H
 
-#define RAW_WORK_QUEUE_MSG_MAX      0xff00
-
 typedef void (*WORK_QUEUE_HANDLER)(RAW_U32 arg, void *msg);
 
 typedef struct OBJECT_WORK_QUEUE_MSG {
@@ -57,10 +55,10 @@ typedef struct WORK_QUEUE_STRUCT {
 
 void tick_work_handler(RAW_U32 arg, void *msg);
 
-RAW_U16 work_queue_create(WORK_QUEUE_STRUCT *wq, RAW_U8 work_task_priority, RAW_U32 work_queue_stack_size, 
+RAW_OS_ERROR work_queue_create(WORK_QUEUE_STRUCT *wq, RAW_U8 work_task_priority, RAW_U32 work_queue_stack_size, 
 								PORT_STACK *work_queue_stack_base, void **msg_start, RAW_U32 work_msg_size);
 
-RAW_U16 sche_work_queue(WORK_QUEUE_STRUCT *wq, RAW_U32 arg, void *msg, WORK_QUEUE_HANDLER handler);
+RAW_OS_ERROR sche_work_queue(WORK_QUEUE_STRUCT *wq, RAW_U32 arg, void *msg, WORK_QUEUE_HANDLER handler);
 
 void global_work_queue_init(OBJECT_WORK_QUEUE_MSG *work_queue_msg, RAW_U32 size);
 

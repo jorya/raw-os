@@ -142,7 +142,7 @@ void _trace_queue_ep_time_record(RAW_QUEUE *p_q, void *p_void);
 
 void _trace_queue_ap_time_record(RAW_QUEUE *p_q, void *p_void, RAW_U8 opt);
 
-void _trace_int_msg_handle_error(TASK_0_EVENT_TYPE ev, RAW_U16 int_msg_ret);
+void _trace_int_msg_handle_error(TASK_0_EVENT_TYPE ev, RAW_OS_ERROR int_msg_ret);
 
 
 #define TRACE_INIT()  _trace_init()

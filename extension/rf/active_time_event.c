@@ -67,7 +67,7 @@ static RAW_U16 active_time_event_post(void *para)
 */
 void active_time_event_create(TIME_EVENT_STRUCT *me, RAW_U16 sig) 
 {
-	RAW_U16 ret;
+	RAW_OS_ERROR ret;
 
 	if (sig < STM_USER_SIG) {
 
@@ -112,7 +112,7 @@ void active_time_event_create(TIME_EVENT_STRUCT *me, RAW_U16 sig)
 */
 void active_time_event_fire(TIME_EVENT_STRUCT *me, ACTIVE_OBJECT_STRUCT *active_object, RAW_TICK_TYPE ticks, RAW_U8 once)
 {
-	RAW_U16 ret;
+	RAW_OS_ERROR ret;
 
 	me->active_object = active_object;
 
@@ -161,7 +161,7 @@ void active_time_event_fire(TIME_EVENT_STRUCT *me, ACTIVE_OBJECT_STRUCT *active_
 */
 RAW_U16 active_time_event_deactivate(TIME_EVENT_STRUCT *me)
 {
-	RAW_U16 ret;
+	RAW_OS_ERROR ret;
 	ret = raw_timer_deactivate(&me->timer);
 
 	return ret;

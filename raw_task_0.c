@@ -354,7 +354,7 @@ void hybrid_int_process(void)
 static void int_msg_handler(TASK_0_EVENT_TYPE ev, void *msg_data)
 {
 	OBJECT_INT_MSG *int_msg;
-	RAW_U16 int_msg_ret;
+	RAW_OS_ERROR   int_msg_ret;
 	
 	RAW_SR_ALLOC();
 	

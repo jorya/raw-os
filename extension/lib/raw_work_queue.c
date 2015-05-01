@@ -65,7 +65,7 @@ void tick_work_handler(RAW_U32 arg, void *msg)
 
 static void work_queue_task(void *pa)
 {
-	RAW_U16 ret;
+	RAW_OS_ERROR  ret;
 	OBJECT_WORK_QUEUE_MSG *msg_recv;
 	WORK_QUEUE_STRUCT *wq;
 
@@ -123,10 +123,10 @@ static void work_queue_task(void *pa)
 *             
 ************************************************************************************************************************
 */
-RAW_U16 work_queue_create(WORK_QUEUE_STRUCT *wq, RAW_U8 work_task_priority, RAW_U32 work_queue_stack_size, 
+RAW_OS_ERROR work_queue_create(WORK_QUEUE_STRUCT *wq, RAW_U8 work_task_priority, RAW_U32 work_queue_stack_size, 
 								PORT_STACK *work_queue_stack_base, void **msg_start, RAW_U32 work_msg_size)
 {
-	RAW_U16 ret;
+	RAW_OS_ERROR  ret;
 	
 	ret = raw_queue_create(&wq->queue, "work_queue", msg_start, work_msg_size);
 
@@ -139,12 +139,7 @@ RAW_U16 work_queue_create(WORK_QUEUE_STRUCT *wq, RAW_U8 work_task_priority, RAW_
 	                         work_task_priority, 0, work_queue_stack_base, 
 	                         work_queue_stack_size, work_queue_task, 1); 
 
-	if (ret != RAW_SUCCESS) {
-
-		return ret;
-	}
-
-	return RAW_SUCCESS;
+	return ret;
 }
 
 
@@ -169,10 +164,10 @@ RAW_U16 work_queue_create(WORK_QUEUE_STRUCT *wq, RAW_U8 work_task_priority, RAW_
 *             
 ************************************************************************************************************************
 */
-RAW_U16 sche_work_queue(WORK_QUEUE_STRUCT *wq, RAW_U32 arg, void *msg, WORK_QUEUE_HANDLER handler)
+RAW_OS_ERROR sche_work_queue(WORK_QUEUE_STRUCT *wq, RAW_U32 arg, void *msg, WORK_QUEUE_HANDLER handler)
 {
 	void *msg_data;
-	RAW_U16 ret;
+	RAW_OS_ERROR ret;
 
 	RAW_SR_ALLOC();
 

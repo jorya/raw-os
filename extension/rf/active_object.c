@@ -322,7 +322,7 @@ RAW_U16 active_event_recall(ACTIVE_OBJECT_STRUCT *me, RAW_QUEUE *q)
 {
 	STATE_EVENT *event;
 	RAW_U16 recalled;
-	RAW_U16 err;
+	RAW_OS_ERROR err;
 	
 	err = raw_queue_receive (q, RAW_NO_WAIT, (void  **)&event);
 
