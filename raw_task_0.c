@@ -456,8 +456,8 @@ static void int_msg_handler(TASK_0_EVENT_TYPE ev, void *msg_data)
 
 	if (int_msg_ret != RAW_SUCCESS) {
 
+		/*trace the incorrect information here, there is no way to infrom user at this condition*/
 		TRACE_INT_MSG_HANDLE_ERROR(ev, int_msg_ret);
-		RAW_ASSERT(0);
 	}
 
 	RAW_CPU_DISABLE();
