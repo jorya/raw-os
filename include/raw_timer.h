@@ -32,18 +32,16 @@ typedef struct raw_timer {
 
 	LIST                                    timer_list;
 	LIST                                    *to_head;
-
 	RAW_U8                                  *name;    
 	RAW_U16                                 (*raw_timeout_function)(void *arg);       
-
 	RAW_TICK_TYPE                           match;                
 	RAW_TICK_TYPE                           remain; 
 	RAW_TICK_TYPE                           init_count;
 	RAW_TICK_TYPE                           reschedule_ticks;
-	void                                *raw_timeout_param;
+	void                                    *raw_timeout_param;
 	RAW_U8                                  timer_state;
 	RAW_U8                                  object_type;
-    
+	
  }RAW_TIMER;
 
 

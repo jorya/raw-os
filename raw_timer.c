@@ -450,7 +450,7 @@ void timer_task(void *pa)
 	LIST 								*iter;
 	LIST 								*iter_temp;
 	RAW_TIMER							*timer_ptr;
-	RAW_U16                              mutex_ret;
+	RAW_OS_ERROR                         mutex_ret;
 	RAW_U16                              callback_ret;
 	
 	/*reset the timer_sem count since it may not be 0 at this point, make it start here*/
