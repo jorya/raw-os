@@ -174,12 +174,14 @@ RAW_OS_ERROR raw_enter_interrupt(void)
 {
 	RAW_SR_ALLOC();
 
+	RAW_CPU_DISABLE();
+	
 	if (raw_int_nesting >= INT_NESTED_LEVEL) {  
-		
+
+		RAW_CPU_ENABLE();
 		return RAW_EXCEED_INT_NESTED_LEVEL;                                                                                      
 	}
 
-	RAW_CPU_DISABLE();
 	raw_int_nesting++; 
 	RAW_CPU_ENABLE();
 
