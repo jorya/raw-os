@@ -507,8 +507,9 @@ static void int_msg_init(void)
 
 RAW_OS_ERROR int_msg_post(RAW_U8 type, void *p_obj, void *p_void, MSG_SIZE_TYPE msg_size, RAW_U32 flags, RAW_U8 opt)
 {
-	void *msg_data;
-
+	OBJECT_INT_MSG *msg_data;
+	RAW_OS_ERROR task_0_post_ret;
+	
 	RAW_SR_ALLOC();
 
 	RAW_CPU_DISABLE();
@@ -532,15 +533,24 @@ RAW_OS_ERROR int_msg_post(RAW_U8 type, void *p_obj, void *p_void, MSG_SIZE_TYPE 
 	free_object_int_msg->msg_size = msg_size;
 	free_object_int_msg->event_flags = flags;
 	free_object_int_msg->opt = opt;
-	
 	free_object_int_msg = free_object_int_msg->next;
 
 	RAW_CPU_ENABLE();
+	/*raw_task_0_post may fail here due to full task0 events*/
+	task_0_post_ret = raw_task_0_post(&msg_event_handler, type, msg_data);
+	if (task_0_post_ret == RAW_SUCCESS) {
+		
+		TRACE_INT_MSG_POST(type, p_obj, p_void, msg_size, flags, opt);
+	}
+	else {
+		/*if 	raw_task_0_post fail, free_object_int_msg will be taken back*/
+		RAW_CPU_DISABLE();
+		msg_data->next = free_object_int_msg;
+		free_object_int_msg = msg_data;
+		RAW_CPU_ENABLE();
+	}
 
-	TRACE_INT_MSG_POST(type, p_obj, p_void, msg_size, flags, opt);
-	
-	return raw_task_0_post(&msg_event_handler, type, msg_data);
-
+	return task_0_post_ret;
 }
 
 
