@@ -105,36 +105,35 @@ RAW_OS_ERROR raw_task_create(RAW_TASK_OBJ  *task_obj, RAW_U8  *task_name,  void 
 	#endif
 
 	RAW_CRITICAL_ENTER();
-	
-	 if (task_prio == IDLE_PRIORITY) {
-	 	
-	 	if (idle_task_exit) {
-			
+
+	/*Idle task is only allowed to created once*/	
+	if (task_prio == IDLE_PRIORITY) {
+
+		if (idle_task_exit) {
+
 			RAW_CRITICAL_EXIT();
-			return RAW_IDLE_EXIT;
-				
-	 	}
-		
-	 	idle_task_exit = 1u;
+			return RAW_IDLE_EXIT;	
+		}
+
+		idle_task_exit = 1u;
 	}
 
 	#if (CONFIG_RAW_TASK_0 > 0)
-	
-	 if (task_prio == 0) {
-	 	
-	 	if (task_0_exit) {
-			
+
+	/*task 0 is only allowed to created once*/	
+	if (task_prio == 0) {
+
+		if (task_0_exit) {
+
 			RAW_CRITICAL_EXIT();
 			return RAW_TASK_0_EXIT;
-				
-	 	}
-		
-	 	task_0_exit = 1u;
+		}
+
+		task_0_exit = 1u;
 	}
 
 	#endif
 	
-
 	RAW_CRITICAL_EXIT();
 	
  	raw_memset(task_obj, 0, sizeof(RAW_TASK_OBJ));
@@ -312,7 +311,6 @@ RAW_OS_ERROR raw_disable_sche(void)
 	if (raw_sched_lock >= 250u)  {
 		
 		return RAW_SCHED_OVERFLOW;
-		
 	}
 	
 	#endif
@@ -487,14 +485,13 @@ RAW_OS_ERROR raw_sleep(RAW_TICK_TYPE dly)
 	raw_sched();   
 
 	if (dly) {
-		/*task is timeout after sleep*/
+		/*Is task timeout normally after sleep?*/
 		error_status = block_state_post_process(raw_task_active, 0);
 	}
 
 	else {
 		
 		error_status = RAW_SUCCESS;
-
 	}
 	
 	return error_status;

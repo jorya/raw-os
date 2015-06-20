@@ -97,7 +97,8 @@ RAW_OS_ERROR raw_os_init(void)
 	raw_task_create(&raw_idle_obj, (RAW_U8  *)"idle_task",  0, 
 									IDLE_PRIORITY, 0,  idle_stack, 
 									IDLE_STACK_SIZE,  raw_idle_task, 1);
-	
+
+	/*The timer module need mutex*/
 	#if (CONFIG_RAW_TIMER > 0)
 	raw_timer_init();
 	raw_mutex_create(&timer_mutex, (RAW_U8 *)"timer_mutex", RAW_MUTEX_INHERIT_POLICY, 0);
@@ -107,10 +108,12 @@ RAW_OS_ERROR raw_os_init(void)
 	raw_task_0_init();
 	#endif
 
+	/*tick task to reduce interrupt time*/
 	#if (CONFIG_RAW_TICK_TASK > 0)
 	tick_task_start();
 	#endif
 
+	/*For  statistic*/
 	#if (RAW_CONFIG_CPU_TASK > 0)
 	cpu_task_start();
 	#endif
