@@ -520,7 +520,7 @@ RAW_OS_ERROR int_msg_post(RAW_U8 type, void *p_obj, void *p_void, MSG_SIZE_TYPE 
 		
 		RAW_CPU_ENABLE();
 		
-		TRACE_INT_MSG_EXHAUSTED();
+		TRACE_INT_MSG_EXHAUSTED(type, p_obj, p_void, msg_size, flags, opt);
 		
 		return RAW_INT_MSG_EXHAUSTED;
 	}
