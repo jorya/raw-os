@@ -210,20 +210,19 @@ void hsm_init(STM_STRUCT *me, STATE_EVENT *e)
 		STM_TRIG(me->temp, STM_EMPTY_SIG);
 		
 		while (me->temp != t) {
-			
 			++ip;
+			
+			if (ip >= STM_MAX_NEST_DEPTH) {
+				
+				RAW_ASSERT(0);
+			}
+			
 			path[ip] = me->temp;
 			STM_TRIG(me->temp, STM_EMPTY_SIG);
 		}
 		
 		me->temp = path[0];
 		                               
-		if (ip >= STM_MAX_NEST_DEPTH) {
-			
-			RAW_ASSERT(0);
-
-		}
-
 		/*trig STM_ENTRY_SIG from father source state to nested children state*/
 		do {        
 			STM_ENTER(path[ip]);                         
@@ -511,7 +510,8 @@ RAW_U16 is_hsm_in_state(STM_STRUCT *me, stm_state_handler state)
 
     do {
         if (me->temp == state) {                    
-            inState = 1;              
+            inState = 1;
+			r = STM_RET_IGNORED;
             break;                   
         }
 		
