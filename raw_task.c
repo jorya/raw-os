@@ -959,14 +959,13 @@ RAW_OS_ERROR raw_task_priority_change (RAW_TASK_OBJ *task_ptr, RAW_U8 new_priori
 	if (error != RAW_SUCCESS) {
 		goto error_exit;
 	}
-
-	task_ptr->bpriority = new_priority;
+	
+	/*new pripority may change here!*/
 	new_priority = ret_pri;
 	
-	#else
+	#endif
 	
 	task_ptr->bpriority = new_priority;
-	#endif
 
 	*old_priority = task_ptr->priority;
 
