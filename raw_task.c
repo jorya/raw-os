@@ -837,11 +837,12 @@ RAW_OS_ERROR change_internal_task_priority(RAW_TASK_OBJ *task_ptr, RAW_U8 new_pr
 	
 			break;
 
-		case RAW_DLY:                             /* Nothing to do except change the priority in the OS_TCB */
+		case RAW_DLY:                            
 		case RAW_SUSPENDED:
 		case RAW_DLY_SUSPENDED:
 			
-			task_ptr->priority = new_priority;                        /* Set new task priority*/
+			 /* Set new task priority*/
+			task_ptr->priority = new_priority;                       
 			
 			break;
 
@@ -959,13 +960,17 @@ RAW_OS_ERROR raw_task_priority_change (RAW_TASK_OBJ *task_ptr, RAW_U8 new_priori
 	if (error != RAW_SUCCESS) {
 		goto error_exit;
 	}
+
+	task_ptr->bpriority = new_priority;
 	
 	/*new pripority may change here!*/
 	new_priority = ret_pri;
 	
-	#endif
+	#else
 	
 	task_ptr->bpriority = new_priority;
+
+	#endif
 
 	*old_priority = task_ptr->priority;
 

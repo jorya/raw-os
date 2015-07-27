@@ -117,7 +117,9 @@ RAW_U8 chg_pri_mutex(RAW_TASK_OBJ *tcb, RAW_U8 priority, RAW_OS_ERROR *error)
 	LIST *block_list_head;
 	
 	hi_pri  = priority;
-	low_pri = 0u;
+	
+	/*highest priority*/
+	low_pri = 1u;
 	
 	mtxcb = (RAW_MUTEX	*)(tcb->block_obj);
 	
@@ -143,7 +145,7 @@ RAW_U8 chg_pri_mutex(RAW_TASK_OBJ *tcb, RAW_U8 priority, RAW_OS_ERROR *error)
 			
 		  case RAW_MUTEX_CEILING_POLICY:
 			pri = mtxcb->ceiling_prio;
-			if ( pri > low_pri ) {
+			if (pri > low_pri) {
 				low_pri = pri;
 			}
 			break;
