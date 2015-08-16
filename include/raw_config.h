@@ -179,6 +179,9 @@
 
 #define OBJECT_INT_MSG_SIZE                                         20
 
+/*Do not change the fllowing marco unless you understand what you are doing*/
+#define INT_MSG_HANDLER_ASSERT                                      1
+
 #endif
 
 #endif
