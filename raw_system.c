@@ -52,6 +52,9 @@ void raw_finish_int(void)
 
 	RAW_SR_ALLOC();
 
+	/*if you have no idea how to implement this function just write a blank port function*/
+	port_isr_stack_check();
+	
 	USER_CPU_INT_DISABLE();
 
 	/*prevent raw_int_nesting 0 enter, 0 means it is processed*/
