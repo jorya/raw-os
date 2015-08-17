@@ -460,7 +460,7 @@ static void int_msg_handler(TASK_0_EVENT_TYPE ev, void *msg_data)
 		  *if msg queue is full, it may cause memory leak. 
 		  *you may free the memory in the following trace function.
 		  */
-		TRACE_INT_MSG_HANDLE_ERROR(ev, int_msg->object, int_msg_ret);
+		TRACE_INT_MSG_HANDLE_ERROR(ev, int_msg, int_msg_ret);
 
 		/*if not handle the error condition in trace function, just assert here and you need check why it fails.
 		  *The failing condition is ususlly caused by msg queue full.
