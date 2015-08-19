@@ -87,8 +87,8 @@ RAW_OS_ERROR raw_queue_create(RAW_QUEUE *p_q, RAW_U8 *p_name, void **msg_start, 
 	p_q->msg_q.current_numbers  = 0u;
 	p_q->msg_q.peak_numbers		= 0u;
 	p_q->queue_send_notify      = 0;
+	p_q->queue_full_callback    = 0;
 	p_q->common_block_obj.object_type = RAW_QUEUE_OBJ_TYPE;
-	p_q->queue_full_callback = 0;
 	
 	TRACE_QUEUE_CREATE(raw_task_active, p_q); 
 	
