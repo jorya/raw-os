@@ -52,7 +52,9 @@ typedef struct raw_queue_size
 	RAW_MSG_SIZE                  *write;                            
 	RAW_MSG_SIZE                  *read;                            
 	MSG_SIZE_TYPE                 queue_msg_size;                   
-	MSG_SIZE_TYPE                 queue_current_msg;   
+	MSG_SIZE_TYPE                 queue_current_msg;  
+	void                          (*queue_size_full_callback)(struct raw_queue_size *queue_size_ptr, void *queue_size_msg, MSG_SIZE_TYPE queue_msg_size);
+	
 		
 } RAW_QUEUE_SIZE;
 

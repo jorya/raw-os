@@ -84,7 +84,7 @@ RAW_OS_ERROR raw_queue_size_create(RAW_QUEUE_SIZE  *p_q, RAW_U8 *p_name, RAW_MSG
 
 	p_q->queue_current_msg = 0;
 	p_q->peak_numbers = 0;
-	
+	p_q->queue_size_full_callback = 0;
 	p_q->queue_msg_size = number;
 	p_q->free_msg = msg_start;
 	
@@ -144,6 +144,11 @@ RAW_OS_ERROR msg_size_post(RAW_QUEUE_SIZE *p_q, RAW_MSG_SIZE *p_void,  MSG_SIZE_
 		RAW_CRITICAL_EXIT();
 
 		TRACE_QUEUE_SIZE_MSG_MAX(raw_task_active, p_q, p_void, size, opt_send_method);
+
+		if (p_q->queue_size_full_callback) {
+
+			p_q->queue_size_full_callback(p_q, p_void, size);
+		}
 		
 		return RAW_MSG_MAX;
 		

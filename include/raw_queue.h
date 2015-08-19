@@ -57,6 +57,7 @@ typedef struct raw_queue
 	RAW_COMMON_BLOCK_OBJECT       common_block_obj;
 	RAW_MSG_Q                     msg_q;
 	void                      (*queue_send_notify)(struct raw_queue *queue_ptr);
+	void                      (*queue_full_callback)(struct raw_queue *queue_ptr, void *queue_msg);
 	
 } RAW_QUEUE;
 
