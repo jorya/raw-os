@@ -1102,13 +1102,13 @@ RAW_OS_ERROR raw_task_delete(RAW_TASK_OBJ *task_ptr)
 	
 	list_delete(&task_ptr->task_debug_list);
 	
-	RAW_CRITICAL_EXIT();
-
 	TRACE_TASK_DELETE(task_ptr);
 
 	#if (CONFIG_RAW_USER_HOOK > 0)
 	raw_task_delete_hook(task_ptr);
 	#endif
+	
+	RAW_CRITICAL_EXIT();
 
 	raw_sched();
 
