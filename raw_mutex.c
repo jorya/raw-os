@@ -258,8 +258,8 @@ void mtx_chg_pri(RAW_TASK_OBJ *tcb, RAW_U8 oldpri)
 
 	mtxcb = (RAW_MUTEX	*)(tcb->block_obj);
 
-	/*mutex_recursion_levels can never deeper than 5 levles, anyway it is the design fault*/
-	if (mutex_recursion_levels > 5) {
+	/*mutex_recursion_levels can never deeper than certain levles, anyway it is the design fault*/
+	if (mutex_recursion_levels > CONFIG_RAW_MUTEX_RECURSION_LEVELS) {
 
 		return;
 	}

@@ -104,6 +104,10 @@
 
 #define CONFIG_RAW_MUTEX_DELETE                                     1
 
+/*control mutex recursion levels, do not change it*/
+#define CONFIG_RAW_MUTEX_RECURSION_LEVELS                           3
+
+
 /*enable different event function*/
 
 #define CONFIG_RAW_EVENT_DELETE                                     1
