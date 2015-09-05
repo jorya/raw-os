@@ -124,7 +124,7 @@ static void work_queue_task(void *pa)
 ************************************************************************************************************************
 */
 RAW_OS_ERROR work_queue_create(WORK_QUEUE_STRUCT *wq, RAW_U8 work_task_priority, RAW_U32 work_queue_stack_size, 
-								PORT_STACK *work_queue_stack_base, void **msg_start, RAW_U32 work_msg_size)
+								PORT_STACK *work_queue_stack_base, void **msg_start, RAW_U32 work_msg_size, QUEUE_FULL_CALLBACK callback_full)
 {
 	RAW_OS_ERROR  ret;
 	
@@ -134,6 +134,8 @@ RAW_OS_ERROR work_queue_create(WORK_QUEUE_STRUCT *wq, RAW_U8 work_task_priority,
 
 		return ret;
 	}
+
+	raw_queue_full_register(&wq->queue, callback_full);
 	
 	ret = raw_task_create(&wq->work_queue_task_obj, (RAW_U8  *)"work_queue", wq,
 	                         work_task_priority, 0, work_queue_stack_base, 
@@ -166,7 +168,7 @@ RAW_OS_ERROR work_queue_create(WORK_QUEUE_STRUCT *wq, RAW_U8 work_task_priority,
 */
 RAW_OS_ERROR sche_work_queue(WORK_QUEUE_STRUCT *wq, RAW_U32 arg, void *msg, WORK_QUEUE_HANDLER handler)
 {
-	void *msg_data;
+	OBJECT_WORK_QUEUE_MSG *msg_data;
 	RAW_OS_ERROR ret;
 
 	RAW_SR_ALLOC();
@@ -192,8 +194,19 @@ RAW_OS_ERROR sche_work_queue(WORK_QUEUE_STRUCT *wq, RAW_U32 arg, void *msg, WORK
 	
 	ret = raw_queue_end_post(&wq->queue, msg_data);
 
+	if (ret == RAW_SUCCESS) {
+
+	}
+
+	else {
+
+		RAW_CPU_DISABLE();
+		msg_data->next = free_work_queue_msg;
+		free_work_queue_msg = msg_data;
+		RAW_CPU_ENABLE();	
+	}
+		
 	return ret;
-	
 }
 
 
