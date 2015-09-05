@@ -95,6 +95,21 @@ RAW_OS_ERROR raw_queue_create(RAW_QUEUE *p_q, RAW_U8 *p_name, void **msg_start, 
 	return RAW_SUCCESS;
 }
 
+RAW_OS_ERROR raw_queue_full_register(RAW_QUEUE *p_q, QUEUE_FULL_CALLBACK callback_full)
+{
+	RAW_SR_ALLOC();
+
+	if (raw_int_nesting) {
+
+		return RAW_NOT_CALLED_BY_ISR;	
+	}
+	
+	RAW_CPU_DISABLE();
+	p_q->queue_full_callback = callback_full;
+	RAW_CPU_ENABLE();
+
+	return RAW_SUCCESS;
+}
 
 RAW_OS_ERROR msg_post(RAW_QUEUE *p_q, void *p_void, RAW_U8 opt_send_method, RAW_U8 opt_wake_all)             
 {

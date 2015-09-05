@@ -62,11 +62,13 @@ typedef struct raw_queue
 } RAW_QUEUE;
 
 typedef void (*QUEUE_SEND_NOTIFY)(RAW_QUEUE *queue_ptr);
+typedef void (*QUEUE_FULL_CALLBACK)(RAW_QUEUE *queue_ptr, void *queue_msg);
 
 #define WAKE_ALL_QUEUE    0x1
 #define WAKE_ONE_QUEUE    0x0
 
 RAW_OS_ERROR raw_queue_create(RAW_QUEUE  *p_q, RAW_U8    *p_name, void **msg_start, MSG_SIZE_TYPE number);
+RAW_OS_ERROR raw_queue_full_register(RAW_QUEUE *p_q, QUEUE_FULL_CALLBACK callback_full);
 RAW_OS_ERROR raw_queue_front_post(RAW_QUEUE *p_q, void  *p_void);
 RAW_OS_ERROR raw_queue_end_post(RAW_QUEUE *p_q, void  *p_void);
 RAW_OS_ERROR raw_queue_receive (RAW_QUEUE *p_q, RAW_TICK_TYPE wait_option, void  **msg);

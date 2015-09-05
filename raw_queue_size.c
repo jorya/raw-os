@@ -117,6 +117,21 @@ RAW_OS_ERROR raw_queue_size_create(RAW_QUEUE_SIZE  *p_q, RAW_U8 *p_name, RAW_MSG
 }
 
 
+RAW_OS_ERROR raw_queue_size_full_register(RAW_QUEUE_SIZE *p_q, QUEUE_SIZE_FULL_CALLBACK callback_full)
+{
+	RAW_SR_ALLOC();
+
+	if (raw_int_nesting) {
+
+		return RAW_NOT_CALLED_BY_ISR;	
+	}
+	
+	RAW_CPU_DISABLE();
+	p_q->queue_size_full_callback = callback_full;
+	RAW_CPU_ENABLE();
+
+	return RAW_SUCCESS;
+}
 
 RAW_OS_ERROR msg_size_post(RAW_QUEUE_SIZE *p_q, RAW_MSG_SIZE *p_void,  MSG_SIZE_TYPE size,  RAW_U8 opt_send_method, RAW_U8 opt_wake_all)             
 {
