@@ -105,6 +105,11 @@ static RAW_OS_ERROR task_0_post(EVENT_HANLDER *p, TASK_0_EVENT_TYPE ev, void *ev
 	if(task_0_events == MAX_TASK_EVENT) {
 		RAW_CPU_ENABLE();
 		TRACE_TASK_0_OVERFLOW(p, ev, event_data);
+
+		#if (CONFIG_TASK_0_OVERFLOW_ASSERT > 0)
+		RAW_ASSERT(0);
+		#endif
+		
 		return RAW_TASK_0_EVENT_EXHAUSTED;
 	}
 
@@ -532,6 +537,10 @@ RAW_OS_ERROR int_msg_post(RAW_U8 type, void *p_obj, void *p_void, MSG_SIZE_TYPE 
 		RAW_CPU_ENABLE();
 		
 		TRACE_INT_MSG_EXHAUSTED(type, p_obj, p_void, msg_size, flags, opt);
+
+		#if (CONFIG_INT_MSG_EXHAUSTED_ASSERT > 0)
+		RAW_ASSERT(0);
+		#endif
 		
 		return RAW_INT_MSG_EXHAUSTED;
 	}

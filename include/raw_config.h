@@ -179,12 +179,18 @@
 /*Must be 2^n size!, such as 4, 8, 16,32, etc.......*/
 #define MAX_TASK_EVENT                                              32
 
+/*Do not change the fllowing marco unless you understand what you are doing*/
+#define CONFIG_TASK_0_OVERFLOW_ASSERT                               1
+
 #if (CONFIG_RAW_ZERO_INTERRUPT > 0)
 
 #define OBJECT_INT_MSG_SIZE                                         20
 
 /*Do not change the fllowing marco unless you understand what you are doing*/
 #define INT_MSG_HANDLER_ASSERT                                      1
+
+/*Do not change the fllowing marco unless you understand what you are doing*/
+#define CONFIG_INT_MSG_EXHAUSTED_ASSERT                             1
 
 #endif
 
