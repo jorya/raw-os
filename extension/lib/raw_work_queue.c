@@ -124,7 +124,7 @@ static void work_queue_task(void *pa)
 ************************************************************************************************************************
 */
 RAW_OS_ERROR work_queue_create(WORK_QUEUE_STRUCT *wq, RAW_U8 work_task_priority, RAW_U32 work_queue_stack_size, 
-								PORT_STACK *work_queue_stack_base, void **msg_start, RAW_U32 work_msg_size, QUEUE_FULL_CALLBACK callback_full)
+								PORT_STACK *work_queue_stack_base, void **msg_start, RAW_U32 work_msg_size)
 {
 	RAW_OS_ERROR  ret;
 	
@@ -135,8 +135,6 @@ RAW_OS_ERROR work_queue_create(WORK_QUEUE_STRUCT *wq, RAW_U8 work_task_priority,
 		return ret;
 	}
 
-	raw_queue_full_register(&wq->queue, callback_full);
-	
 	ret = raw_task_create(&wq->work_queue_task_obj, (RAW_U8  *)"work_queue", wq,
 	                         work_task_priority, 0, work_queue_stack_base, 
 	                         work_queue_stack_size, work_queue_task, 1); 

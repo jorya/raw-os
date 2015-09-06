@@ -103,12 +103,12 @@ static RAW_OS_ERROR task_0_post(EVENT_HANLDER *p, TASK_0_EVENT_TYPE ev, void *ev
 
 	/*if message is max, probally interrupt is too fast, please check your interrupt*/
 	if(task_0_events == MAX_TASK_EVENT) {
+		
 		RAW_CPU_ENABLE();
+		
 		TRACE_TASK_0_OVERFLOW(p, ev, event_data);
-
-		#if (CONFIG_TASK_0_OVERFLOW_ASSERT > 0)
-		RAW_ASSERT(0);
-		#endif
+		
+		port_system_error_process(RAW_TASK_0_EVENT_EXHAUSTED, (void *)p, (void *)ev, (void *)event_data, 0, 0, 0);
 		
 		return RAW_TASK_0_EVENT_EXHAUSTED;
 	}
@@ -461,18 +461,9 @@ static void int_msg_handler(TASK_0_EVENT_TYPE ev, void *msg_data)
 
 	if (int_msg_ret != RAW_SUCCESS) {
 
-		/*trace the incorrect information here, there is no way to infrom user at this condition.
-		  *if msg queue is full, it may cause memory leak. 
-		  *you may free the memory in the following trace function.
-		  */
 		TRACE_INT_MSG_HANDLE_ERROR(ev, int_msg, int_msg_ret);
 
-		/*if not handle the error condition in trace function, just assert here and you need check why it fails.
-		  *The failing condition is ususlly caused by msg queue full.
-		  */
-		#if (INT_MSG_HANDLER_ASSERT > 0)
-		RAW_ASSERT(0);
-		#endif
+		port_system_error_process(RAW_INT_MSG_HANDLER_ERROR, (void *)ev, (void *)int_msg, (void *)int_msg_ret, 0, 0, 0);
 		
 	}
 
@@ -538,9 +529,7 @@ RAW_OS_ERROR int_msg_post(RAW_U8 type, void *p_obj, void *p_void, MSG_SIZE_TYPE 
 		
 		TRACE_INT_MSG_EXHAUSTED(type, p_obj, p_void, msg_size, flags, opt);
 
-		#if (CONFIG_INT_MSG_EXHAUSTED_ASSERT > 0)
-		RAW_ASSERT(0);
-		#endif
+		port_system_error_process(RAW_INT_MSG_EXHAUSTED, (void *)type, (void *)p_obj, (void *)p_void, (void *)msg_size, (void *)flags, (void *)opt);
 		
 		return RAW_INT_MSG_EXHAUSTED;
 	}
