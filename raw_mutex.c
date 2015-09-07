@@ -261,6 +261,7 @@ void mtx_chg_pri(RAW_TASK_OBJ *tcb, RAW_U8 oldpri)
 	/*mutex_recursion_levels can never deeper than certain levles, anyway it is the design fault*/
 	if (mutex_recursion_levels > CONFIG_RAW_MUTEX_RECURSION_LEVELS) {
 
+		port_system_error_process(RAW_MUTEX_RECURSION_LEVELS_EXCEEDED, 0, 0, 0, 0, 0, 0);
 		return;
 	}
 
