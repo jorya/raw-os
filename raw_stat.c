@@ -41,7 +41,7 @@ void raw_stack_check(void)
 	task_stack_start = raw_task_active->task_stack_base;
 
 	/*statck check method 1*/
-	if (*task_stack_start) {
+	if (*task_stack_start != RAW_TASK_STACK_CHECK_WORD) {
 
 		RAW_ASSERT(0);
 	}
@@ -66,7 +66,7 @@ void raw_stack_check(void)
 	
 	task_stack_end = task_stack_start + raw_task_active->stack_size;
 
-	if (*(task_stack_end - 1)) {
+	if (*(task_stack_end - 1) != RAW_TASK_STACK_CHECK_WORD) {
 
 		RAW_ASSERT(0);
 	}

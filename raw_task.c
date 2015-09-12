@@ -173,16 +173,29 @@ RAW_OS_ERROR raw_task_create(RAW_TASK_OBJ  *task_obj, RAW_U8  *task_name,  void 
 		*p_stack++ = 0;                                            
 	          
 	}
-		
-	#if (CONFIG_RAW_USER_HOOK > 0)
-	task_create_hook(task_obj);
-	#endif
-	
-	task_obj->task_stack = port_stack_init(task_stack_base, stack_size, task_arg, task_entry);
+
 	task_obj->task_name  = task_name; 
 	task_obj->priority   = task_prio;
 	task_obj->bpriority  = task_prio;
 	task_obj->stack_size = stack_size;
+	
+	#if (RAW_CPU_STACK_DOWN > 0)
+	
+	p_stack = task_obj->task_stack_base;
+	*p_stack = RAW_TASK_STACK_CHECK_WORD;
+	
+	#else
+	
+	p_stack = (PORT_STACK *)(task_obj->task_stack_base) + task_obj->stack_size - 1;
+	*p_stack = RAW_TASK_STACK_CHECK_WORD;
+	
+	#endif
+
+	task_obj->task_stack = port_stack_init(task_stack_base, stack_size, task_arg, task_entry);
+		
+	#if (CONFIG_RAW_USER_HOOK > 0)
+	task_create_hook(task_obj);
+	#endif
 
 	TRACE_TASK_CREATE(task_obj);
 	
@@ -251,7 +264,7 @@ RAW_OS_ERROR raw_task_stack_check(RAW_TASK_OBJ  *task_obj, RAW_U32 *free_stack)
 
 	#if (RAW_CPU_STACK_DOWN > 0)
 	
-	task_stack = task_obj->task_stack_base;  
+	task_stack = task_obj->task_stack_base + 1;  
 	
 	while (*task_stack++ == 0) {                         
 		free_stk++;
@@ -259,7 +272,7 @@ RAW_OS_ERROR raw_task_stack_check(RAW_TASK_OBJ  *task_obj, RAW_U32 *free_stack)
 
 	#else
 	
-	task_stack = (PORT_STACK *)(task_obj->task_stack_base) + task_obj->stack_size - 1;
+	task_stack = (PORT_STACK *)(task_obj->task_stack_base) + task_obj->stack_size - 2;
 
 	while (*task_stack-- == 0) {
 		free_stk++;

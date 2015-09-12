@@ -35,8 +35,9 @@
 
  */  
 
-#define         RAW_INTERNAL_NO_WAIT 0u
-#define         RAW_INTERNAL_WAIT_FOREVER 0xffffffffu /*32 bit value, if RAW_TICK_TYPE is 64 bit, you need change it to 64 bit*/
+#define         RAW_INTERNAL_NO_WAIT        0u
+#define         RAW_INTERNAL_WAIT_FOREVER   0xffffffffu /*32 bit value, if RAW_TICK_TYPE is 64 bit, you need change it to 64 bit*/
+#define         RAW_TASK_STACK_CHECK_WORD   0xdeadbeaf /*32 bit or 64 bit stack check value*/
 
 
 typedef RAW_U32 RAW_TICK_TYPE;  /*32 bit or 64 bit unsigned value*/
