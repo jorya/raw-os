@@ -31,8 +31,8 @@
 #include <raw_work_queue.h>
 
 
-OBJECT_WORK_QUEUE_MSG *free_work_queue_msg;
-
+static OBJECT_WORK_QUEUE_MSG *free_work_queue_msg;
+static RAW_U32 work_queue_msg_size;
 
 
 /*Provide workqueue level system tick process, to impromve interrupt response, refer to example hot to use it*/
@@ -135,6 +135,9 @@ RAW_OS_ERROR work_queue_create(WORK_QUEUE_STRUCT *wq, RAW_U8 work_task_priority,
 		return ret;
 	}
 
+	/*if CONFIG_RAW_ZERO_INTERRUPT is enabled, it would be complexed to handle this condition, so force the work_msg_size*/
+	RAW_ASSERT(work_msg_size >= work_queue_msg_size);
+	
 	ret = raw_task_create(&wq->work_queue_task_obj, (RAW_U8  *)"work_queue", wq,
 	                         work_task_priority, 0, work_queue_stack_base, 
 	                         work_queue_stack_size, work_queue_task, 1); 
@@ -230,7 +233,8 @@ void global_work_queue_init(OBJECT_WORK_QUEUE_MSG *work_queue_msg, RAW_U32 size)
 {
 	OBJECT_WORK_QUEUE_MSG *p_msg1;
 	OBJECT_WORK_QUEUE_MSG *p_msg2;
-	
+
+	work_queue_msg_size = size;
 	free_work_queue_msg = work_queue_msg;
 	
 	/*init the free msg list*/
