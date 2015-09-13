@@ -61,11 +61,7 @@ void raw_finish_int(void)
 	
 	USER_CPU_INT_DISABLE();
 
-	/*prevent raw_int_nesting 0 enter, 0 means it is processed*/
-	if (raw_int_nesting == 0) {
-		USER_CPU_INT_ENABLE();                                  
-		return;
-	}
+	RAW_ASSERT(raw_int_nesting != 0)
 
 	raw_int_nesting--;
 	/*if still interrupt nested just return */
@@ -77,7 +73,6 @@ void raw_finish_int(void)
 	if (raw_sched_lock) { 
 
 		USER_CPU_INT_ENABLE(); 
-		/*if interrupt happen here, it may cause raw_int_nesting equal 0*/
 		return;
 	}
 
