@@ -52,8 +52,12 @@ void raw_finish_int(void)
 
 	RAW_SR_ALLOC();
 
+	#if (CONFIG_RAW_ISR_STACK_CHECK > 0)
+	
 	/*if you have no idea how to implement this function just write a blank port function*/
 	port_isr_stack_check();
+	
+	#endif
 	
 	USER_CPU_INT_DISABLE();
 

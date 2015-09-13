@@ -93,6 +93,8 @@
 #define CONFIG_RAW_TASK_DELETE                                      1
 #define CONFIG_RAW_TASK_WAIT_ABORT                                  1
 #define CONFIG_RAW_TICK_TASK                                        1
+#define CONFIG_RAW_ISR_STACK_CHECK                                  1
+
 
 /*enable different semphore function*/
 
