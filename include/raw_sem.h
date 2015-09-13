@@ -33,6 +33,7 @@ typedef struct raw_semaphore
 { 
 	RAW_COMMON_BLOCK_OBJECT       common_block_obj;
 	RAW_U32                       count;
+	RAW_U32                       peak_count;
 	void                      (*semphore_send_notify)(struct raw_semaphore *queue_ptr);	
 	
 } RAW_SEMAPHORE;

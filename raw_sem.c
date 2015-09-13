@@ -74,6 +74,7 @@ RAW_OS_ERROR raw_semaphore_create(RAW_SEMAPHORE *semaphore_ptr, RAW_U8 *name_ptr
 	
 	/*Init resource*/
 	semaphore_ptr->count     = initial_count;                                 
+	semaphore_ptr->peak_count = initial_count; 
 	
 	semaphore_ptr->common_block_obj.name = name_ptr;  
 	
@@ -116,7 +117,12 @@ RAW_OS_ERROR semaphore_put(RAW_SEMAPHORE *semaphore_ptr, RAW_U8 opt_wake_all)
 
 		}
 		/*increase resource*/
-		semaphore_ptr->count++;                                      
+		semaphore_ptr->count++;
+
+		if (semaphore_ptr->count > semaphore_ptr->peak_count) {
+
+			semaphore_ptr->peak_count = semaphore_ptr->count;
+		}	
 	    
 		RAW_CRITICAL_EXIT();
 		
