@@ -58,10 +58,11 @@ void raw_finish_int(void)
 	port_isr_stack_check();
 	
 	#endif
+
+	/*It should not be zero here*/
+	RAW_ASSERT(raw_int_nesting != 0);
 	
 	USER_CPU_INT_DISABLE();
-
-	RAW_ASSERT(raw_int_nesting != 0)
 
 	raw_int_nesting--;
 	/*if still interrupt nested just return */
