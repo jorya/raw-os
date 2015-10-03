@@ -87,6 +87,42 @@ RAW_OS_ERROR task_0_tick_post(void)
 }
 
 
+/*
+************************************************************************************************************************
+*                                       Timer tick function 
+*
+* Description: This function is called by timer interrupt for some crazy customers.
+*
+* Arguments  :None
+*                
+*                 
+*
+*				         
+* Returns		 None
+*						
+* Note(s)    Called by your own system timer interrupt.
+*
+*             
+************************************************************************************************************************
+*/
+RAW_OS_ERROR task_0_tick_direct_post(void)
+{
+	RAW_OS_ERROR ret = RAW_SUCCESS;
+
+	if (raw_sched_lock) {
+		
+		ret = raw_task_0_post(&task_0_event_handler, raw_task_active->priority, 0);
+		
+	}
+
+	else {
+
+		task_0_tick_handler(raw_task_active->priority, 0);
+	}
+	
+	return ret;
+}
+
 static RAW_OS_ERROR task_0_post(EVENT_HANLDER *p, TASK_0_EVENT_TYPE ev, void *event_data, RAW_U8 opt_send_method)
 {
 	RAW_U16 task_0_event_position;
@@ -453,8 +489,8 @@ static void int_msg_handler(TASK_0_EVENT_TYPE ev, void *msg_data)
 		#endif
 		
 		default:
-			RAW_ASSERT(0);
-
+			port_system_error_process(RAW_SYSTEM_CRITICAL_ERROR, 0, 0, 0, 0, 0, 0);
+			break;
 
 
 	}

@@ -28,7 +28,7 @@
 
 #include <raw_api.h>
 
-RAW_U8                    raw_os_active;
+RAW_OS_ERROR              raw_os_active;
 RAW_U8                    idle_task_exit;
 
 RAW_RUN_QUEUE             raw_ready_queue;

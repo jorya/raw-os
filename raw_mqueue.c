@@ -449,7 +449,7 @@ RAW_OS_ERROR raw_mqueue_delete(RAW_MQUEUE *p_q)
 	
 	RAW_CRITICAL_ENTER();
 
-	p_q->common_block_obj.object_type = 0u;
+	p_q->common_block_obj.object_type = RAW_OBJ_TYPE_NONE;
 	
 	/*All task blocked on this queue is waken up*/
 	while (!is_list_empty(block_list_head))  {

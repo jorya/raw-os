@@ -172,7 +172,8 @@ void remove_ready_list(RAW_RUN_QUEUE *rq, RAW_TASK_OBJ *task_ptr)
 
 	else {
 		
-		RAW_ASSERT(0);
+		port_system_error_process(RAW_SYSTEM_CRITICAL_ERROR, 0, 0, 0, 0, 0, 0);
+		
 	}
 	
 }
@@ -254,17 +255,16 @@ static void pend_task_wake_up(RAW_TASK_OBJ *task_ptr)
                      
 			/*remove task on the block list because task is waken up*/
 			list_delete(&task_ptr->task_list);                   
+
+			task_ptr->task_state = RAW_SUSPENDED; 
 			
-			task_ptr->task_state = RAW_SUSPENDED;
-		           
 			break;
 
 		default:
 			
-			RAW_ASSERT(0);
+			port_system_error_process(RAW_SYSTEM_CRITICAL_ERROR, 0, 0, 0, 0, 0, 0);
 			
-		
-			
+			break;
 	
 	}
 
@@ -303,12 +303,6 @@ void wake_send_msg_size(RAW_TASK_OBJ *task_ptr, void *msg, RAW_U32 msg_size)
 
 void raw_pend_object(RAW_COMMON_BLOCK_OBJECT  *block_common_obj, RAW_TASK_OBJ *task_ptr, RAW_TICK_TYPE timeout)
 {
-
-	/*timeout 0 should not happen here, it has been processed before*/
-	if (timeout == 0u) {
-		RAW_ASSERT(0);
-	}
-		
 
 	/*task need to remember which object is blocked on*/
 	task_ptr->block_obj = block_common_obj;
@@ -375,7 +369,9 @@ void delete_pend_obj(RAW_TASK_OBJ *task_ptr)
 
 		default:
 		
-			RAW_ASSERT(0);
+			port_system_error_process(RAW_SYSTEM_CRITICAL_ERROR, 0, 0, 0, 0, 0, 0);
+
+			break;
 			
 	}
 

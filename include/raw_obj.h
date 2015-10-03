@@ -49,7 +49,7 @@ typedef	struct raw_common_block_object {
 	LIST                      block_list;
 	RAW_U8                    *name;
 	RAW_U8                    block_way;
-	RAW_U8                    object_type;
+	RAW_OBJECT_TYPE           object_type;
 	
 } RAW_COMMON_BLOCK_OBJECT;
 
@@ -112,8 +112,8 @@ typedef struct raw_task_obj
 	
 	RAW_U8                   *task_name;
 
-	RAW_U8                   task_state; 
-	RAW_U8                   block_status;
+	RAW_TASK_STATUS          task_state; 
+	RAW_BLOCK_STATE          block_status;
 
 	/*Task block on mutex, queue, semphore, event*/
 	RAW_COMMON_BLOCK_OBJECT  *block_obj; 

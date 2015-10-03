@@ -68,15 +68,14 @@ void     mtx_chg_pri(RAW_TASK_OBJ *tcb, RAW_U8 oldpri);
 void     raw_task_free_mutex(RAW_TASK_OBJ *tcb);
 void     mutex_state_change(RAW_TASK_OBJ *tcb);
 void     tick_task_start(void);
-void     sche_disable_measure_start(void);
-void     sche_disable_measure_stop(void);
+
 
 
 
 extern RAW_TASK_OBJ                 *high_ready_obj;
 extern RAW_TASK_OBJ                 *raw_task_active;
 
-extern RAW_U8                       raw_os_active;
+extern RAW_OS_ERROR                 raw_os_active;
 extern RAW_U8                       idle_task_exit;
 extern RAW_U8                       task_0_exit;
 
@@ -162,9 +161,6 @@ extern RAW_SEMAPHORE                tick_semaphore_obj;
 
 
 #if (CONFIG_RAW_IDLE_EVENT > 0)
-
-/*public global event*/
-extern STATE_EVENT                  STM_GLOBAL_EVENT[4];
 
 extern ACTIVE_EVENT_STRUCT_CB       active_idle_task[];
 

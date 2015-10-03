@@ -194,8 +194,9 @@ void tick_list_update(void)
 						break;
 
 					default:
-						
-						RAW_ASSERT(0);
+				
+						port_system_error_process(RAW_SYSTEM_CRITICAL_ERROR, 0, 0, 0, 0, 0, 0);
+						break;
 											
 				}
 

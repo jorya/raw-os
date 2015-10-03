@@ -688,7 +688,7 @@ RAW_OS_ERROR raw_mutex_delete(RAW_MUTEX *mutex_ptr)
 
 	block_list_head = &mutex_ptr->common_block_obj.block_list;
 	
-	mutex_ptr->common_block_obj.object_type = 0u;
+	mutex_ptr->common_block_obj.object_type = RAW_OBJ_TYPE_NONE;
 
 	if (mutex_ptr->mtxtsk) {
 		release_mutex(mutex_ptr->mtxtsk, mutex_ptr);

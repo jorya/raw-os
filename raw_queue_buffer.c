@@ -545,7 +545,7 @@ RAW_OS_ERROR raw_queue_buffer_delete(RAW_QUEUE_BUFFER *q_b)
 
 	block_list_head = &q_b->common_block_obj.block_list;
 	
-	q_b->common_block_obj.object_type = 0;
+	q_b->common_block_obj.object_type = RAW_OBJ_TYPE_NONE;
 	
 	/*All task blocked on this queue is waken up*/
 	while (!is_list_empty(block_list_head))  {

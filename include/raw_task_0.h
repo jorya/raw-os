@@ -61,6 +61,7 @@ typedef struct object_int_msg {
 
 
 RAW_OS_ERROR task_0_tick_post(void);
+RAW_OS_ERROR task_0_tick_direct_post(void);
 RAW_OS_ERROR raw_task_0_post(EVENT_HANLDER *p, TASK_0_EVENT_TYPE ev, void *event_data);
 RAW_OS_ERROR raw_task_0_front_post(EVENT_HANLDER *p, TASK_0_EVENT_TYPE ev, void *event_data);
 void raw_task_0_init(void);

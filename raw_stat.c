@@ -43,13 +43,13 @@ void raw_stack_check(void)
 	/*statck check method 1*/
 	if (*task_stack_start != RAW_TASK_STACK_CHECK_WORD) {
 
-		RAW_ASSERT(0);
+		port_system_error_process(RAW_SYSTEM_CRITICAL_ERROR, 0, 0, 0, 0, 0, 0);
 	}
 
 	/*statck check method 2*/
 	if ((PORT_STACK *)(raw_task_active->task_stack) < task_stack_start) {
 
-		RAW_ASSERT(0);
+		port_system_error_process(RAW_SYSTEM_CRITICAL_ERROR, 0, 0, 0, 0, 0, 0);
 	}
 
 }
@@ -68,12 +68,12 @@ void raw_stack_check(void)
 
 	if (*(task_stack_end - 1) != RAW_TASK_STACK_CHECK_WORD) {
 
-		RAW_ASSERT(0);
+		port_system_error_process(RAW_SYSTEM_CRITICAL_ERROR, 0, 0, 0, 0, 0, 0);
 	}
 
 	if ((PORT_STACK *)(raw_task_active->task_stack) > task_stack_end) {
 
-		RAW_ASSERT(0);
+		port_system_error_process(RAW_SYSTEM_CRITICAL_ERROR, 0, 0, 0, 0, 0, 0);
 	}
 
 }

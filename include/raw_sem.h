@@ -32,8 +32,8 @@
 typedef struct raw_semaphore
 { 
 	RAW_COMMON_BLOCK_OBJECT       common_block_obj;
-	RAW_U32                       count;
-	RAW_U32                       peak_count;
+	RAW_PROCESSOR_UINT            count;
+	RAW_PROCESSOR_UINT            peak_count;
 	void                      (*semphore_send_notify)(struct raw_semaphore *queue_ptr);	
 	
 } RAW_SEMAPHORE;
@@ -41,7 +41,6 @@ typedef struct raw_semaphore
 
 typedef void (*SEMPHORE_SEND_NOTIFY)(RAW_SEMAPHORE *queue_ptr);
 
-#define RAW_SEMAPHORE_MAX_COUNT   0xffffffffu
 #define WAKE_ALL_SEM              0x1u
 #define WAKE_ONE_SEM              0x0u
 

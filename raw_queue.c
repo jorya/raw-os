@@ -807,7 +807,7 @@ RAW_OS_ERROR raw_queue_delete(RAW_QUEUE *p_q)
 
 	block_list_head = &p_q->common_block_obj.block_list;
 	
-	p_q->common_block_obj.object_type = 0u;
+	p_q->common_block_obj.object_type = RAW_OBJ_TYPE_NONE;
 	
 	/*All task blocked on this queue is waken up*/
 	while (!is_list_empty(block_list_head))  {
