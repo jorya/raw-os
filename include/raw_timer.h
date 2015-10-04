@@ -40,7 +40,7 @@ typedef struct raw_timer {
 	RAW_TICK_TYPE                           reschedule_ticks;
 	void                                    *raw_timeout_param;
 	RAW_U8                                  timer_state;
-	RAW_U8                                  object_type;
+	RAW_OBJECT_TYPE                         object_type;
 	
  }RAW_TIMER;
 

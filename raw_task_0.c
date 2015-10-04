@@ -582,7 +582,7 @@ RAW_OS_ERROR int_msg_post(RAW_INT_MSG_TYPE type, void *p_obj, void *p_void, MSG_
 
 	RAW_CPU_ENABLE();
 	/*raw_task_0_post may fail here due to full task0 events*/
-	task_0_post_ret = raw_task_0_post(&msg_event_handler, type, msg_data);
+	task_0_post_ret = raw_task_0_post(&msg_event_handler, (TASK_0_EVENT_TYPE)type, msg_data);
 	if (task_0_post_ret == RAW_SUCCESS) {
 		
 		TRACE_INT_MSG_POST(type, p_obj, p_void, msg_size, flags, opt);

@@ -415,7 +415,7 @@ RAW_OS_ERROR raw_timer_delete(RAW_TIMER *timer_ptr)
 	mutex_ret = raw_mutex_get(&timer_mutex, RAW_WAIT_FOREVER);
 	RAW_ASSERT(mutex_ret == RAW_SUCCESS);
 	
-	timer_ptr->object_type = 0u;
+	timer_ptr->object_type = RAW_OBJ_TYPE_NONE;
 	timer_list_remove(timer_ptr);
 	timer_ptr->timer_state = TIMER_DELETED;
 	raw_mutex_put(&timer_mutex);
