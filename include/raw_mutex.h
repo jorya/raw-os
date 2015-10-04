@@ -33,7 +33,6 @@
 #define RAW_MUTEX_INHERIT_POLICY	0x00000002U	/* Priority inherited protocol */
 #define RAW_MUTEX_CEILING_POLICY	0x00000003U	/* Upper limit priority protocol */
 #define RAW_MUTEX_NONE_POLICY		0x00000004U /*None policy is used*/
-#define RAW_MUTEX_OVERFLOW_CTRL     200u
 
 typedef struct raw_mutex
 { 
