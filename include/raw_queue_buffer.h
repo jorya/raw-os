@@ -69,7 +69,7 @@ RAW_OS_ERROR raw_queue_buffer_delete(RAW_QUEUE_BUFFER *q_b);
 #endif
 
 #if (CONFIG_RAW_QUEUE_BUFFER_GET_INFORMATION > 0)
-RAW_OS_ERROR raw_queue_buffer_get_information(RAW_QUEUE_BUFFER  *q_b, RAW_U32 *queue_buffer_free_size, RAW_U32 *queue_buffer_size);
+RAW_OS_ERROR raw_queue_buffer_info_get(RAW_QUEUE_BUFFER  *q_b, RAW_U32 *queue_buffer_free_size, RAW_U32 *queue_buffer_size);
 #endif
 
 #endif
