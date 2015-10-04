@@ -175,7 +175,7 @@ RAW_U8 chg_pri_mutex(RAW_TASK_OBJ *tcb, RAW_U8 priority, RAW_OS_ERROR *error)
 	if (priority < low_pri) {
 		
 		*error = RAW_EXCEED_CEILING_PRIORITY;
-		return RAW_EXCEED_CEILING_PRIORITY;
+		return low_pri;
 	}
 
 	*error = RAW_SUCCESS;
@@ -397,10 +397,19 @@ RAW_OS_ERROR raw_mutex_get(RAW_MUTEX *mutex_ptr, RAW_TICK_TYPE wait_option)
 		return RAW_ERROR_OBJECT_TYPE;
 	}
 	
-		/*if the same task get the same mutex again, it causes deadlock*/ 
+		/*if the same task get the same mutex again, it causes mutex owner nested*/ 
 	if (raw_task_active == mutex_ptr->mtxtsk) {
+
+		if (mutex_ptr->owner_nested == (RAW_MUTEX_NESTED_TYPE) - 1) {
+			/*likely design error here, system must be stoped here!*/
+			port_system_error_process(RAW_MUTEX_NESTED_OVERFLOW, 0, 0, 0, 0, 0, 0);	
+		}
 		
-		mutex_ptr->owner_nested++;
+		else {
+			
+			mutex_ptr->owner_nested++;
+		}
+		
   		RAW_CRITICAL_EXIT();   
 		return RAW_MUTEX_OWNER_NESTED;
    }

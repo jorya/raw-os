@@ -75,7 +75,7 @@ RAW_OS_ERROR raw_queue_receive (RAW_QUEUE *p_q, RAW_TICK_TYPE wait_option, void 
 RAW_OS_ERROR raw_queue_all_post(RAW_QUEUE *p_q, void  *p_void, RAW_U8 opt);
 RAW_OS_ERROR raw_queue_send_notify(RAW_QUEUE *p_q, QUEUE_SEND_NOTIFY notify_function);
 RAW_OS_ERROR raw_queue_post_notify(RAW_QUEUE *p_q, void *p_void);
-RAW_U16      raw_queue_full_check(RAW_QUEUE *p_q);
+RAW_OS_ERROR raw_queue_full_check(RAW_QUEUE *p_q);
 RAW_OS_ERROR msg_post(RAW_QUEUE *p_q, void *p_void, RAW_U8 opt_send_method, RAW_U8 opt_wake_all);
 
 #if (CONFIG_RAW_QUEUE_FLUSH > 0) 

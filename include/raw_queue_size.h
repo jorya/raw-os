@@ -68,7 +68,7 @@ RAW_OS_ERROR raw_queue_size_receive (RAW_QUEUE_SIZE *p_q, RAW_TICK_TYPE wait_opt
 RAW_OS_ERROR raw_queue_size_front_post(RAW_QUEUE_SIZE *p_q, void  *p_void, MSG_SIZE_TYPE size);
 RAW_OS_ERROR raw_queue_size_end_post(RAW_QUEUE_SIZE *p_q, void  *p_void, MSG_SIZE_TYPE size);
 RAW_OS_ERROR raw_queue_size_all_post(RAW_QUEUE_SIZE *p_q, void  *p_void, MSG_SIZE_TYPE size, RAW_U8 opt);
-RAW_U16      raw_queue_size_full_check(RAW_QUEUE_SIZE *p_q);
+RAW_OS_ERROR raw_queue_size_full_check(RAW_QUEUE_SIZE *p_q);
 RAW_OS_ERROR msg_size_post(RAW_QUEUE_SIZE *p_q, RAW_MSG_SIZE *p_void,  MSG_SIZE_TYPE size,  RAW_U8 opt_send_method, RAW_U8 opt_wake_all);             
 
 

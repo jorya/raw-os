@@ -548,7 +548,7 @@ static void int_msg_init(void)
 
 
 
-RAW_OS_ERROR int_msg_post(RAW_U8 type, void *p_obj, void *p_void, MSG_SIZE_TYPE msg_size, RAW_U32 flags, RAW_U8 opt)
+RAW_OS_ERROR int_msg_post(RAW_INT_MSG_TYPE type, void *p_obj, void *p_void, MSG_SIZE_TYPE msg_size, RAW_U32 flags, RAW_U8 opt)
 {
 	OBJECT_INT_MSG *msg_data;
 	RAW_OS_ERROR task_0_post_ret;

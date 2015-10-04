@@ -595,19 +595,19 @@ RAW_OS_ERROR raw_queue_size_all_post(RAW_QUEUE_SIZE *p_q, void  *p_void, MSG_SIZ
 *
 *
 * Returns			
-*		1: queue_size obj is full
-*		0: queue_size obj is not full
+*		RAW_QUEUE_SIZE_CHECK_FULL: queue_size obj is full
+*		RAW_QUEUE_SIZE_CHECK_NOT_FULL: queue_size obj is not full
 * 
 *Note(s)   
 *
 *             
 ************************************************************************************************************************
 */
-RAW_U16 raw_queue_size_full_check(RAW_QUEUE_SIZE *p_q)
+RAW_OS_ERROR raw_queue_size_full_check(RAW_QUEUE_SIZE *p_q)
 {
 	RAW_SR_ALLOC();
 
-	RAW_U16 full_check_ret;
+	RAW_OS_ERROR full_check_ret;
 	
 	#if (RAW_QUEUE_FUNCTION_CHECK > 0)
 
@@ -639,12 +639,12 @@ RAW_U16 raw_queue_size_full_check(RAW_QUEUE_SIZE *p_q)
 
 	if (p_q->queue_current_msg >= p_q->queue_msg_size) {   
 
-		full_check_ret = 1u;
+		full_check_ret = RAW_QUEUE_SIZE_CHECK_FULL;
 	}
 
 	else {
 
-		full_check_ret = 0u;
+		full_check_ret = RAW_QUEUE_SIZE_CHECK_NOT_FULL;
 
 	}
 

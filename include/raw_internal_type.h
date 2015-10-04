@@ -47,6 +47,7 @@ typedef RAW_U32 MSG_SIZE_TYPE; /*32 bit or 64 bit unsigned value*/
 typedef RAW_U64 RAW_IDLE_COUNT_TYPE; /*32 bit or 64 bit unsigned value*/
 typedef RAW_U64 TASK_INTER_TIME_TYPE; /*32 bit or 64 bit unsigned value*/
 
-
+typedef RAW_U8  RAW_MUTEX_NESTED_TYPE; /*8 bit or 16bit or 32bit unsigned value*/
+                
 #endif
 

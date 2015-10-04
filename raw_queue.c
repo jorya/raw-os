@@ -637,19 +637,19 @@ RAW_OS_ERROR raw_queue_receive(RAW_QUEUE *p_q, RAW_TICK_TYPE wait_option, void *
 *
 *
 * Returns			
-*		1: queue obj is full
-*		0: queue obj is not full
+*		RAW_QUEUE_CHECK_FULL: queue obj is full
+*		RAW_QUEUE_CHECK_NOT_FULL: queue obj is not full
 * 
 *Note(s)   
 *
 *             
 ************************************************************************************************************************
 */
-RAW_U16 raw_queue_full_check(RAW_QUEUE *p_q)
+RAW_OS_ERROR raw_queue_full_check(RAW_QUEUE *p_q)
 {
 	RAW_SR_ALLOC();
 
-	RAW_U16  full_check_ret;
+	RAW_OS_ERROR  full_check_ret;
 	
 	#if (RAW_QUEUE_FUNCTION_CHECK > 0)
 
@@ -680,12 +680,12 @@ RAW_U16 raw_queue_full_check(RAW_QUEUE *p_q)
 
 	if (p_q->msg_q.current_numbers >= p_q->msg_q.size) {  
 
-		full_check_ret = 1u;
+		full_check_ret = RAW_QUEUE_CHECK_FULL;
 	}
 
 	else {
 
-		full_check_ret = 0u;
+		full_check_ret = RAW_QUEUE_CHECK_NOT_FULL;
 
 	}
 
