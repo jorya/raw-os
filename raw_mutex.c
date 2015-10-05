@@ -118,8 +118,8 @@ RAW_U8 chg_pri_mutex(RAW_TASK_OBJ *tcb, RAW_U8 priority, RAW_OS_ERROR *error)
 	
 	hi_pri  = priority;
 	
-	/*highest priority*/
-	low_pri = 1u;
+	/*system highest priority*/
+	low_pri = 0u;
 	
 	mtxcb = (RAW_MUTEX	*)(tcb->block_obj);
 	
