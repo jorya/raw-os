@@ -182,6 +182,9 @@ RAW_OS_ERROR raw_enter_interrupt(void)
 	if (raw_int_nesting >= INT_NESTED_LEVEL) {  
 
 		RAW_CPU_ENABLE();
+		
+		port_system_error_process(RAW_EXCEED_INT_NESTED_LEVEL, 0, 0, 0, 0, 0, 0);
+		
 		return RAW_EXCEED_INT_NESTED_LEVEL;                                                                                      
 	}
 
