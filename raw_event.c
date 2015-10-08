@@ -457,7 +457,7 @@ RAW_OS_ERROR raw_event_delete(RAW_EVENT *event_ptr)
 
 	block_list_head = &event_ptr->common_block_obj.block_list;
 	
-	event_ptr->common_block_obj.object_type = 0u;
+	event_ptr->common_block_obj.object_type = RAW_OBJ_TYPE_NONE;
 	/*All task blocked on this queue is waken up until list is empty*/
 	while (!is_list_empty(block_list_head)) {
 		

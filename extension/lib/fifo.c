@@ -42,7 +42,8 @@ RAW_S8 fifo_init(struct raw_fifo *fifo, void *buffer, RAW_U32 size)
 	
 	fifo->mask = size - 1;
 	fifo->free_bytes = size;
-		
+	fifo->size = size;
+	
 	return 0;
 }
 
