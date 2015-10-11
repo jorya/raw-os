@@ -255,7 +255,9 @@ static void cpu_task(void *pa)
 		raw_sleep(RAW_TICKS_PER_SECOND / 10);
 
 		if (raw_idle_count < raw_idle_count_max) {
-			cpu_usuage = 100 - (RAW_U32)((raw_idle_count * 100) / raw_idle_count_max);
+			
+			/*since raw_idle_count is 64 bit so it is not easy to be overflowed*/
+			cpu_usuage = 10000 - (RAW_U32)((raw_idle_count * 10000) / raw_idle_count_max);
 		}
 
 		if (cpu_usuage > cpu_usuage_max) {
