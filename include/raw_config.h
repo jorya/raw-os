@@ -29,7 +29,7 @@
 #ifndef RAW_CONFIG_H
 #define RAW_CONFIG_H
 
-#define CONFIG_RAW_SYSTEM_STATISTICS                                1
+#define CONFIG_RAW_SYSTEM_STATISTICS                                0
 
 /*enable system zero interrupt*/
 #define CONFIG_RAW_ZERO_INTERRUPT                                   1
