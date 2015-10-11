@@ -80,17 +80,17 @@ void raw_stack_check(void)
 
 #endif
 
-#if (CONFIG_RAW_TASK_TIME > 0)
+#if (CONFIG_RAW_SYSTEM_STATISTICS > 0)
 
-void raw_task_time_check(void)
+void raw_statistics_check(void)
 {
-	PORT_TASK_TIMER_TYPE task_current_time;
-	PORT_TASK_TIMER_TYPE task_exec_time;
+	RAW_HARD_TIME_TYPE task_current_time;
+	RAW_HARD_TIME_TYPE task_exec_time;
 	
-	task_current_time = RAW_TASK_TIME_GET();
+	task_current_time = (RAW_HARD_TIME_TYPE)RAW_SYSTEM_TIME_GET();
 
-	task_exec_time  = task_current_time - (PORT_TASK_TIMER_TYPE)raw_task_active->task_time_start;
-	raw_task_active->task_time_total += task_exec_time;
+	task_exec_time  = task_current_time - raw_task_active->task_time_start;
+	raw_task_active->task_time_total_run += (RAW_SYS_TIME_TYPE)task_exec_time;
 	high_ready_obj->task_time_start = task_current_time;
 
 }
