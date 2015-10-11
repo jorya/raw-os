@@ -260,6 +260,11 @@ RAW_OS_ERROR raw_task_stack_check(RAW_TASK_OBJ  *task_obj, RAW_U32 *free_stack)
 		return RAW_NULL_POINTER;
 	}
 
+	if (task_obj->task_state == RAW_DELETED) {
+
+		return RAW_INVALID_TASK_STATE;
+	}
+
 	#endif
 
 	#if (RAW_CPU_STACK_DOWN > 0)
