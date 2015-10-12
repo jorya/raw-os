@@ -612,13 +612,13 @@ void *raw_realloc(void *ptr, RAW_U32 size)
 
 void raw_malloc_init()
 {
-	 
-	MACB	*macb = (MACB*)((RAW_U32)(&malloc_macb) & ~0x00000007U);
+	RAW_PROCESSOR_UINT element_align_offset;
+	MACB *macb = &malloc_macb;
 	
-	if ((RAW_U32)(&malloc_macb) != (RAW_U32)macb) {
-		RAW_ASSERT(0);
-	}
-		
+	element_align_offset = (RAW_PROCESSOR_UINT)(&malloc_macb.areaque) & 0x00000007U;
+	
+	RAW_ASSERT(element_align_offset == 0);
+	
 	list_init(&macb->areaque);
 	list_init(&macb->freeque);
 	
