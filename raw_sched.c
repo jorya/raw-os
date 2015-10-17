@@ -104,10 +104,6 @@ RAW_OS_ERROR raw_os_init(void)
 	raw_mutex_create(&timer_mutex, (RAW_U8 *)"timer_mutex", RAW_MUTEX_INHERIT_POLICY, 0);
 	#endif
 
-	#if (CONFIG_RAW_TASK_0 > 0)
-	raw_task_0_init();
-	#endif
-
 	/*tick task to reduce interrupt time*/
 	#if (CONFIG_RAW_TICK_TASK > 0)
 	tick_task_start();

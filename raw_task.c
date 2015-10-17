@@ -118,22 +118,6 @@ RAW_OS_ERROR raw_task_create(RAW_TASK_OBJ  *task_obj, RAW_U8  *task_name,  void 
 		idle_task_exit = 1u;
 	}
 
-	#if (CONFIG_RAW_TASK_0 > 0)
-
-	/*task 0 is only allowed to created once*/	
-	if (task_prio == 0) {
-
-		if (task_0_exit) {
-
-			RAW_CRITICAL_EXIT();
-			return RAW_TASK_0_EXIT;
-		}
-
-		task_0_exit = 1u;
-	}
-
-	#endif
-	
 	RAW_CRITICAL_EXIT();
 	
  	raw_memset(task_obj, 0, sizeof(RAW_TASK_OBJ));
@@ -388,39 +372,8 @@ RAW_OS_ERROR raw_enable_sche(void)
 	
 	#endif
 
-	#if (CONFIG_RAW_TASK_0 > 0)
-
-
-	if (raw_sched_lock == 1u) {
-		
-		#if (RAW_SCHE_LOCK_MEASURE_CHECK > 0)
-		
-		sche_disable_measure_stop();
-		
-		#endif
-		
-		hybrid_int_process();							  
-	}
-	
-	else {
-
-		RAW_CPU_DISABLE();
-		raw_sched_lock--;
-		RAW_CPU_ENABLE();
-		return RAW_SCHED_LOCKED;	
-	}
-
-	
-	#else
-	
 	RAW_CPU_DISABLE();
 
-	#if (RAW_SCHE_LOCK_MEASURE_CHECK > 0)
-
-	sche_disable_measure_stop();
-
-	#endif
-	
 	raw_sched_lock--;
 	
 	if (raw_sched_lock) {
@@ -429,11 +382,15 @@ RAW_OS_ERROR raw_enable_sche(void)
 		return RAW_SCHED_LOCKED;
 
 	}
-	
-	RAW_CPU_ENABLE();
+
+	#if (RAW_SCHE_LOCK_MEASURE_CHECK > 0)
+
+	sche_disable_measure_stop();
 
 	#endif
 	
+	RAW_CPU_ENABLE();
+
 	raw_sched ();
 	
 	return RAW_SUCCESS;
@@ -616,23 +573,6 @@ RAW_OS_ERROR raw_task_suspend(RAW_TASK_OBJ *task_ptr)
 		return RAW_SUSPEND_TASK_NOT_ALLOWED;
 	}
 
-	#if (CONFIG_RAW_TASK_0 > 0)
-	
-	if (task_ptr->priority == 0) {
-		return RAW_SUSPEND_TASK_NOT_ALLOWED;
-	}
-	
-	#endif
-
-	#if (CONFIG_RAW_ZERO_INTERRUPT > 0)
-
-	if (raw_int_nesting) {
-		
-		return int_msg_post(RAW_TYPE_SUSPEND, task_ptr, 0, 0, 0, 0);
-	}
-
-	#endif
-	
 	return task_suspend(task_ptr);
 	
 }
@@ -736,14 +676,6 @@ RAW_OS_ERROR raw_task_resume(RAW_TASK_OBJ *task_ptr)
 	
 	#endif	
 
-	#if (CONFIG_RAW_ZERO_INTERRUPT > 0)
-
-	if (raw_int_nesting && raw_sched_lock) {
-		return int_msg_post(RAW_TYPE_RESUME, task_ptr, 0, 0, 0, 0);
-	}
-	
-	#endif
-	
 	return task_resume(task_ptr);
 }
 
@@ -946,21 +878,6 @@ RAW_OS_ERROR raw_task_priority_change (RAW_TASK_OBJ *task_ptr, RAW_U8 new_priori
 		return RAW_CHANGE_PRIORITY_NOT_ALLOWED;
 	}
 
-	#if (CONFIG_RAW_TASK_0 > 0)
-	
-	if (task_ptr->priority == 0) {
-		
-		return RAW_CHANGE_PRIORITY_NOT_ALLOWED;
-	}
-
-	if (new_priority == 0) {             
-
-		return RAW_CHANGE_PRIORITY_NOT_ALLOWED;
-	}
-
-	#endif
-	
-	
    /*Not allowed change to idle priority*/
 	if (new_priority == IDLE_PRIORITY) {             
 
@@ -1060,16 +977,6 @@ RAW_OS_ERROR raw_task_delete(RAW_TASK_OBJ *task_ptr)
 		
 		return RAW_DELETE_TASK_NOT_ALLOWED;
 	}
-
-	#if (CONFIG_RAW_TASK_0 > 0)
-	
-	if (task_ptr->priority == 0) {
-		
-		return RAW_DELETE_TASK_NOT_ALLOWED;
-	}
-
-	#endif
-	
 
 	RAW_CRITICAL_ENTER();
 
@@ -1586,23 +1493,6 @@ RAW_U32 raw_get_system_global_space(void)
 
 	#endif
 	
-	#if (CONFIG_RAW_TASK_0 > 0)
-	
-	data_space += sizeof(task_0_event_end) + sizeof(task_0_event_head)
-				+ sizeof(task_0_events) + sizeof(peak_events)
-				+ sizeof(task_0_events_queue)
-				+ sizeof(raw_task_0_obj) + sizeof(task_0_stack) + sizeof(task_0_exit);
-
-
-	#if (CONFIG_RAW_ZERO_INTERRUPT > 0)
-
-	data_space += sizeof(object_int_msg) + sizeof(free_object_int_msg) + sizeof(msg_event_handler)
-				+ sizeof(int_msg_full);
-				
-	#endif
-	
-	#endif
-
 	#if (CONFIG_RAW_IDLE_EVENT > 0)
 	
 	data_space += sizeof(STM_GLOBAL_EVENT) + sizeof(raw_idle_rdy_grp) + sizeof(raw_rdy_tbl)

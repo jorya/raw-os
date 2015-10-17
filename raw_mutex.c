@@ -44,7 +44,7 @@
 * Returns	RAW_SUCCESS: raw os return success
 * Note(s)    	if policy is RAW_MUTEX_INHERIT_POLICY, then ceiling_prio is useless and you can assign any value to it.
 * 			RAW_BLOCKED_WAY_FIFO is not a recommanded way for mutex, RAW_BLOCKED_WAY_PRIO id prefered
-*                   if CONFIG_RAW_ZERO_INTERRUPT is set, then ceiling_prio 0 is not allowed!
+*                   
 *             
 ************************************************************************************************************************
 */
@@ -74,19 +74,6 @@ RAW_OS_ERROR raw_mutex_create(RAW_MUTEX *mutex_ptr, RAW_U8 *name_ptr, RAW_U8 pol
 	mutex_ptr->mtxlist 		= 0;
 
 	mutex_ptr->policy = policy;
-
-	#if (CONFIG_RAW_TASK_0 > 0)
-
-	if (policy == RAW_MUTEX_CEILING_POLICY) {
-		
-		if (ceiling_prio == 0) {
-		
-			return RAW_CEILING_PRIORITY_NOT_ALLOWED;
-		}
-	}
-	
-	#endif
-	
 	mutex_ptr->ceiling_prio = ceiling_prio;
 	mutex_ptr->common_block_obj.object_type = RAW_MUTEX_OBJ_TYPE;
 

@@ -190,32 +190,6 @@ void move_to_ready_list_end(RAW_RUN_QUEUE *rq, RAW_TASK_OBJ *task_ptr)
 	
 }
 
-
-#if (CONFIG_RAW_TASK_0 > 0)
-
-void get_ready_task(RAW_RUN_QUEUE *rq)
-{
-	LIST *node;
-	RAW_U8 highest_pri;
-	
-	if (task_0_events) {
-
-		high_ready_obj = &raw_task_0_obj;
-		return;
-	}
-
-	highest_pri = rq->highest_priority;
-	/*Highest priority task must be the first element on the list*/
-	node = rq->task_ready_list[highest_pri].next;
-
-	/*Get the highest priority task object*/
-	high_ready_obj = raw_list_entry(node, RAW_TASK_OBJ, task_list);
-	
-}
-
-
-#else
-
 void get_ready_task(RAW_RUN_QUEUE *rq)
 {
 	LIST *node ;
@@ -227,8 +201,6 @@ void get_ready_task(RAW_RUN_QUEUE *rq)
 	high_ready_obj = raw_list_entry(node, RAW_TASK_OBJ, task_list);
 	
 }
-
-#endif
 
 
 static void pend_task_wake_up(RAW_TASK_OBJ *task_ptr)

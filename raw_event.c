@@ -388,16 +388,6 @@ RAW_OS_ERROR raw_event_set(RAW_EVENT *event_ptr, RAW_U32 flags_to_set, RAW_U8 se
 	
 	#endif
 
-
-	#if (CONFIG_RAW_ZERO_INTERRUPT > 0)
-	
-	if (raw_int_nesting) {
-		
-		return int_msg_post(RAW_TYPE_EVENT, event_ptr, 0, 0u, flags_to_set, set_option);
-	}
-	
-	#endif
-
 	return event_set(event_ptr, flags_to_set, set_option);		
 	 
 }

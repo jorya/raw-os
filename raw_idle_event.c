@@ -151,17 +151,8 @@ RAW_OS_ERROR event_post(ACTIVE_EVENT_STRUCT *me, RAW_U16 sig, void *para, RAW_U8
 RAW_OS_ERROR idle_event_end_post(ACTIVE_EVENT_STRUCT *me, RAW_U16 sig, void *para)
 {
 
-	#if (CONFIG_RAW_ZERO_INTERRUPT > 0)
-
-	if (raw_int_nesting && raw_sched_lock) {
-		
-		return int_msg_post(RAW_TYPE_IDLE_END_EVENT_POST, me, para, sig, 0, 0);
-	}
-	
-	#endif
-	
 	return event_post(me, sig, para, SEND_TO_END);
-
+	
 }
 
 
@@ -188,15 +179,6 @@ RAW_OS_ERROR idle_event_end_post(ACTIVE_EVENT_STRUCT *me, RAW_U16 sig, void *par
 RAW_OS_ERROR idle_event_front_post(ACTIVE_EVENT_STRUCT *me, RAW_U16 sig, void *para)
 {
 
-	#if (CONFIG_RAW_ZERO_INTERRUPT > 0)
-
-	if (raw_int_nesting && raw_sched_lock) {
-		
-		return int_msg_post(RAW_TYPE_IDLE_FRONT_EVENT_POST, me, para, sig, 0, 0);
-	}
-	
-	#endif
-	
 	return event_post(me, sig, para, SEND_TO_FRONT);
 
 }

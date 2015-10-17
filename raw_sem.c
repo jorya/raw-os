@@ -200,14 +200,6 @@ RAW_OS_ERROR raw_semaphore_put(RAW_SEMAPHORE *semaphore_ptr)
 	
 	#endif
 
-	#if (CONFIG_RAW_ZERO_INTERRUPT > 0)
-	
-	if (raw_int_nesting && raw_sched_lock) {
-		return int_msg_post(RAW_TYPE_SEM, semaphore_ptr, 0, 0, 0, 0);
-	}
-	
-	#endif
-	
 	return semaphore_put(semaphore_ptr, WAKE_ONE_SEM);
 }
 
@@ -241,14 +233,6 @@ RAW_OS_ERROR raw_semaphore_put_notify(RAW_SEMAPHORE *semaphore_ptr)
 	
 	#endif
 
-	#if (CONFIG_RAW_ZERO_INTERRUPT > 0)
-	
-	if (raw_int_nesting) {
-		return int_msg_post(RAW_TYPE_SEM, semaphore_ptr, 0, 0, 0, 0);
-	}
-	
-	#endif
-	
 	return semaphore_put(semaphore_ptr, WAKE_ONE_SEM);
 }
 
@@ -283,17 +267,7 @@ RAW_OS_ERROR raw_semaphore_put_all(RAW_SEMAPHORE *semaphore_ptr)
 	
 	#endif
 
-
-	#if (CONFIG_RAW_ZERO_INTERRUPT > 0)
-
-	if (raw_int_nesting) {
-		return int_msg_post(RAW_TYPE_SEM_ALL, semaphore_ptr, 0, 0, 0, 0);
-	}
-	
-	#endif
-	
 	return semaphore_put(semaphore_ptr, WAKE_ALL_SEM);
-	
 }
 
 

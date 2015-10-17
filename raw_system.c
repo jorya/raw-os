@@ -117,17 +117,6 @@ void raw_finish_int(void)
 */
 void raw_time_tick(void)
 {
-
-	#if (CONFIG_RAW_TASK_0 > 0)
-	
-	if (raw_int_nesting) {
-
-		RAW_ASSERT(0);
-			
-	}
-
-	#endif
-	
 	#if (CONFIG_RAW_USER_HOOK > 0)
 	raw_tick_hook();
 	#endif
@@ -148,6 +137,7 @@ void raw_time_tick(void)
 	#if (CONFIG_RAW_TIMER > 0)
 	call_timer_task();
 	#endif
+	
 }
 
 

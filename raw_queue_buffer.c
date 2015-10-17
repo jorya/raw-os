@@ -275,11 +275,11 @@ RAW_OS_ERROR queue_buffer_post(RAW_QUEUE_BUFFER *q_b, void *p_void, MSG_SIZE_TYP
 *		RAW_SUCCESS: raw os return success
 *            RAW_EXCEED_QUEUE_BUFFER_MSG_SIZE: message size exceed the max defined message size.
 *		RAW_QUEUE_BUFFER_FULL:queue is full 
-*            RAW_NOT_CALLED_BY_ISR: not supported in interrupt when CONFIG_RAW_ZERO_INTERRUPT is enabled.
+*            
 *		
 *		
 *		
-* Note(s)  This api is not supported in interrupt when CONFIG_RAW_ZERO_INTERRUPT is enabled.
+* 
 *             
 ************************************************************************************************************************
 */
@@ -307,16 +307,6 @@ RAW_OS_ERROR raw_queue_buffer_end_post(RAW_QUEUE_BUFFER *q_b, void *p_void, MSG_
 	
 	#endif
 	
-	#if (CONFIG_RAW_ZERO_INTERRUPT > 0)
-
-	if (raw_int_nesting) {
-		
-		return RAW_NOT_CALLED_BY_ISR;
-		
-	}
-	
-	#endif
-
 	return queue_buffer_post(q_b, p_void, msg_size);
 
 }
@@ -606,16 +596,6 @@ RAW_OS_ERROR raw_queue_buffer_info_get(RAW_QUEUE_BUFFER  *q_b, RAW_U32 *queue_bu
 		return RAW_NULL_OBJECT;
 	}
 
-	#endif
-
-	#if (CONFIG_RAW_ZERO_INTERRUPT > 0)
-
-	if (raw_int_nesting) {
-		
-		return RAW_NOT_CALLED_BY_ISR;
-		
-	}
-	
 	#endif
 
 	RAW_CRITICAL_ENTER();

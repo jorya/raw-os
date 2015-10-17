@@ -101,25 +101,6 @@ extern RAW_SEMAPHORE                timer_sem;
 extern RAW_MUTEX                    timer_mutex;
 #endif
 
-#if (CONFIG_RAW_TASK_0 > 0)
-extern RAW_U16                      task_0_event_head;
-extern RAW_U16                      task_0_event_end;
-extern RAW_U16                      task_0_events;
-extern RAW_U16                      peak_events;
-extern EVENT_STRUCT                 task_0_events_queue[MAX_TASK_EVENT];
-extern RAW_TASK_OBJ                 raw_task_0_obj;
-extern PORT_STACK                   task_0_stack[TASK_0_STACK_SIZE];
-extern EVENT_HANLDER                task_0_event_handler;
-
-#if (CONFIG_RAW_ZERO_INTERRUPT > 0)
-extern OBJECT_INT_MSG               object_int_msg[OBJECT_INT_MSG_SIZE];
-extern OBJECT_INT_MSG               *free_object_int_msg;
-extern RAW_U32                      int_msg_full;
-extern EVENT_HANLDER                msg_event_handler;
-#endif
-
-#endif
-
 extern RAW_OBJECT_DEBUG             raw_task_debug;
 
 #if (CONFIG_RAW_MUTEX > 0)

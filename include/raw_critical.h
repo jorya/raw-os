@@ -61,65 +61,7 @@
 		
 #endif
 
-
-#if (CONFIG_RAW_ZERO_INTERRUPT > 0)
-
-                                                              
-#define  RAW_CRITICAL_ENTER()                                    \
-		do {                                                     \
-			USER_CPU_INT_DISABLE();                                   \
-			raw_sched_lock++;                                    \
-			USER_CPU_INT_ENABLE();                                    \
-		} while (0)
-
-
-	 
-#define  RAW_CRITICAL_EXIT()                                     \
-		do {                                                     \
-			if (raw_sched_lock == 1u) {                           \
-				hybrid_int_process();                            \
-			}                                                    \
-			else {                                               \
-				USER_CPU_INT_DISABLE();                               \
-				raw_sched_lock--;                                \
-				USER_CPU_INT_ENABLE();                                \
-			}                                                    \
-		} while (0)
-
-
-    
-#define SYSTEM_LOCK_PROCESS()	\
-		do {\
-			if (raw_sched_lock >= 2u) {\
-				RAW_CRITICAL_EXIT();\
-				return RAW_SCHED_DISABLE;\
-			}\
-		} while (0)
-
-
-#define SYSTEM_LOCK_PROCESS_QUEUE()	\
-					do {\
-						if (raw_sched_lock >= 2u) {\
-							*msg = (void *)0;\
-							RAW_CRITICAL_EXIT();\
-							return RAW_SCHED_DISABLE;\
-						}\
-					} while (0)
-
-#define SYSTEM_LOCK_PROCESS_QUEUE_SIZE()	\
-					do {\
-						if (raw_sched_lock >= 2u) {\
-							*msg_ptr    = 0;\
-							*receive_size = 0;\
-							RAW_CRITICAL_EXIT();\
-							return RAW_SCHED_DISABLE;\
-						}\
-					} while (0)
-
-
-#else                                          
-
-
+             
 #define  RAW_CRITICAL_ENTER()                   RAW_CPU_DISABLE()          
 #define  RAW_CRITICAL_EXIT()                    RAW_CPU_ENABLE() 			  
 
@@ -152,8 +94,6 @@
 						}\
 					} while (0)
 
-
-#endif
 
 #endif
 

@@ -105,32 +105,6 @@ RAW_U32                   cpu_usuage_max;
 
 RAW_OBJECT_DEBUG          raw_task_debug;
 
-#if (CONFIG_RAW_TASK_0 > 0)
-
-RAW_U16                   task_0_event_head;
-RAW_U16                   task_0_event_end;
-RAW_U16                   task_0_events;
-RAW_U16                   peak_events;
-
-EVENT_STRUCT              task_0_events_queue[MAX_TASK_EVENT];
-RAW_TASK_OBJ              raw_task_0_obj;
-
-PORT_STACK                task_0_stack[TASK_0_STACK_SIZE];
-EVENT_HANLDER             task_0_event_handler;
-RAW_U8                    task_0_exit;
-
-
-#if (CONFIG_RAW_ZERO_INTERRUPT > 0)
-
-OBJECT_INT_MSG            object_int_msg[OBJECT_INT_MSG_SIZE];
-OBJECT_INT_MSG            *free_object_int_msg;
-RAW_U32                   int_msg_full;
-EVENT_HANLDER             msg_event_handler;
-
-#endif
-
-#endif
-
 #if (CONFIG_RAW_TICK_TASK > 0)
 
 RAW_TASK_OBJ              tick_task_obj;

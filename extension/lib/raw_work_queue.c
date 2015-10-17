@@ -135,9 +135,6 @@ RAW_OS_ERROR work_queue_create(WORK_QUEUE_STRUCT *wq, RAW_U8 work_task_priority,
 		return ret;
 	}
 
-	/*if CONFIG_RAW_ZERO_INTERRUPT is enabled, it would be complexed to handle this condition, so force the work_msg_size*/
-	RAW_ASSERT(work_msg_size >= work_queue_msg_size);
-	
 	ret = raw_task_create(&wq->work_queue_task_obj, (RAW_U8  *)"work_queue", wq,
 	                         work_task_priority, 0, work_queue_stack_base, 
 	                         work_queue_stack_size, work_queue_task, 1); 
