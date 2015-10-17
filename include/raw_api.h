@@ -55,7 +55,6 @@ extern "C" {
 #include <raw_event.h>
 #include <raw_block.h>
 #include <raw_byte.h>
-#include <raw_task_0.h>
 #include <raw_stm.h>
 #include <raw_idle_event.h>
 #include <raw_stat.h>

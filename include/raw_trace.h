@@ -41,10 +41,6 @@ void _trace_task_suspend(RAW_TASK_OBJ *task_obj, RAW_TASK_OBJ *task);
 void _trace_task_resume(RAW_TASK_OBJ *task_obj, RAW_TASK_OBJ *task_resumed);
 void _trace_task_delete(RAW_TASK_OBJ *task);
 void _trace_task_abort(RAW_TASK_OBJ *task);
-void _trace_task_0_overflow(EVENT_HANLDER *p, TASK_0_EVENT_TYPE ev, void *event_data);
-void _trace_int_msg_exhausted(RAW_INT_MSG_TYPE type, void *p_obj, void *p_void, MSG_SIZE_TYPE msg_size, RAW_U32 flags, RAW_U8 opt);
-void _trace_int_msg_post(RAW_U8 type, void *p_obj, void *p_void, RAW_U32 msg_size, RAW_U32 flags, RAW_U8 opt);
-
 void _trace_semaphore_create(RAW_TASK_OBJ *task, RAW_SEMAPHORE *semaphore_obj);
 void _trace_semaphore_overflow(RAW_TASK_OBJ *task, RAW_SEMAPHORE *semaphore_obj);
 
@@ -162,12 +158,6 @@ void _trace_int_msg_handle_error(TASK_0_EVENT_TYPE ev, void *type_obj, RAW_OS_ER
 #define TRACE_TASK_DELETE(task) _trace_task_delete(task)
 
 #define TRACE_TASK_WAIT_ABORT(task) _trace_task_abort(task)
-
-#define TRACE_TASK_0_OVERFLOW(p, ev, event_data) _trace_task_0_overflow(p, ev, event_data)
-
-#define TRACE_INT_MSG_EXHAUSTED(type, p_obj, p_void, msg_size, flags, opt) _trace_int_msg_exhausted(type, p_obj, p_void, msg_size, flags, opt)
-
-#define TRACE_INT_MSG_POST(type, p_obj, p_void, msg_size, flags, opt) _trace_int_msg_post(type, p_obj, p_void, msg_size, flags, opt)
 
 #define TRACE_SEMAPHORE_CREATE(task, semaphore_obj) _trace_semaphore_create(task, semaphore_obj)
 
@@ -288,12 +278,6 @@ void _trace_int_msg_handle_error(TASK_0_EVENT_TYPE ev, void *type_obj, RAW_OS_ER
 #define TRACE_TASK_DELETE(task)
 
 #define TRACE_TASK_WAIT_ABORT(task)
-
-#define TRACE_TASK_0_OVERFLOW(p, ev, event_data)
-
-#define TRACE_INT_MSG_EXHAUSTED(type, p_obj, p_void, msg_size, flags, opt)
-
-#define TRACE_INT_MSG_POST(type, p_obj, p_void, msg_size, flags, opt)
 
 #define TRACE_SEMAPHORE_CREATE(task, semaphore_obj)
 
