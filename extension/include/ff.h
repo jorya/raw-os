@@ -1,11 +1,30 @@
 #ifndef RAW_FF_H
 #define RAW_FF_H
 
-typedef void raw_FILE;
+typedef struct _Files {
+	int fileNo;
+	int b;
+} _FileType;
 
-#define raw_stdin   (void *)0x11
-#define raw_stdout   (void *)0x12
-#define raw_stderr   (void *)0x13
+
+typedef _FileType raw_FILE;
+
+typedef struct _EnvS {
+	/* Each "Task" should at least have a set of std file handles */
+	_FileType *_stdin;
+	_FileType *_stdout;
+	_FileType *_stderr;
+} _EnvType;
+
+extern _EnvType *_EnvPtr;
+int fileno(raw_FILE *);
+
+
+/* File handles */
+#define raw_stdin		(_EnvPtr->_stdin)
+#define raw_stdout		(_EnvPtr->_stdout)
+#define raw_stderr		(_EnvPtr->_stderr)
+
 
 raw_FILE *raw_fopen(const char *path, const char *mode);
 
